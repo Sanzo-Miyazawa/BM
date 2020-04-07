@@ -1,0 +1,40 @@
+// https://www.scala-sbt.org/
+
+import Dependencies._
+
+lazy val root = (project in file(".")).
+  settings(
+    inThisBuild(List(
+      organization := "org.sanzo",
+    //scalaVersion := "2.11.8",
+      version      := "0.1.0"
+    )),
+    name := "org-sanzo-potts",
+    libraryDependencies += scalaTest % Test
+  )
+
+    libraryDependencies ++= Seq(
+			"org.scalacheck" %% "scalacheck" % "1.14.0" % "test",
+  			"org.scalactic" %% "scalactic" % "3.0.8" % "test",
+  			"org.scalatest" %% "scalatest" % "3.0.8" % "test"
+    )
+
+    libraryDependencies += "org.typelevel" %% "spire" % "0.15.0"
+  //libraryDependencies += "org.typelevel" %% "spire-macros" % "0.15.0"
+
+    libraryDependencies += "org.scalanlp" %% "breeze" % "0.13.2"
+    libraryDependencies += "org.scalanlp" %% "breeze-natives" % "0.13.2"
+    libraryDependencies += "org.scalanlp" %% "breeze-viz" % "0.13.2"
+
+  //libraryDependencies += "org.jfree" % "jfreechart" % "1.0.19"
+
+
+    resolvers += "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
+
+    autoAPIMappings := true
+
+    scalacOptions ++= Seq(
+	"-unchecked", "-deprecation", "-feature"
+    )
+
+    scalaVersion := "2.11.12"

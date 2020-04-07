@@ -1,0 +1,25 @@
+import Dependencies._
+
+lazy val root = (project in file(".")).
+  settings(
+    inThisBuild(List(
+      organization := "miyazawa.potts",
+      scalaVersion := "2.11.8",
+      version      := "0.1.0"
+    )),
+    name := "miyazawa-potts",
+    libraryDependencies += scalaTest % Test
+  )
+
+    libraryDependencies += "org.jfree" % "jfreechart" % "1.0.19"
+
+    libraryDependencies += "org.typelevel" %% "spire" % "0.14.1"
+ // libraryDependencies += "org.typelevel" %% "spire-macros" % "0.14.1"
+
+    libraryDependencies += "org.scalanlp" %% "breeze" % "0.13.1"
+    libraryDependencies += "org.scalanlp" %% "breeze-natives" % "0.13.1"
+    libraryDependencies += "org.scalanlp" %% "breeze-viz" % "0.13.1"
+
+    resolvers += "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
+
+    autoAPIMappings := true

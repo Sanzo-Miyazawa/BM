@@ -1,0 +1,25 @@
+Similarity score used: /home/dbms/flat/lib/similarity/pam250-palign
+Similarities for k gaps: -12.00 + -4.00 (k - 1)
+                       : -48.00 for k >= 10
+Similarities for k gaps at both terminals: -6.00 + -2.00 (k - 1)
+                                         : -24.00 for k >= 10
+Temperature (absolute and relative): 4.3281 1.0000
+
+Sequence-1: UCP2_MOUSE_112-208.fasta
+
+Sequence-2: 2LCK-A_112-208.fasta
+
+Sequence length: 97 vs. 97
+
+Score: 415.38 439.17  Identity: 1.0000  Match/mismatch: 1.0000  Lengths: 97 97
+
+1 1 415.38
+    1  EHAGIGSRLLAGSTTGALAVAVAQPTDVVKVRFQAQARAGGGRRYQSTVEAYKTIAREEGIRGLWKGTSP
+       ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    1  EHAGIGSRLLAGSTTGALAVAVAQPTDVVKVRFQAQARAGGGRRYQSTVEAYKTIAREEGIRGLWKGTSP
+       9999999999999999999999999999999999999999999999999999999999999999999999
+
+   71  NVARNAIVNCAELVTYDLIKDTLLKAN
+       |||||||||||||||||||||||||||
+   71  NVARNAIVNCAELVTYDLIKDTLLKAN
+       999999999999999999999999998
