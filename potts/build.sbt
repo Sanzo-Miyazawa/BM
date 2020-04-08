@@ -87,7 +87,7 @@ libraryDependencies ++= {
 lazy val root = (project in file("."))
   .settings(
     name := "org-sanzo-potts",
-    libraryDependencies += spire	,
+  //libraryDependencies += spire	,
     libraryDependencies += breeze	,
     libraryDependencies += breezeNatives,
     libraryDependencies += breezeViz	,
