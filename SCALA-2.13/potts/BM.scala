@@ -96,7 +96,7 @@ package org.sanzo.potts {
     def readNSamples(lines: collection.Iterator[String] ) = {
 	val (lines0, lines1) = lines.duplicate
 
-	val nHeaderLine = ("""^#[ \t]*Effective_number_of_samples:[ \t]*([0-9.eE+]+)).*$""").r
+	val nHeaderLine = ("""^#[ \t]*Effective_number_of_samples:[ \t]*([0-9.eE+]+).*$""").r
 	val lines11 = lines1.dropWhile(line => ! nHeaderLine.findFirstMatchIn(line).nonEmpty )
 	val effectiveNumberOfSamples =
 	  if ( lines11.hasNext ) {
@@ -3261,6 +3261,7 @@ package org.sanzo.potts {
 
     import miyazawa.potts.BM._
 
+	require( regTerm == "L2" || regTerm == "GL1L2" || regTerm == "L1L2" )
 	if ( regTerm == "L1L2" || regTerm == "GL1L2" ) {
 		assert( propL1h >= 0.0 && propL1h <= 1.0)
 		assert( propL1J >= 0.0 && propL1J <= 1.0)
@@ -3330,8 +3331,13 @@ package org.sanzo.potts {
 
 	// If the Ising gauge is used, convergence will be not good.
 	//require( gauge == "ungauged" )
-	require( gauge == "ungauged" || gauge == "unused" || 
-		gauge == "phi_zeroSum" || gauge == "phi_ZeroSum" )	// gauge for phi and phij
+
+	if ( regTerm == "L1L2" ) {
+		require( gauge == "ungauged" || gauge == "unused" )
+	} else {
+		require( gauge == "ungauged" || gauge == "unused" || 
+			gauge == "phi_zeroSum" || gauge == "phi_ZeroSum" )	// gauge for phi and phij
+	}
 
 	val nIndependentMC = initialConfigurations.size
 
