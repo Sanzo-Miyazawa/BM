@@ -168,3 +168,9 @@ packageDoc
 compile
 packageBin
 packageDoc
+compile
+packageBin
+packageDoc
+compile
+packageBin
+packageDoc

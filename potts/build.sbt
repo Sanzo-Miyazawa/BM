@@ -11,8 +11,8 @@ lazy val scalaCtic  = "org.scalactic" %% "scalactic" % "3.0.8"
 /**/
 
 // ThisBuild
-//ThisBuild / scalaVersion     := "2.11.12"
-ThisBuild / scalaVersion     := "2.13.1"
+ThisBuild / scalaVersion     := "2.11.12"
+//ThisBuild / scalaVersion     := "2.13.1"
 ThisBuild / crossScalaVersions := Seq("2.11.12", "2.13.1")
 ThisBuild / version          := "0.1.0"
 ThisBuild / organization     := "org.sanzo"
