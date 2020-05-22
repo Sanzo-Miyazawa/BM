@@ -114,7 +114,7 @@ object RunBM {
 		annealingRate = 0.99,
 		maxExtendedIterations = 10,
 
-		gauge = "phi_zeroSum",
+		gauge = "phi_zeroSum",	// "phi_zeroSum" for L2 and L2GL1, "ungauged" for all
 		optMethod = "ModAdam",
 	      //learningRate = 1.0E-2,		// for NAG, betaV = 0.9
 	      //learningRate = 5.0E-3,		// for NAG, betaV = 0.95
