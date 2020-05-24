@@ -174,3 +174,7 @@ packageDoc
 compile
 packageBin
 packageDoc
+pg script/*BM.scala
+compile
+scala
+console

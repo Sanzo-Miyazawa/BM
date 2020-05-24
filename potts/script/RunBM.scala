@@ -37,8 +37,8 @@ object RunBM {
     val initialInteractions: Option[MCMC.Interactions] = None		//null
 	
   /*
-  import org.sanzo.sequence.CasePreservingProteinSequenceArray
   import org.sanzo.biojava.SequenceIO
+  import org.sanzo.sequence.CasePreservingProteinSequenceArray
   import org.sanzo.sequence.CompoundOrderMap
   import org.sanzo.sequence.SequenceArray.pairIndex
 
