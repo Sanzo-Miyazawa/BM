@@ -15,10 +15,6 @@ object RunBM {
   import scala.collection.immutable.Seq
 
   import org.biojava.nbio.core.util.InputStreamProvider
-  import org.sanzo.sequence.CasePreservingProteinSequenceArray
-  import org.sanzo.biojava.SequenceIO
-  import org.sanzo.sequence.CompoundOrderMap
-  import org.sanzo.sequence.SequenceArray.pairIndex
 
   import org.sanzo.potts.MCMC
   import org.sanzo.potts.BM
@@ -41,6 +37,11 @@ object RunBM {
     val initialInteractions: Option[MCMC.Interactions] = None		//null
 	
   /*
+  import org.sanzo.sequence.CasePreservingProteinSequenceArray
+  import org.sanzo.biojava.SequenceIO
+  import org.sanzo.sequence.CompoundOrderMap
+  import org.sanzo.sequence.SequenceArray.pairIndex
+
     val (fia, fijab, stateOrderString) =
     {
 		import breeze.linalg.DenseVector
