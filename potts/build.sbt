@@ -91,6 +91,8 @@ lazy val root = (project in file("."))
     libraryDependencies += breeze	,
     libraryDependencies += breezeNatives,
     libraryDependencies += breezeViz	,
+    libraryDependencies += biojava	,
+    libraryDependencies += biojavaCore	,
 
     libraryDependencies += scalaTest % Test
   )

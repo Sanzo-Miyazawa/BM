@@ -37,13 +37,13 @@ Please read the scripts to understand how to use this program.
 In the following it is assumed that the **scala version installed in your system is equal to the version of
 scala with which the jar file was built.**
 
->bash$ export SCALA="scala -cp $FATJAR"
+>bash$ export SCALA="scala -nc -cp $FATJAR"
 
 >bash$ OUTDIR=...        # the directory into which output files are created.
 
 >bash$ PIPIJ="$PRGMDIR/data/PF00595uniqSeq/PiaPijab.out.gz"
 
->bash$ $PRGMDIR/scripts/RunBM.scala $OUTDIR $PIPIJ >& $OUTDIR/RunBM.log < /dev/null &
+>bash$ $PRGMDIR/script/RunBM.scala $OUTDIR $PIPIJ >& $OUTDIR/RunBM.log < /dev/null &
 
 #### Reference: 
 
