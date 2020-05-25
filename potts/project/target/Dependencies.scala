@@ -39,6 +39,10 @@ object Dependencies {
   lazy val breezeNatives	= "org.scalanlp" %% "breeze-natives" % "1.0"
   lazy val breezeViz		= "org.scalanlp" %% "breeze-viz" % "1.0"
 
+  lazy val netlibJava		= "com.googlecode.netlib-java" % "netlib-java" % "1.1"
+  lazy val netlibNativeRef	= "com.github.fommil.netlib" % "netlib-native_ref-linux-x86_64" % "1.1"
+  lazy val netlibNativeSystem	= "com.github.fommil.netlib" % "netlib-native_system-linux-x86_64" % "1.1"
+
   lazy val jfreechart	 	= "org.jfree" % "jfreechart" % "1.0.19"
 
   lazy val biojava		= "org.biojava" % "biojava" % "5.3.0"
