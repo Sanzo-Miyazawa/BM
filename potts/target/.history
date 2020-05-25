@@ -178,3 +178,6 @@ pg script/*BM.scala
 compile
 scala
 console
+compile
+packageBin
+packageDoc
