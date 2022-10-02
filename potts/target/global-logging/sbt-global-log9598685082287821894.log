@@ -1,0 +1,176 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(console, Some(b3773885-5f32-49a7-a05b-015b5b67c507), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / console[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/target/scala-3.0.2/classes ...[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:308:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m308 |[0m		cfor([31m0[0m)([36mia[0m => ia < nStatesOfUnit, [36mia[0m => ia + [31m1[0m)( [36mia[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:307:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m307 |[0m	cfor([31m0[0m)([36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |	[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:355:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m355 |[0m		cfor([31m0[0m)([36mjb[0m => jb < nStatesOfUnit, [36mjb[0m => jb + [31m1[0m)( [36mjb[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:354:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m354 |[0m		cfor([31m0[0m)([36mia[0m => ia < nStatesOfUnit, [36mia[0m => ia + [31m1[0m)( [36mia[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:353:2 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m353 |[0m	  cfor(i + [31m1[0m)([36mj[0m => j < nUnits, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |	  [33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:352:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m352 |[0m	cfor([31m0[0m)([36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |	[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:443:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m443 |[0m				cfor([31m0[0m)([36mk[0m => k < nUnits, [36mk[0m => k + [31m1[0m)( [36mk[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |				[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:438:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m438 |[0m			cfor([31m0[0m)([36mj[0m => j < nSamples, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |			[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:435:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m435 |[0m		cfor([31m0[0m)([36mi[0m => i < nSamplings, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:452:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m452 |[0m			cfor([31m0[0m)([36mj[0m => j < nSamples, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |			[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:450:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m450 |[0m		cfor([31m0[0m)([36mi[0m => i < nSamplings, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:1025:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m1025 |[0m			cfor([31m0[0m)([36mj[0m => j < i, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |			[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:1024:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m1024 |[0m		cfor([31m0[0m)([36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:1509:115 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1509 |[0m				[33mval[0m [36myt[0m = breeze.linalg.BroadcastedRows[[35mDenseMatrix[Double][0m, [35mTranspose[DenseVector[Double]][0m] ( x ) - fullJij_b(i)(j)[0m
+[0m[[0m[31merror[0m] [0m[0m     |				                                                                                                                   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[[0m
+[0m[[0m[31merror[0m] [0m[0m     |  breeze.linalg.BroadcastedRows[breeze.linalg.DenseMatrix[Double], [0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.Transpose[breeze.linalg.DenseVector[Double]][0m
+[0m[[0m[31merror[0m] [0m[0m     |  ][0m
+[0m[[0m[31merror[0m] [0m[0m     |, breeze.linalg.Transpose[breeze.linalg.DenseVector[Double]], That] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    That is a type variable with constraint [0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.impl_Op_LHS_DVt_eq_R_cast[[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [35mbreeze.linalg.operators.OpSub.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , [35mDouble[0m, [0m
+[0m[[0m[31merror[0m] [0m[0m     |      [35m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.BroadcastedRows[breeze.linalg.DenseMatrix[Double], [0m
+[0m[[0m[31merror[0m] [0m[0m     |          breeze.linalg.Transpose[breeze.linalg.DenseVector[Double]][0m
+[0m[[0m[31merror[0m] [0m[0m     |        ][0m
+[0m[[0m[31merror[0m] [0m[0m     |      [0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , [35mR[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.pureFromUpdate[[0m
+[0m[[0m[31merror[0m] [0m[0m     |        [35m[0m
+[0m[[0m[31merror[0m] [0m[0m     |          breeze.linalg.BroadcastedRows[breeze.linalg.DenseMatrix[Double], [0m
+[0m[[0m[31merror[0m] [0m[0m     |            breeze.linalg.Transpose[breeze.linalg.DenseVector[Double]][0m
+[0m[[0m[31merror[0m] [0m[0m     |          ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        [0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |          impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |        [[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35m[0m
+[0m[[0m[31merror[0m] [0m[0m     |            breeze.linalg.BroadcastedRows[breeze.linalg.DenseMatrix[Double], [0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.Transpose[breeze.linalg.DenseVector[Double]][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |          [0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mU[0m, [35mbreeze.linalg.DenseMatrix[Double][0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |            [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |          , [0m
+[0m[[0m[31merror[0m] [0m[0m     |            [35m[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.BroadcastedRows[breeze.linalg.DenseMatrix[Double], [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Transpose[breeze.linalg.DenseVector[Double]][0m
+[0m[[0m[31merror[0m] [0m[0m     |              ][0m
+[0m[[0m[31merror[0m] [0m[0m     |            [0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |          , [35mT[0m, [35mColumnType[0m, [35mbreeze.linalg.DenseMatrix[Double][0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |            /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |              summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                  breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |                , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |              ][0m
+[0m[[0m[31merror[0m] [0m[0m     |          , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    )[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:1512:3 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1512 |[0m			} )[0m
+[0m[[0m[31merror[0m] [0m[0m     |			   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |			   No ClassTag available for B[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |			   where:    B is a type variable[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:2179:2 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2179 |[0m		  cfor([31m0[0m)( [36mj[0m => j < i, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		  [33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:2178:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2178 |[0m		cfor([31m0[0m)( [36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:2277:2 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2277 |[0m		  cfor([31m0[0m)( [36mj[0m => j < i, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		  [33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:2276:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2276 |[0m		cfor([31m0[0m)( [36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:2346:2 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2346 |[0m		  cfor([31m0[0m)( [36mj[0m => j < i, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		  [33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:2345:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2345 |[0m		cfor([31m0[0m)( [36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:2406:2 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2406 |[0m		  cfor([31m0[0m)( [36mj[0m => j < i, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		  [33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:2405:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2405 |[0m		cfor([31m0[0m)( [36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:4114:2 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m4114 |[0m		  cfor([31m0[0m)( [36mj[0m => j < i, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		  [33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:4113:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m4113 |[0m		cfor([31m0[0m)( [36mi[0m => i < pia.size, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m23 warnings found[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
+[0m[[0m[33mwarn[0m] [0m[0m23 warnings found[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
+[0m[[0m[31merror[0m] [0m[0mCancelled: console[0m
+[0m[[0m[0minfo[0m] [0m[0mshutting down sbt server[0m
+[0m[[0m[31merror[0m] [0m[0mCancelled: console[0m
+[0m[[0m[31merror[0m] [0m[0mUse 'last' for the full log.[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m

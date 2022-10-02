@@ -2,19 +2,20 @@
 // Dependencies
 import Dependencies._
 
-/* moved into project/Dependencies.scala
-lazy val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.14.0"
-lazy val scalaCtic  = "org.scalactic" %% "scalactic" % "3.0.8"
-//lazy val scalaTest  = "org.scalatest" %% "scalatest" % "3.0.8"
-*/
-
 /**/
 
 // ThisBuild
-ThisBuild / scalaVersion     := "2.11.12"
+//ThisBuild / scalaVersion     := "2.11.12"
+//ThisBuild / scalaVersion     := "2.12.0"
 //ThisBuild / scalaVersion     := "2.13.1"
-ThisBuild / crossScalaVersions := Seq("2.11.12", "2.13.1")
-ThisBuild / version          := "0.1.0"
+//ThisBuild / scalaVersion     := "2.13.3"
+//ThisBuild / scalaVersion     := "2.13.5"
+//ThisBuild / crossScalaVersions := Seq("2.11.12", "2.13.5")
+//ThisBuild / scalaVersion     := "3.0.2"
+//ThisBuild / scalaVersion     := "3.1.3"
+ThisBuild / scalaVersion     := "3.2.0"
+//ThisBuild / version          := "0.2.1"
+ThisBuild / version          := "0.3.0"
 ThisBuild / organization     := "org.sanzo"
 ThisBuild / organizationName := "sanzo"
 
@@ -22,17 +23,34 @@ ThisBuild / organizationName := "sanzo"
 ThisBuild / scalacOptions ++= Seq(
 	"-unchecked", "-deprecation", "-feature"
     	)
-scalacOptions in (Compile, doc) ++= Seq("-groups", "-implicits")
+//scalacOptions in (Compile, doc) ++= Seq("-groups", "-implicits")
 
+ThisBuild / scalacOptions ++= {
+  CrossVersion.partialVersion(scalaVersion.value) match {
+    case Some((3, minor)) if minor <= 3 =>
+	//Seq("-source:3.0-migration", "-Xignore-scala2-macros", "-explain", "-explain-types", "-noindent", "-old-syntax" )
+	//Seq("-source:3.0-migration", "-Xignore-scala2-macros", "-explain", "-explain-types")
+	//Seq("-source:future-migration", "-Xignore-scala2-macros", "-explain", "-explain-types", "-noindent", "-old-syntax" )
+	//Seq("-source:future-migration", "-Xignore-scala2-macros", "-explain", "-explain-types" )
+	Seq("-source:future", "-Xignore-scala2-macros", "-explain", "-explain-types" )
+    case _ =>
+	Seq()
+  }
+}
+
+
+ThisBuild / resolvers += "Maven Releases" at "https://repo1.maven.org/maven2/"
 ThisBuild / resolvers += "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
+ThisBuild / resolvers += "JBoss 3rd-party" at "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/"
+
 
 ThisBuild / autoAPIMappings := true
 /*
 ThisBuild / apiURL := Some(url("https://www.sanzo.org/doc/scaladoc/scaladoc_2.11/org.sanzo/"))
 
 ThisBuild / apiMappings += (
-        (unmanagedBase.value / "breeze_2.11-1.0.jar") ->
-        url("https://www.sanzo.org/doc/scaladoc/breeze_2.11-0.13.1/")
+        (unmanagedBase.value / "breeze_2.13-1.2.jar") ->
+        url("https://www.sanzo.org/doc/scaladoc/breeze_2.13-1.2/")
     )
 ThisBuild / apiMappings += (
         (unmanagedBase.value / "biojava.jar") ->
@@ -74,19 +92,29 @@ ThisBuild / apiMappings += (
 */
 
 // projects
-
+/**/
 libraryDependencies ++= {
   CrossVersion.partialVersion(scalaVersion.value) match {
-    case Some((2, major)) if major >= 13 =>
-      Seq("org.scala-lang.modules" %% "scala-parallel-collections" % "0.2.0")
-    case _ =>
+    case Some((2, major)) if major < 13 =>
       Seq()
+    case Some((2, major)) if major >= 13 =>
+      Seq("org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4")
+    case Some((3, minor)) if minor >=  0 =>
+      Seq("org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4")
+    case _ => ???
   }
 }
+
+/* moved into project/Dependencies.scala
+lazy val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.14.0"
+lazy val scalaCtic  = "org.scalactic" %% "scalactic" % "3.0.8"
+//lazy val scalaTest  = "org.scalatest" %% "scalatest" % "3.0.8"
+*/
 
 lazy val root = (project in file("."))
   .settings(
     name := "org-sanzo-potts",
+  //libraryDependencies += scalaCollectionCompat	,	// for scala 2.11, 2.12
   //libraryDependencies += spire	,
     libraryDependencies += breeze	,
     libraryDependencies += breezeNatives,

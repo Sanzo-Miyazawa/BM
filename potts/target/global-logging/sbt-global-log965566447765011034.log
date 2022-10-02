@@ -1,0 +1,1584 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(compile, Some(4a78a89c-3e6b-4039-9b08-53dcca108de1), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / compile[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 3 Scala sources to /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/target/scala-3.0.2/classes ...[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:3823:4 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m3823 |[0m    [33mdef[0m [36mrunBM[0m([0m
+[0m[[0m[33mwarn[0m] [0m[0m     |    [33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Incompatible combinations of tabs and spaces in indentation prefixes.[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Previous indent : 2 tabs[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Latest indent   : 4 spaces[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E161] Naming Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:49:2 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m49 |[0m  [33mobject[0m [35mMCMC[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m   |  [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |MCMC is already defined as [33mobject[0m [35mMCMC[0m in /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E161] Naming Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:1056:8 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1056 |[0m  [33mclass[0m [35mMCMC[0m( [33mval[0m [36mioFiles[0m: [35mHashMap[String, File][0m, [0m
+[0m[[0m[31merror[0m] [0m[0m     |  [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |MCMC is already defined as [33mclass[0m [35mMCMC[0m in /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1057 |[0m	      [33mval[0m [36mstateOrderString[0m: [35mString[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1058 |[0m	      [33mval[0m [36minteractions[0m: MCMC.Interactions,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1059 |[0m	      [33mval[0m [36mproposedPia[0m: [35mArray[DenseVector[Double]][0m ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1060 |[0m    [33mimport[0m miyazawa.potts.MCMC[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1061 |[0m    [33mimport[0m miyazawa.potts.MCMC.*[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1062 |[0m    [34m//assert( nUnits == proposedDistributionAtUnit.size )[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1063 |[0m    [34m//assert( nStatesOfUnit == proposedDistributionAtUnit(0).size )[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1064 |[0m    [33mval[0m [36mnUnits[0m = interactions.hia.size[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1065 |[0m    [33mval[0m [36mnStatesOfUnit[0m = interactions.hia([31m0[0m).size[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1066 |[0m    [34m//val (proposedDistributionsAtAllUnits, [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1067 |[0m    [34m//	logProposedDistributionsAtAllUnits, log1_ProposedDistributionsAtAllUnits ) = [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1068 |[0m    [33mval[0m [36mproposedDistributions[0m = [33mthis[0m.proposeDistributions(proposedPia)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1069 |[0m    [33mdef[0m [33mthis[0m([36mioFiles[0m: [35mHashMap[String, File][0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1070 |[0m		[36mstateOrderString[0m: [35mString[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1071 |[0m		[36mhia[0m: [35mArray[Array[Double]][0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1072 |[0m		[36mJijab[0m: [35mArray[Array[Array[Double]]][0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1073 |[0m		[36mproposedPia[0m: [35mArray[Array[Double]][0m ) = {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1074 |[0m      [33mthis[0m(ioFiles, stateOrderString,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1075 |[0m		MCMC.Interactions( hia.map( [36mhi[0m => DenseVector(hi) ), [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1076 |[0m		[34m//Jijab.map( Jij => DenseMatrix(Jij:_*) )  ), 						// for scala 2.11[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1077 |[0m		  Jijab.map( [36mJij[0m => [33mnew[0m [35mDenseMatrix[0m(Jij([31m0[0m).size, Jij.size, Jij.flatten ).t )  ), 	[34m// for scala 2.13[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1078 |[0m		proposedPia.map([36mpi[0m => DenseVector(pi)) )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1079 |[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1080 |[0m    [33mdef[0m [33mthis[0m([36mioFiles[0m: [35mHashMap[String, File][0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1081 |[0m		[36mstateOrderString[0m: [35mString[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1082 |[0m		[36minteractions[0m: MCMC.Interactions ) = {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1083 |[0m	[33mthis[0m( ioFiles, stateOrderString, interactions,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1084 |[0m		{[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1085 |[0m		  [33mimport[0m breeze.linalg.{max, sum}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1086 |[0m		  [33mimport[0m breeze.numerics.exp[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1087 |[0m		  [33mval[0m [36mhia[0m = interactions.hia[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1088 |[0m		  [33mval[0m [36mp[0m = [31m0.6[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1089 |[0m		  [33mval[0m [36muniform[0m = ([31m1.0[0m/ hia([31m0[0m).size) * ([31m1.0[0m - p)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1090 |[0m          	  hia.map( [36mhi[0m => {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1091 |[0m	     		[33mval[0m [36mmaxhi[0m = breeze.linalg.max(hi)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1092 |[0m	       		[33mval[0m [36mexphi[0m = breeze.numerics.exp(hi - maxhi)	[34m//hi.map( math.exp(_ - maxhi) )[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1093 |[0m			[33mval[0m [36mz[0m = breeze.linalg.sum(exphi)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1094 |[0m			exphi.map{ [36mx[0m => (x / z) * p + uniform }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1095 |[0m          	  } )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1096 |[0m		}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1097 |[0m	)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1098 |[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1099 |[0m    [33mdef[0m [33mthis[0m([36mioFiles[0m: [35mHashMap[String, File][0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1100 |[0m		[36mstateOrderString[0m: [35mString[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1101 |[0m		[36mhia[0m: [35mArray[Array[Double]][0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1102 |[0m		[36mJijab[0m: [35mArray[Array[Array[Double]]][0m ) = {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1103 |[0m	[33mthis[0m(ioFiles, stateOrderString, hia, Jijab,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1104 |[0m		{[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1105 |[0m		  [33mval[0m [36mp[0m = [31m0.6[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1106 |[0m		  [33mval[0m [36muniform[0m = ([31m1.0[0m/ hia([31m0[0m).size) * ([31m1.0[0m - p)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1107 |[0m          	  hia.map( [36mhi[0m => {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1108 |[0m	     		[33mval[0m [36mmaxhi[0m = hi.max[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1109 |[0m	        	[33mval[0m [36mexphi[0m = hi.map([36mx[0m => math.exp( x - maxhi) ) [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1110 |[0m			[33mval[0m [36mz[0m = exphi.sum[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1111 |[0m			exphi.map{ [36mx[0m => (x / z) * p + uniform }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1112 |[0m          	  } )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1113 |[0m		}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1114 |[0m	)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1115 |[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1116 |[0m    [33mdef[0m [36mproposeDistributions[0m([36mproposedPia[0m: [35mArray[DenseVector[Double]][0m) = {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1117 |[0m	[33mval[0m [36mp[0m = [31m0.9[0m [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1118 |[0m	[33mval[0m [36meps[0m =  ([31m1.0[0m / proposedPia([31m0[0m).size) * ([31m1.0[0m - p)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1119 |[0m	[33mval[0m [36mproposedP[0m = proposedPia.map ( [36mpi[0m => { [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1120 |[0m				[34m//val newpi = pi.map{ pia => pia * p + eps }[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1121 |[0m				[33mval[0m [36mnewpi[0m = pi * p + eps[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1122 |[0m				[33mval[0m [36msum[0m = breeze.linalg.sum(newpi)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1123 |[0m				newpi.map{ [36mpia[0m => pia / sum }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1124 |[0m				} )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1125 |[0m	[34m/*[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1126 |[0m	val proposedP = proposedPia.map ( pi => { [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1127 |[0m			pi.map( _ => 1.0/pi.size )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1128 |[0m		} )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1129 |[0m	*/[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1130 |[0m	[33mval[0m [36mlogProposedP[0m = proposedP.map([36mpi[0m => pi.map([36mpia[0m => math.log(pia)) )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1131 |[0m	[33mval[0m [36mlog1_proposedP[0m = proposedP.map([36mPi[0m => {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1132 |[0m		Pi.map( [36mPia[0m => math.log([31m1.0[0m - Pia) )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1133 |[0m	  } )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1134 |[0m	ProposedDistributions(proposedP, logProposedP, log1_proposedP)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1135 |[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1136 |[0m    [33mdef[0m [36mkernelMH[0m([36mcurrentState[0m: [35mState[0m ): [35mRand[State][0m =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1137 |[0m	  MCMC.kernelMH(currentState, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1138 |[0m		[33mthis[0m.proposedDistributions,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1139 |[0m		[34m//proposedDistributionsAtAllUnits, [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1140 |[0m		[34m//logProposedDistributionsAtAllUnits,[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1141 |[0m		[34m//log1_ProposedDistributionsAtAllUnits,[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1142 |[0m		[33mthis[0m.interactions )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1143 |[0m    [33mdef[0m [36mkernelGibbsWithMHStep[0m([36mcurrentState[0m: [35mState[0m ): [35mRand[State][0m =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1144 |[0m	  MCMC.kernelGibbsWithMHStep(currentState,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1145 |[0m	 	[33mthis[0m.proposedDistributions, [33mthis[0m.interactions )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1146 |[0m    [33mdef[0m [36mkernelGibbs[0m([36mcurrentState[0m: [35mState[0m ): [35mRand[State][0m =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1147 |[0m	  MCMC.kernelGibbs(currentState, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1148 |[0m		[33mthis[0m.interactions )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1149 |[0m    [33mdef[0m [36mmarkovChain[0m([36minitial[0m: [35mState[0m, [36mkernel[0m: [35mState[0m => [35mRand[State][0m = kernelGibbsWithMHStep ): [35mIterator[State][0m =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1150 |[0m	  MCMC.markovChain(initial, kernel)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1151 |[0m	[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1152 |[0m    [33mdef[0m [36mrunMC[0m(  [36minitialConfigurations[0m: [35mArray[Array[Byte]][0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1153 |[0m		[36mnInitialIterationsPerUnit[0m: [35mInt[0m = [31m100[0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1154 |[0m		[36meveryNIterationsPerUnit[0m: [35mInt[0m = [31m5[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1155 |[0m		[36mnSamples[0m: [35mInt[0m = [31m1000[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1156 |[0m	      [34m//nIndependentMC: Int = 10,[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1157 |[0m		[36minitialT[0m: [35mDouble[0m = [31m1.2[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1158 |[0m		[36mannealingRate[0m: [35mDouble[0m = [31m0.99[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1159 |[0m		[36mfinalT[0m: [35mDouble[0m = [31m1.0[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1160 |[0m		[36mmaxExtendedIterations[0m: [35mInt[0m = [31m10[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1161 |[0m		[36mkernel[0m: [35mState[0m => [35mRand[State][0m = kernelGibbsWithMHStep[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1162 |[0m 		) = {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1163 |[0m	[33mval[0m [36mnInitialIterations[0m = nInitialIterationsPerUnit * [33mthis[0m.nUnits[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1164 |[0m	[33mval[0m [36meveryNIterations[0m = everyNIterationsPerUnit * [33mthis[0m.nUnits[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1165 |[0m	[33mval[0m [36mnIndependentMC[0m = initialConfigurations.size[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1166 |[0m	[33mval[0m (kT, rate) = {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1167 |[0m		[33mval[0m [36mt[0m = [33mif[0m ( initialT < finalT ) finalT [33melse[0m initialT [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1168 |[0m		[33mval[0m [36mmaxRate[0m = math.exp( (math.log([31m0.00001[0m) - math.log(t / finalT - [31m1.0[0m + [31m0.00001[0m)) / [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1169 |[0m					(nInitialIterations / [31m5.0[0m) )	[34m/* (nInitialIterations / 10.0) ) */[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1170 |[0m		[33mval[0m [36mr[0m = [33mif[0m ( annealingRate > maxRate ) maxRate [33melse[0m  annealingRate [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1171 |[0m		(t, r)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1172 |[0m		}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1173 |[0m	[34m//val independentMarkovProcesses = (new Array[Process[State]](nIndependentMC) ).map( x => {[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1174 |[0m	[34m//	val configuration = MCMC.randomConfiguration(this.nUnits, this.nStatesOfUnit)[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1175 |[0m	[33mval[0m [36minitialStates[0m =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1176 |[0m		  initialConfigurations.map( [36mx[0m => {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1177 |[0m			[33mval[0m [36mconfiguration[0m = [33mif[0m( x == [31mnull[0m || x.size <= [31m0[0m ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1178 |[0m				MCMC.randomConfiguration([33mthis[0m.nUnits, [33mthis[0m.nStatesOfUnit, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1179 |[0m					[33mthis[0m.proposedDistributions.proposedDistributionsAtAllUnits )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1180 |[0m			  } [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1181 |[0m				x.clone[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1182 |[0m			  }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1183 |[0m			[33mval[0m [36menergy[0m = MCMC.totalE( configuration, [33mthis[0m.interactions)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1184 |[0m			[33mval[0m [36minitial[0m = State(configuration, energy, kT, rate, [31m0[0m, finalT)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1185 |[0m			initial[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1186 |[0m		   } )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1187 |[0m    [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1188 |[0m	[34m//val independentMarkovProcesses = [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1189 |[0m	[34m//	  initialStates.map( initial => markovChain(initial) )[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1190 |[0m	[35m@annotation.tailrec[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1191 |[0m	[33mdef[0m [36mequilSampling[0m([36mmthIteration[0m: [35mInt[0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1192 |[0m		[34m//independentMC: Array[Process[State]],[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1193 |[0m		[36minitialStates[0m: [35mArray[State][0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1194 |[0m		[36mnInitialIterationsPerUnit[0m: [35mInt[0m ): ([35mArray[MCMC.State][0m, [35mInt[0m, [35mIndependentSamplings[0m ) = {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1195 |[0m	 [33mval[0m [36mindependentMC[0m = [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1196 |[0m		    initialStates.map( [36minitial[0m => MCMC.markovChain(initial, kernel) ).par	[34m// markovChain: Iterator[State][0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1197 |[0m		[34m//(new IndependentMC(initialStates.size)).zipWithIndex.map( x => { MCMC.markovChain(initialStates(x._2), kernel) } )[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1198 |[0m		  [34m//initialStates.map( initial => markovChain(initial) ).par[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1199 |[0m	 [35m@annotation.tailrec[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1200 |[0m	 [33mdef[0m [36mequilSamplingWithIterator[0m([36mnthIteration[0m: [35mInt[0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1201 |[0m		[36mindependentMC[0m: [35mIndependentMC[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1202 |[0m		[36mnInitialIterationsPerUnit[0m: [35mInt[0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1203 |[0m		[36mnewNInitialIterationsPerUnit[0m: [35mInt[0m ): ([35mInt[0m, [35mInt[0m, [35mIndependentSamplings[0m, [35mIndependentMC[0m) = {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1204 |[0m	[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1205 |[0m	  [33mval[0m [36mindependentSamplingsAndIterator[0m = independentMC.map( [36mmc[0m => {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1206 |[0m		MCMC.sampling(mc, nInitialIterationsPerUnit, everyNIterationsPerUnit * nthIteration, nSamples)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1207 |[0m	  } )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1208 |[0m	  [33mval[0m [36mindependentSamplings[0m = independentSamplingsAndIterator.map( [36mx[0m => { x._1 } )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1209 |[0m	  [33mval[0m [36mindependentMCcont[0m = independentSamplingsAndIterator.map( [36mx[0m => { x._2 } )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1210 |[0m          [33mval[0m [36mnNonEquil[0m = nNonEquilibrium(independentSamplings)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1211 |[0m	  [33mif[0m ( newNInitialIterationsPerUnit > [31m0[0m || nNonEquil <= [31m0[0m || nthIteration >= maxExtendedIterations ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1212 |[0m	    (nNonEquil, nthIteration , independentSamplings, independentMCcont)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1213 |[0m	  } [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1214 |[0m	    equilSamplingWithIterator([0m
+[0m[[0m[31merror[0m] [0m[0m[31m1215 |[0m			nthIteration + [31m1[0m, independentMCcont, newNInitialIterationsPerUnit, newNInitialIterationsPerUnit ) [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1216 |[0m	  }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1217 |[0m	 }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1218 |[0m	  [33mval[0m (nNonEquil, nthIteration, independentSamplings, independentMCcont) = equilSamplingWithIterator([0m
+[0m[[0m[31merror[0m] [0m[0m[31m1219 |[0m			mthIteration, independentMC, nInitialIterationsPerUnit, newNInitialIterationsPerUnit = [31m0[0m) [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1220 |[0m	  [33mval[0m [36mnewNInitialIterationsPerUnit[0m = [31m0[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1221 |[0m	  [33mval[0m [36mnewNInitialIterations[0m = newNInitialIterationsPerUnit * [33mthis[0m.nUnits[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1222 |[0m          [34m//val nNonEquil = nNonEquilibrium(independentSamplings)[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1223 |[0m	  [33mif[0m ( nNonEquil <= [31m0[0m || nthIteration >= maxExtendedIterations ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1224 |[0m		(initialStates, nthIteration, independentSamplings)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1225 |[0m	  } [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1226 |[0m	  [34m// slightly heat [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1227 |[0m	    [33mval[0m (newkT, newRate) = {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1228 |[0m		  [33mif[0m ( newNInitialIterations >= [31m1[0m ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1229 |[0m		    [33mval[0m [36mt[0m = [31m1.2[0m * finalT[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1230 |[0m		    [33mval[0m [36mmaxRate[0m = math.exp( (math.log([31m0.00001[0m) - math.log(t / finalT - [31m1.0[0m + [31m0.00001[0m)) / [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1231 |[0m					(newNInitialIterations / [31m5.0[0m) )	[34m/* (newNInitialIterations / 10.0) ) */[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1232 |[0m		    (t, maxRate)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1233 |[0m		  } [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1234 |[0m		    (finalT, [31m0.0[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1235 |[0m		  }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1236 |[0m		}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1237 |[0m	    [33mval[0m [36mlastStates[0m = independentSamplings.map( [36ms[0m => { [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1238 |[0m			[33mval[0m [36mlast[0m =  s( s.size -[31m1[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1239 |[0m			last.copy( configuration = last.configuration.clone )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1240 |[0m			[34m//MCMC.State(last.configuration.clone, last.energy, newkT, newRate, last.step, last.finalkT)[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1241 |[0m  			} ).toArray[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1242 |[0m	    [34m//val independentMarkovProcesses = lastStates.map ( s => markovChain(s))[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1243 |[0m	    [34m//equilSampling(nthIteration + 1, independentMarkovProcesses, nInitialIterations ) [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1244 |[0m	    [34m//equilSampling(nthIteration + 1, independentMarkovProcesses, nInitialIterations = 0 ) [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1245 |[0m	    equilSampling(nthIteration + [31m1[0m, lastStates, nInitialIterationsPerUnit = newNInitialIterationsPerUnit ) [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1246 |[0m	  }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1247 |[0m	}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1248 |[0m	[34m//equilSampling(1, independentMarkovProcesses, nInitialIterations ) [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1249 |[0m	equilSampling([31m1[0m, initialStates, nInitialIterationsPerUnit ) [0m
+[0m[[0m[31merror[0m] [0m[0m[31m1250 |[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1251 |[0m    [33mdef[0m  [36mfrequenciesAtUnitInSamples[0m( [36mindependentSamplings[0m: [35mIndependentSamplings[0m ): [35mArray[DenseVector[Double]][0m =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1252 |[0m    	MCMC.frequenciesAtUnitInSamples( independentSamplings, [33mthis[0m.nStatesOfUnit)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1253 |[0m    [33mdef[0m [36mpairwiseFrequenciesInSamples[0m( [36mindependentSamplings[0m: [35mIndependentSamplings[0m ): [35mArray[DenseMatrix[Double]][0m =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1254 |[0m    	MCMC.pairwiseFrequenciesInSamples( independentSamplings, [33mthis[0m.nStatesOfUnit)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1255 |[0m  }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E161] Naming Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:1297:2 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m1297 |[0m  [33mobject[0m [35mBM[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m     |  [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |BM is already defined as [33mobject[0m [35mBM[0m in /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E161] Naming Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala:3870:8 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3870 |[0m  [33mclass[0m [35mBM[0m ( [0m
+[0m[[0m[31merror[0m] [0m[0m     |  [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |BM is already defined as [33mclass[0m [35mBM[0m in /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3871 |[0m	[33mval[0m [36mioFiles[0m: [35mHashMap[String, File][0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3872 |[0m	[33mval[0m [36mstateOrderString[0m: [35mString[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3873 |[0m	[33mval[0m [36mfia[0m: [35mArray[DenseVector[Double]][0m, [33mval[0m [36mfijab[0m: [35mArray[DenseMatrix[Double]][0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m3874 |[0m	[33mval[0m [36mregTerm[0m: [35mString[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3875 |[0m	[33mval[0m [36mpropL1h[0m: [35mDouble[0m, [33mval[0m [36mpropL1J[0m: [35mDouble[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3876 |[0m	[33mval[0m [36mlambdaPhi[0m: [35mDouble[0m, [33mval[0m [36mlambdaPhij[0m: [35mDouble[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3877 |[0m      [34m//val learningrate: Double,[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3878 |[0m	[33mval[0m [36mbetaV[0m: [35mDouble[0m, [33mval[0m [36mbetaM[0m: [35mDouble[0m, [33mval[0m [36meps[0m: [35mDouble[0m ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3879 |[0m	[34m//val betaV = 0.999, val betaM = 0.9, val learningRate = 0.000001 to 10, val eps = 1.0e-8 ) = {[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3880 |[0m    [33mimport[0m miyazawa.potts.BM[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3881 |[0m    [33mimport[0m miyazawa.potts.BM.*[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3882 |[0m	require( regTerm == [31m"L2"[0m || regTerm == [31m"GL1L2"[0m || regTerm == [31m"L1L2"[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3883 |[0m	[33mif[0m ( regTerm == [31m"L1L2"[0m || regTerm == [31m"GL1L2"[0m ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3884 |[0m		assert( propL1h >= [31m0.0[0m && propL1h <= [31m1.0[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3885 |[0m		assert( propL1J >= [31m0.0[0m && propL1J <= [31m1.0[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3886 |[0m	}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3887 |[0m	[33mval[0m [36mnUnits[0m = fia.size[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3888 |[0m	[33mval[0m [36mnStatesOfUnit[0m = fia([31m0[0m).size[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3889 |[0m	[33mval[0m [36mnPairs[0m = (nUnits * (nUnits - [31m1[0m)) / [31m2[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3890 |[0m    [33mdef[0m [33mthis[0m( [36mioFiles[0m: [35mHashMap[String, File][0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3891 |[0m	[36mstateOrderString[0m: [35mString[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3892 |[0m	[36mfia[0m: [35mArray[Array[Double]][0m, [36mfijab[0m: [35mArray[Array[Array[Double]]][0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m3893 |[0m	[36mregTerm[0m: [35mString[0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m3894 |[0m	[36mpropL1h[0m: [35mDouble[0m, [36mpropL1J[0m: [35mDouble[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3895 |[0m	[36mlambdaPhi[0m: [35mDouble[0m, [36mlambdaPhij[0m: [35mDouble[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3896 |[0m	[36mbetaV[0m: [35mDouble[0m, [36mbetaM[0m: [35mDouble[0m, [36meps[0m: [35mDouble[0m ) =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3897 |[0m		[33mthis[0m( ioFiles, stateOrderString, fia.map([36mfi[0m => DenseVector(fi)),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3898 |[0m			[34m//fijab.map( fij => DenseMatrix(fij:_*) ), 			// for scala 2.11[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3899 |[0m			  fijab.map( [36mfij[0m => [33mnew[0m [35mDenseMatrix[0m(fij([31m0[0m).size, fij.size, fij.flatten).t ), 	[34m// for scala 2.13[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3900 |[0m				regTerm, propL1h, propL1J, lambdaPhi, lambdaPhij, betaV, betaM, eps )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3901 |[0m    [33mdef[0m [36mrunBM[0m([0m
+[0m[[0m[31merror[0m] [0m[0m[31m3902 |[0m		[36moptionInitialInteractions[0m: [35mOption[MCMC.Interactions][0m,	[34m// If optionInitialInteractions == None/null, fia will be used to generate hia.[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3903 |[0m		[36minitialConfigurations[0m: [35mArray[Array[Byte]][0m,	[34m// If initialConfigurations(i) == null or _.size == 0, randomConfiguration will be called.[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3904 |[0m		[36mnInitialIterationsPerUnit[0m: [35mInt[0m = [31m100[0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m3905 |[0m		[36meveryNIterationsPerUnit[0m: [35mInt[0m = [31m10[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3906 |[0m		[34m// nSamples or initialNSamples and maxNSamples must be provided.[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3907 |[0m		[34m// nSamples != 0 means initialNSamples=maxNSamples=nSamples.[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3908 |[0m		[36mnSamples[0m: [35mInt[0m = [31m0[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3909 |[0m		[36minitialNSamples[0m: [35mInt[0m = [31m0[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3910 |[0m		[36mincrementSamples[0m: [35mDouble[0m = [31m0.0[0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m3911 |[0m		[36mmaxNSamples[0m: [35mInt[0m = [31m0[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3912 |[0m	      [34m////nIndependentMC: Int = 10,[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3913 |[0m		[36minitialT[0m: [35mDouble[0m = [31m1.2[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3914 |[0m		[36mannealingRate[0m: [35mDouble[0m = [31m0.99[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3915 |[0m		[36mmaxExtendedIterations[0m: [35mInt[0m = [31m10[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3916 |[0m		[36mmcmcKernel[0m: [35mString[0m = [31m"GibbsWithMHStep"[0m, [34m//"GibbsWithMHStep"=="MultiBlockMH", // or "MH" // or "Gibbs"[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3917 |[0m	      [34m//fia: Array[DenseVector[Double]],[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3918 |[0m	      [34m//fijab: Array[DenseMatrix[Double]],[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3919 |[0m	      [34m//regTerm: String,[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3920 |[0m	      [34m//propL1h: Double, propL1J: Double,[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3921 |[0m	      [34m//lambdaPhi: Double, lambdaPhij: Double,[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3922 |[0m	      [34m////bmState: BMState, [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3923 |[0m		[36mgauge[0m: [35mString[0m = [31m"ungauged"[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3924 |[0m		[36mgradientDescentMethod[0m: [35mString[0m = [31m"ModAdamMax"[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3925 |[0m		[36mlearningRate[0m: [35mDouble[0m = [31m1.0e-2[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3926 |[0m		[34m/*[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3927 |[0m		gradientDescentMethod: String = "ModAdamSum",[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3928 |[0m		learningRate: Double = 1.0,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3929 |[0m		*/[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3930 |[0m		[36mminLearningRate[0m: [35mDouble[0m = [31m1.0e-6[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3931 |[0m		[36mmaxLearningRate[0m: [35mDouble[0m = [31m10.0[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3932 |[0m		[36mrateDecrease[0m: [35mDouble[0m = [31m0.5[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3933 |[0m		[36mrateIncrease[0m: [35mDouble[0m = [31m1.2[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3934 |[0m	[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3935 |[0m		[36mepsForKL[0m: [35mDouble[0m = [31m1.0e-5[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3936 |[0m		[36mnBestKLs[0m: [35mInt[0m = [31m1[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3937 |[0m		[36mminLearningStepsForBestKL[0m: [35mInt[0m = [31m1000[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3938 |[0m		[36mminLearningSteps[0m: [35mInt[0m = [31m1200[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3939 |[0m		[36mmaxNoLearnings[0m: [35mInt[0m = [31m100[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3940 |[0m		[36mlogInterval[0m: [35mInt[0m = [31m10[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3941 |[0m		) = {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3942 |[0m	require( mcmcKernel == [31m"MH"[0m || [0m
+[0m[[0m[31merror[0m] [0m[0m[31m3943 |[0m			mcmcKernel == [31m"GibbsWithMHStep"[0m || mcmcKernel == [31m"MultiBlockMH"[0m || [0m
+[0m[[0m[31merror[0m] [0m[0m[31m3944 |[0m			mcmcKernel == [31m"Gibbs"[0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m3945 |[0m			[31m"Not supported: mcmcKernel == MH, GibbsWithMHStep or Gibbs"[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3946 |[0m	[34m// If the Ising gauge is used, convergence will be not good.[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3947 |[0m	[34m//require( gauge == "ungauged" )[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3948 |[0m	[33mif[0m ( regTerm == [31m"L1L2"[0m ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3949 |[0m		require( gauge == [31m"ungauged"[0m || gauge == [31m"unused"[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3950 |[0m	} [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3951 |[0m		require( gauge == [31m"ungauged"[0m || gauge == [31m"unused"[0m || [0m
+[0m[[0m[31merror[0m] [0m[0m[31m3952 |[0m			gauge == [31m"phi_zeroSum"[0m || gauge == [31m"phi_ZeroSum"[0m )	[34m// gauge for phi and phij[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3953 |[0m	}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3954 |[0m    	[33mval[0m [36moptMethod[0m = [0m
+[0m[[0m[31merror[0m] [0m[0m[31m3955 |[0m	    [33mif[0m ( gradientDescentMethod == [31m"NAG"[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3956 |[0m		gradientDescentMethod[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3957 |[0m	    [33melse[0m [33mif[0m ( gradientDescentMethod == [31m"ModRAdamMax"[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3958 |[0m		gradientDescentMethod[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3959 |[0m	    [33melse[0m [33mif[0m ( gradientDescentMethod == [31m"ModRAdam"[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3960 |[0m		[31m"ModRAdamMax"[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3961 |[0m	    [33melse[0m [33mif[0m ( gradientDescentMethod == [31m"ModAdamMax"[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3962 |[0m		gradientDescentMethod[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3963 |[0m	    [33melse[0m [33mif[0m ( gradientDescentMethod == [31m"ModAdamSum"[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3964 |[0m		gradientDescentMethod[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3965 |[0m	    [33melse[0m [33mif[0m ( gradientDescentMethod == [31m"ModAdam"[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3966 |[0m		[31m"ModAdamMax"[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3967 |[0m	    [33melse[0m [33mif[0m ( gradientDescentMethod == [31m"Adam"[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3968 |[0m		gradientDescentMethod[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3969 |[0m	    [33melse[0m [33mif[0m ( gradientDescentMethod == [31m"RAdam"[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3970 |[0m		gradientDescentMethod[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3971 |[0m	    [33melse[0m [33mif[0m ( gradientDescentMethod == [31m"Adadelta"[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3972 |[0m		gradientDescentMethod[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3973 |[0m	    [33melse[0m [33mif[0m  ( gradientDescentMethod == [31m"RPROP-LR"[0m || gradientDescentMethod == [31m"MF"[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3974 |[0m		[31m"RPROP-LR"[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3975 |[0m	    [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3976 |[0m		sys.error([31m"Not supported: "[0m + gradientDescentMethod) [0m
+[0m[[0m[31merror[0m] [0m[0m[31m3977 |[0m		[31m""[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3978 |[0m	    }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3979 |[0m	[33mval[0m [36mnIndependentMC[0m = initialConfigurations.size[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3980 |[0m        [33mval[0m [36mfileKL[0m = [33mnew[0m [35mFile[0m(ioFiles([31m"outputDir"[0m), [0m
+[0m[[0m[31merror[0m] [0m[0m[31m3981 |[0m		([31ms"KL_of_each_step_[0m${[33mthis[0m.regTerm}[31m_[0m${[33mthis[0m.propL1h}[31m_[0m${[33mthis[0m.propL1J}[31m_%.0e_%.0e_[0m${gauge}[31m_[0m${optMethod}[31m_[0m${learningRate}[31m_[0m${betaV}[31m_[0m${betaM}[31m.txt"[0m).format([33mthis[0m.lambdaPhi, [33mthis[0m.lambdaPhij))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3982 |[0m	[33mval[0m [36moutKL[0m =  [33mnew[0m [35mPrintStream[0m(fileKL)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3983 |[0m      [34m//val epsForKL = 1.0e-5[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3984 |[0m	outKL.print([31m"# %s  propL1h= %g propL1J= %g  lambdaPhi= %g  lambdaPhij= %g  %s  %s  learningRate= %g  betaV= %g  betaM= %g  eps= %g\n"[0m.format([0m
+[0m[[0m[31merror[0m] [0m[0m[31m3985 |[0m		[33mthis[0m.regTerm, [33mthis[0m.propL1h, [33mthis[0m.propL1J, [33mthis[0m.lambdaPhi, [33mthis[0m.lambdaPhij, gauge, optMethod, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m3986 |[0m		learningRate, [33mthis[0m.betaV, [33mthis[0m.betaM, [33mthis[0m.eps) )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3987 |[0m	[33mif[0m ( optMethod == [31m"RPROP-LR"[0m ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3988 |[0m		outKL.print([31m"# For RPROP-LR: minLearningRate= %g  maxLearningRate= %g  rateDecrease= %g  rateIncrease= %g\n"[0m.format([0m
+[0m[[0m[31merror[0m] [0m[0m[31m3989 |[0m			minLearningRate, maxLearningRate, rateDecrease, rateIncrease) )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3990 |[0m	}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3991 |[0m	outKL.print([31ms"# MCMC Kernel: [0m${mcmcKernel}[31m\n"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3992 |[0m	outKL.print([31ms"# nInitialIterationsPerUnit=[0m${nInitialIterationsPerUnit}[31m  everyNIterationsPerUnit=[0m${everyNIterationsPerUnit}[31m\n"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3993 |[0m	outKL.print([31m"# initialT = %g  annealingRate = %g\n"[0m.format(initialT, annealingRate))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3994 |[0m	outKL.print([31m"# maxExtendedIterations = %d\n"[0m.format(maxExtendedIterations))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3995 |[0m	outKL.print([31m"# nIndependentMC = %d"[0m.format(nIndependentMC))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3996 |[0m	[33mif[0m ( nSamples != [31m0[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3997 |[0m			outKL.print([31m"  nSamples for each MC run = %d\n"[0m.format(nSamples))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3998 |[0m		[33melse[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m3999 |[0m			outKL.print([31m"  initialNSamples = %d  incrementSamples = %g  maxNSamples = %d  for each MC run\n"[0m.format([0m
+[0m[[0m[31merror[0m] [0m[0m[31m4000 |[0m					initialNSamples, incrementSamples, maxNSamples))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4001 |[0m	outKL.print([31m"# minLearningStepsForBestKL = %d  minLearningSteps = %d  maxNoLearnings = %d\n"[0m.format(minLearningStepsForBestKL, minLearningSteps, maxNoLearnings) )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4002 |[0m	printKL(outKL, bmStep = -[31m1[0m, nExtendedIterations = [31m0[0m, ([31m0.0[0m, [31m0.0[0m, epsForKL) ) 	[34m// print a title[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4003 |[0m      [34m//(valueKL1, valueKL2, step, fileInteractions, fileIndpendentMCsamplings)[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4004 |[0m	[35m@annotation.tailrec[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4005 |[0m	[33mdef[0m [36mfillNone[0m([36mi[0m: [35mInt[0m, [36mqueue[0m: [35mQueue[Option[Tuple5[Double, Double, Int, Option[File], Option[File] ] ] ][0m):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4006 |[0m		[35mQueue[Option[Tuple5[Double, Double, Int, Option[File], Option[File] ] ] ][0m = {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4007 |[0m		assert( i > [31m0[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4008 |[0m		[33mval[0m [36mnone[0m: [35mOption[Tuple5[Double, Double, Int, Option[File], Option[File] ] ][0m = None[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4009 |[0m		[33mif[0m(i == [31m1[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4010 |[0m		  none +: queue[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4011 |[0m		[33melse[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4012 |[0m		  fillNone(i - [31m1[0m, none +: queue) [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4013 |[0m	}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4014 |[0m	[33mval[0m [36mbestKLs[0m = fillNone(nBestKLs, Queue[[35mOption[Tuple5[Double, Double, Int, Option[File], Option[File] ] ][0m ]() )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4015 |[0m	[33mval[0m [36mbestKL[0m = fillNone([31m1[0m, Queue[[35mOption[Tuple5[Double, Double, Int, Option[File], Option[File] ] ][0m ]() )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4016 |[0m	[33mval[0m [36minitialInteractions[0m = { [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4017 |[0m		[33mval[0m [36mhJ[0m =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4018 |[0m		  [33mif[0m (optionInitialInteractions == [31mnull[0m || optionInitialInteractions == None ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4019 |[0m			initializehJ (fia )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4020 |[0m		  } [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4021 |[0m			[33mval[0m [36minteractions[0m = optionInitialInteractions.get[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4022 |[0m			( interactions.hia, interactions.Jijab )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4023 |[0m		  }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4024 |[0m		[33mval[0m [36mphiPhij[0m = hJToPhi (hJ._1,  hJ._2, fia)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4025 |[0m		[33mval[0m [36mbmInteractions[0m = BMInteractions(phiPhij._1, phiPhij._2)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4026 |[0m		[33mval[0m (newInteractions, newBMInteractions) = newPhiThroughhJ(bmInteractions, fia, gauge)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4027 |[0m		newInteractions[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4028 |[0m	}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4029 |[0m	[33mval[0m (interactions, bmState) = BM.initialize([33mthis[0m.fia,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4030 |[0m				initialInteractions,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4031 |[0m				optMethod, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4032 |[0m				learningRate, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4033 |[0m				minLearningRate, maxLearningRate, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4034 |[0m				rateDecrease, rateIncrease, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4035 |[0m				[33mthis[0m.betaV, [33mthis[0m.betaM, [33mthis[0m.eps, step = [31m0[0m )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4036 |[0m	[33mval[0m [36mrunBM1Step[0m = BM.runBM1Step([0m
+[0m[[0m[31merror[0m] [0m[0m[31m4037 |[0m		[33mthis[0m.ioFiles,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4038 |[0m		[33mthis[0m.stateOrderString,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4039 |[0m		_: MCMC.Interactions,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4040 |[0m		_: [35mArray[Array[Byte]][0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4041 |[0m	 	nInitialIterationsPerUnit,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4042 |[0m		everyNIterationsPerUnit,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4043 |[0m		_: [35mInt[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4044 |[0m	      [34m//nIndependentMC,[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4045 |[0m		initialT,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4046 |[0m		annealingRate,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4047 |[0m		maxExtendedIterations,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4048 |[0m		mcmcKernel,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4049 |[0m		[33mthis[0m.fia, [33mthis[0m.fijab,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4050 |[0m		[33mthis[0m.regTerm,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4051 |[0m		[33mthis[0m.propL1h, [33mthis[0m.propL1J,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4052 |[0m		[33mthis[0m.lambdaPhi, [33mthis[0m.lambdaPhij,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4053 |[0m		_: BM.BMState,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4054 |[0m		optMethod[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4055 |[0m		)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4056 |[0m	[35m@annotation.tailrec[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4057 |[0m	[33mdef[0m  [36miterateBMSteps[0m([0m
+[0m[[0m[31merror[0m] [0m[0m[31m4058 |[0m		[36mrunBM1Step[0m: (MCMC.Interactions, [35mArray[Array[Byte]][0m, [35mInt[0m, BM.BMState ) =>[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4059 |[0m			([35mMCMC[0m, [35mArray[MCMC.State][0m, [35mInt[0m, MCMC.IndependentSamplings, MCMC.EnsembleAverages, BM.BMState) ,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4060 |[0m		[36minteractions[0m: MCMC.Interactions, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4061 |[0m		[36minitialConfigurations[0m: [35mArray[Array[Byte]][0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4062 |[0m		[36minitialNSamples[0m: [35mInt[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4063 |[0m		[36mincrementSamples[0m: [35mDouble[0m, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4064 |[0m		[36mmaxNSamples[0m: [35mInt[0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4065 |[0m		[36mbmState[0m: BM.BMState,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4066 |[0m		[36mbestKLs[0m: [35mQueue[Option[Tuple5[Double, Double, Int, Option[File], Option[File] ] ] ][0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4067 |[0m		[36mbestKL[0m:  [35mQueue[Option[Tuple5[Double, Double, Int, Option[File], Option[File] ] ] ][0m,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4068 |[0m		[36mminLearningSteps[0m: [35mInt[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4069 |[0m 		): (MCMC.Interactions, [35mArray[Array[Byte]][0m) = {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4070 |[0m		 [34m//(MCMC.Interactions, BM.BMState) = {[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4071 |[0m	  [33mval[0m [36mnSamples[0m = { [33mval[0m [36mn[0m = initialNSamples + (incrementSamples * bmState.step).floor.toInt[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4072 |[0m			   [33mif[0m ( n > maxNSamples ) maxNSamples [33melse[0m n[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4073 |[0m			 }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4074 |[0m	  [33mval[0m (mcmc, initialStates, nExtendedIterations, independentSamplings, ensembleAverages, nextBMState) = [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4075 |[0m		runBM1Step( interactions, initialConfigurations, nSamples, bmState )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4076 |[0m	  [33mif[0m(bmState.step == [31m0[0m) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4077 |[0m		[33mval[0m [36mpia[0m = mcmc.proposedDistributions.proposedDistributionsAtAllUnits[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4078 |[0m		[33mval[0m [36mnUnits[0m = pia.size[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4079 |[0m		[33mval[0m [36mpijab[0m = [33mnew[0m [35mArray[DenseMatrix[Double]][0m( (nUnits * (nUnits - [31m1[0m)) / [31m2[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4080 |[0m		cfor([31m0[0m)( [36mi[0m => i < pia.size, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4081 |[0m		  cfor([31m0[0m)( [36mj[0m => j < i, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4082 |[0m			[33mval[0m (ij, a, b) = pairIndex(i, j, [31m0[0m, [31m1[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4083 |[0m			[33mif[0m ( a == [31m0[0m ) [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4084 |[0m				pijab(ij) = pia(i) * pia(j).t[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4085 |[0m			[33melse[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4086 |[0m				pijab(ij) = pia(j) * pia(i).t[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4087 |[0m		  } )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4088 |[0m		} )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4089 |[0m	  	[33mval[0m [36maveKL[0m = calcKL([33mthis[0m.fia, [33mthis[0m.fijab, pia, pijab, epsForKL)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4090 |[0m	  	printKL(outKL, [31m0[0m, [31m0[0m, aveKL)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4091 |[0m	  }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4092 |[0m	  [33mval[0m [36maveKL[0m = calcKL([33mthis[0m.fia, [33mthis[0m.fijab, ensembleAverages.pia, ensembleAverages.pijab, epsForKL)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4093 |[0m	  printKL(outKL, bmState.step, nExtendedIterations, aveKL)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4094 |[0m	  [33mval[0m [36mbestKLsRevised[0m =[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4095 |[0m	    [33mif[0m ( bmState.step % logInterval == [31m0[0m ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4096 |[0m		[33mval[0m [36mlogFileInteractions[0m = [33mnew[0m [35mFile[0m(ioFiles([31m"outputDir"[0m), [31ms"log_Interactions_hJ_[0m${bmState.step}[31m.txt"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4097 |[0m		[33mval[0m [36mlogFileIndpendentMCsamplings[0m = [33mnew[0m [35mFile[0m(ioFiles([31m"outputDir"[0m), [31ms"log_MC_samples_[0m${bmState.step}[31m.fasta"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4098 |[0m		BM.printLog( (logFileInteractions, logFileIndpendentMCsamplings),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4099 |[0m			stateOrderString, interactions, independentSamplings)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4100 |[0m		[34m//if ( bestKLs.size < (logInterval / 2.0) ) deleteBestKLs(bestKLs) else bestKLs[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4101 |[0m		[33mif[0m ( bestKLs.size < (logInterval / [31m2.0[0m) )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4102 |[0m			fillNone(nBestKLs, Queue[[35mOption[Tuple5[Double, Double, Int, Option[File], Option[File] ] ][0m ]() )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4103 |[0m		[33melse[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4104 |[0m			bestKLs[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4105 |[0m	    } [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4106 |[0m		bestKLs[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4107 |[0m	    }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4108 |[0m	  [33mval[0m [36mfileInteractions[0m = [33mnew[0m [35mFile[0m(ioFiles([31m"outputDir"[0m), [31ms"Interactions_hJ_[0m${bmState.step}[31m.txt"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4109 |[0m	  [33mval[0m [36mfileIndpendentMCsamplings[0m = [33mnew[0m [35mFile[0m(ioFiles([31m"outputDir"[0m), [31ms"MC_samples_[0m${bmState.step}[31m.fasta"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4110 |[0m	  [33mval[0m (newBestKLs, oneOfBestKLs) = keepBestKLs(bestKLsRevised, Tuple5(aveKL._1, aveKL._2, bmState.step, Option(fileInteractions), Option(fileIndpendentMCsamplings) ) )[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4111 |[0m	  [33mif[0m( oneOfBestKLs ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4112 |[0m 	    BM.printLog( (fileInteractions, fileIndpendentMCsamplings),[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4113 |[0m		stateOrderString, interactions, independentSamplings)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4114 |[0m	  }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4115 |[0m	  [33mval[0m (newBestKL, oneOfBestKL) = [33mif[0m ( nSamples >= maxNSamples && bmState.step >= minLearningStepsForBestKL ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4116 |[0m						[33mval[0m [36mnone[0m: [35mOption[File][0m = None[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4117 |[0m						keepBestKLs(bestKL, Tuple5(aveKL._1, aveKL._2, bmState.step, none, none)) [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4118 |[0m					 } [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4119 |[0m						(bestKL, [31mfalse[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4120 |[0m					 }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4121 |[0m	  [33mval[0m [36mlastConfigurations[0m = independentSamplings.map( [36mx[0m => x(nSamples - [31m1[0m).configuration ).toArray[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4122 |[0m	  [33mval[0m [36mminLearningSteps_rev[0m = [33mif[0m(bmState.step >= minLearningSteps) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4123 |[0m		[33mif[0m ( ioFiles.contains([31m"jobControlParamFile"[0m) && ioFiles([31m"jobControlParamFile"[0m).exists() ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4124 |[0m			[33mval[0m [36mjobControlParamFile[0m = ioFiles([31m"jobControlParamFile"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4125 |[0m		[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4126 |[0m	  		[33mval[0m [36mparam[0m = MCMC.paramFileToHashMap(jobControlParamFile)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4127 |[0m			[33mif[0m( param.contains([31m"minLearningSteps"[0m) ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4128 |[0m				[33mval[0m [36mmin_rev[0m = param([31m"minLearningSteps"[0m).toInt[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4129 |[0m				math.max(minLearningSteps, min_rev)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4130 |[0m			} [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4131 |[0m				minLearningSteps[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4132 |[0m			}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4133 |[0m		} [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4134 |[0m			minLearningSteps[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4135 |[0m		}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4136 |[0m	  } [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4137 |[0m		minLearningSteps[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4138 |[0m	  }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4139 |[0m	  [33mif[0m(bmState.step >= math.max(minLearningStepsForBestKL, minLearningSteps_rev) && nSamples >= maxNSamples && bmState.step - newBestKL([31m0[0m).get._3 >= maxNoLearnings ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4140 |[0m	  	(interactions, lastConfigurations)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4141 |[0m	  } [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4142 |[0m	    [33mval[0m (newInteractions, newBMState) = BM.newPhiThroughhJ(nextBMState, [33mthis[0m.fia, gauge) [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4143 |[0m	  [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4144 |[0m	    iterateBMSteps(runBM1Step, newInteractions, lastConfigurations, [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4145 |[0m		initialNSamples, incrementSamples, maxNSamples,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4146 |[0m		newBMState, newBestKLs, newBestKL, minLearningSteps_rev)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4147 |[0m	  }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4148 |[0m	}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4149 |[0m	[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4150 |[0m	[33mval[0m (newInteractions, newBMState) = [33mif[0m(gauge == interactions.gauge ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4151 |[0m					(interactions, bmState)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4152 |[0m				} [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4153 |[0m					BM.newPhiThroughhJ(bmState, [33mthis[0m.fia, gauge) [0m
+[0m[[0m[31merror[0m] [0m[0m[31m4154 |[0m				}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4155 |[0m	[33mval[0m [36mresults[0m  = [33mif[0m ( nSamples == [31m0[0m ) {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4156 |[0m			  iterateBMSteps(runBM1Step, newInteractions, initialConfigurations,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4157 |[0m			  initialNSamples, incrementSamples, maxNSamples,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4158 |[0m			  newBMState, bestKLs, bestKL, minLearningSteps)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4159 |[0m		       } [33melse[0m {[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4160 |[0m			  iterateBMSteps(runBM1Step, newInteractions, initialConfigurations,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4161 |[0m			  initialNSamples = nSamples, incrementSamples = [31m0.0[0m, maxNSamples = nSamples,[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4162 |[0m			  newBMState, bestKLs, bestKL, minLearningSteps)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4163 |[0m		       }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4164 |[0m	outKL.close()[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4165 |[0m	results[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4166 |[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m4167 |[0m  }[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:310:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m310 |[0m		cfor([31m0[0m)([36mia[0m => ia < nStatesOfUnit, [36mia[0m => ia + [31m1[0m)( [36mia[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:309:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m309 |[0m	cfor([31m0[0m)([36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |	[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:357:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m357 |[0m		cfor([31m0[0m)([36mjb[0m => jb < nStatesOfUnit, [36mjb[0m => jb + [31m1[0m)( [36mjb[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:356:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m356 |[0m		cfor([31m0[0m)([36mia[0m => ia < nStatesOfUnit, [36mia[0m => ia + [31m1[0m)( [36mia[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:355:2 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m355 |[0m	  cfor(i + [31m1[0m)([36mj[0m => j < nUnits, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |	  [33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:354:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m354 |[0m	cfor([31m0[0m)([36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |	[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:444:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m444 |[0m				cfor([31m0[0m)([36mk[0m => k < nUnits, [36mk[0m => k + [31m1[0m)( [36mk[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |				[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:439:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m439 |[0m			cfor([31m0[0m)([36mj[0m => j < nSamples, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |			[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:436:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m436 |[0m		cfor([31m0[0m)([36mi[0m => i < nSamplings, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:453:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m453 |[0m			cfor([31m0[0m)([36mj[0m => j < nSamples, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |			[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:451:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m451 |[0m		cfor([31m0[0m)([36mi[0m => i < nSamplings, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m    |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:1026:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m1026 |[0m			cfor([31m0[0m)([36mj[0m => j < i, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |			[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:1025:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m1025 |[0m		cfor([31m0[0m)([36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2138:49 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2138 |[0m			          fi - pi - lambdaPhi * ( propL2h * phi )[0m
+[0m[[0m[31merror[0m] [0m[0m     |			                                                 [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseVector[Double], Any, B] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseVector[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseVector[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseVector[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2157:55 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2157 |[0m			            fi - pi - lambdaPhi * ( propL1h * signPhi )[0m
+[0m[[0m[31merror[0m] [0m[0m     |			                                                       [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseVector[Double], Any, B] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseVector[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseVector[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseVector[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2159:71 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2159 |[0m			            fi - pi - lambdaPhi * ( propL1h * signPhi + propL2h * phi )[0m
+[0m[[0m[31merror[0m] [0m[0m     |			                                                                       [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseVector[Double], Any, B] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseVector[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseVector[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseVector[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2161:3 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2161 |[0m			} )[0m
+[0m[[0m[31merror[0m] [0m[0m     |			   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |			   No ClassTag available for B[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |			   where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2173:68 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2173 |[0m						fia(i) * (pia(j) - fia(j)).t - lambdaPhij * ( propL2J * phijab(ij) )[0m
+[0m[[0m[31merror[0m] [0m[0m     |						                                                                    [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseMatrix[Double], Any, Any] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2176:68 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2176 |[0m						(pia(j) - fia(j)) * fia(i).t - lambdaPhij * ( propL2J * phijab(ij) )[0m
+[0m[[0m[31merror[0m] [0m[0m     |						                                                                    [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseMatrix[Double], Any, Any] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2198:65 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2198 |[0m						fia(i) * (pia(j) - fia(j)).t - lambdaPhij * (propL1J * signPhij )[0m
+[0m[[0m[31merror[0m] [0m[0m     |						                                                                 [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseMatrix[Double], Any, Any] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2201:65 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2201 |[0m						(pia(j) - fia(j)) * fia(i).t - lambdaPhij * (propL1J * signPhij )[0m
+[0m[[0m[31merror[0m] [0m[0m     |						                                                                 [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseMatrix[Double], Any, Any] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2206:88 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2206 |[0m						fia(i) * (pia(j) - fia(j)).t - lambdaPhij * (propL1J * signPhij + propL2J * phijab(ij) )[0m
+[0m[[0m[31merror[0m] [0m[0m     |						                                                                                        [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseMatrix[Double], Any, Any] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2209:88 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2209 |[0m						(pia(j) - fia(j)) * fia(i).t - lambdaPhij * (propL1J * signPhij + propL2J * phijab(ij) )[0m
+[0m[[0m[31merror[0m] [0m[0m     |						                                                                                        [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseMatrix[Double], Any, Any] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2167:2 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2167 |[0m		  cfor([31m0[0m)( [36mj[0m => j < i, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		  [33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2166:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2166 |[0m		cfor([31m0[0m)( [36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2242:49 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2242 |[0m			          fi - pi - lambdaPhi * ( propL2h * phi )[0m
+[0m[[0m[31merror[0m] [0m[0m     |			                                                 [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseVector[Double], Any, B] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseVector[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseVector[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseVector[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2250:55 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2250 |[0m			            fi - pi - lambdaPhi * ( propL1h * signPhi )[0m
+[0m[[0m[31merror[0m] [0m[0m     |			                                                       [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseVector[Double], Any, B] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseVector[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseVector[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseVector[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2252:71 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2252 |[0m			            fi - pi - lambdaPhi * ( propL1h * signPhi + propL2h * phi )[0m
+[0m[[0m[31merror[0m] [0m[0m     |			                                                                       [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseVector[Double], Any, B] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseVector[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseVector[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseVector[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2254:3 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2254 |[0m			} )[0m
+[0m[[0m[31merror[0m] [0m[0m     |			   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |			   No ClassTag available for B[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |			   where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2264:68 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2264 |[0m						fia(i) * (pia(j) - fia(j)).t - lambdaPhij * ( propL2J * phijab(ij) )[0m
+[0m[[0m[31merror[0m] [0m[0m     |						                                                                    [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseMatrix[Double], Any, Any] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2267:68 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2267 |[0m						(pia(j) - fia(j)) * fia(i).t - lambdaPhij * ( propL2J * phijab(ij) )[0m
+[0m[[0m[31merror[0m] [0m[0m     |						                                                                    [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseMatrix[Double], Any, Any] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2278:65 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2278 |[0m						fia(i) * (pia(j) - fia(j)).t - lambdaPhij * (propL1J * signPhij )[0m
+[0m[[0m[31merror[0m] [0m[0m     |						                                                                 [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseMatrix[Double], Any, Any] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2281:65 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2281 |[0m						(pia(j) - fia(j)) * fia(i).t - lambdaPhij * (propL1J * signPhij )[0m
+[0m[[0m[31merror[0m] [0m[0m     |						                                                                 [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseMatrix[Double], Any, Any] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2286:88 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2286 |[0m						fia(i) * (pia(j) - fia(j)).t - lambdaPhij * (propL1J * signPhij + propL2J * phijab(ij) )[0m
+[0m[[0m[31merror[0m] [0m[0m     |						                                                                                        [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseMatrix[Double], Any, Any] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2289:88 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2289 |[0m						(pia(j) - fia(j)) * fia(i).t - lambdaPhij * (propL1J * signPhij + propL2J * phijab(ij) )[0m
+[0m[[0m[31merror[0m] [0m[0m     |						                                                                                        [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpSub.Impl2[breeze.linalg.DenseMatrix[Double], Any, Any] was found for parameter op of [33mmethod[0m [35m-[0m in [33mtrait[0m [35mImmutableNumericOps[0m.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpSub.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpSub_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2258:2 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2258 |[0m		  cfor([31m0[0m)( [36mj[0m => j < i, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		  [33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2257:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2257 |[0m		cfor([31m0[0m)( [36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2322:2 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2322 |[0m		  cfor([31m0[0m)( [36mj[0m => j < i, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		  [33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2321:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2321 |[0m		cfor([31m0[0m)( [36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2381:2 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2381 |[0m		  cfor([31m0[0m)( [36mj[0m => j < i, [36mj[0m => j + [31m1[0m)( [36mj[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		  [33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2380:0 [0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m2380 |[0m		cfor([31m0[0m)( [36mi[0m => i < nUnits, [36mi[0m => i + [31m1[0m)( [36mi[0m => {[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |		[33m^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m     |Scala 2 macro cannot be used in Dotty, this call will crash at runtime. See https://dotty.epfl.ch/docs/reference/dropped-features/macros.html[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2446:71 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2446 |[0m				( betaV * vphia(i) * normalizeBetaVStep + learningRate * grad.phia(i) )[0m
+[0m[[0m[31merror[0m] [0m[0m     |				                                                                       [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpAdd.Impl2[breeze.linalg.DenseVector[Double], Any, B] was found for parameter op of [33mmethod[0m [35m+[0m in [33mtrait[0m [35mNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseVector[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpAdd.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpAdd_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseVector[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseVector[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2463:3 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2463 |[0m		} ) [0m
+[0m[[0m[31merror[0m] [0m[0m     |		   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   No ClassTag available for B[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   where:    B is a type variable[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2467:77 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2467 |[0m				( betaV * vphijab(ij) * normalizeBetaVStep + learningRate * grad.phijab(ij) )[0m
+[0m[[0m[31merror[0m] [0m[0m     |				                                                                             [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpAdd.Impl2[breeze.linalg.DenseMatrix[Double], Any, B] was found for parameter op of [33mmethod[0m [35m+[0m in [33mtrait[0m [35mNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpAdd.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpAdd_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2484:3 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2484 |[0m		} ) [0m
+[0m[[0m[31merror[0m] [0m[0m     |		   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   No ClassTag available for B[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   where:    B is a type variable[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2568:37 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2568 |[0m			betaV * v + ([31m1.0[0m - betaV) * (g *:* g)[0m
+[0m[[0m[31merror[0m] [0m[0m     |			                                     [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpAdd.Impl2[breeze.linalg.DenseVector[Double], Any, B] was found for parameter op of [33mmethod[0m [35m+[0m in [33mtrait[0m [35mNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseVector[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpAdd.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpAdd_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseVector[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseVector[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2569:3 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2569 |[0m		} ) [0m
+[0m[[0m[31merror[0m] [0m[0m     |		   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   No ClassTag available for B[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2573:37 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2573 |[0m			betaV * v + ([31m1.0[0m - betaV) * (g *:* g)[0m
+[0m[[0m[31merror[0m] [0m[0m     |			                                     [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpAdd.Impl2[breeze.linalg.DenseMatrix[Double], Any, B] was found for parameter op of [33mmethod[0m [35m+[0m in [33mtrait[0m [35mNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpAdd.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpAdd_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2574:3 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2574 |[0m		} ) [0m
+[0m[[0m[31merror[0m] [0m[0m     |		   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   No ClassTag available for B[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   where:    B is a type variable[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2603:37 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2603 |[0m			betaM * m + ([31m1.0[0m - betaM) * (d *:* d)[0m
+[0m[[0m[31merror[0m] [0m[0m     |			                                     [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpAdd.Impl2[breeze.linalg.DenseVector[Double], Any, B] was found for parameter op of [33mmethod[0m [35m+[0m in [33mtrait[0m [35mNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseVector[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpAdd.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpAdd_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseVector[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseVector[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2604:3 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2604 |[0m		} ) [0m
+[0m[[0m[31merror[0m] [0m[0m     |		   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   No ClassTag available for B[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2608:37 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2608 |[0m			betaM * m + ([31m1.0[0m - betaM) * (d *:* d)[0m
+[0m[[0m[31merror[0m] [0m[0m     |			                                     [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpAdd.Impl2[breeze.linalg.DenseMatrix[Double], Any, B] was found for parameter op of [33mmethod[0m [35m+[0m in [33mtrait[0m [35mNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpAdd.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpAdd_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2609:3 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2609 |[0m		} ) [0m
+[0m[[0m[31merror[0m] [0m[0m     |		   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   No ClassTag available for B[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   where:    B is a type variable[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2650:37 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2650 |[0m			betaV * v + ([31m1.0[0m - betaV) * (g *:* g)[0m
+[0m[[0m[31merror[0m] [0m[0m     |			                                     [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpAdd.Impl2[breeze.linalg.DenseVector[Double], Any, B] was found for parameter op of [33mmethod[0m [35m+[0m in [33mtrait[0m [35mNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseVector[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpAdd.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpAdd_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseVector[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseVector[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2651:3 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2651 |[0m		} ) [0m
+[0m[[0m[31merror[0m] [0m[0m     |		   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   No ClassTag available for B[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2655:37 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2655 |[0m			betaV * v + ([31m1.0[0m - betaV) * (g *:* g)[0m
+[0m[[0m[31merror[0m] [0m[0m     |			                                     [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |no implicit argument of type breeze.linalg.operators.OpAdd.Impl2[breeze.linalg.DenseMatrix[Double], Any, B] was found for parameter op of [33mmethod[0m [35m+[0m in [33mtrait[0m [35mNumericOps[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |where:    B is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m     |.[0m
+[0m[[0m[31merror[0m] [0m[0m     |I found:[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |    breeze.linalg.operators.HasOps.pureFromUpdate[[35mbreeze.linalg.DenseMatrix[Double][0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , [0m
+[0m[[0m[31merror[0m] [0m[0m     |    [35mAny[0m, [35mbreeze.linalg.operators.OpAdd.type[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |      breeze.linalg.operators.HasOps.[0m
+[0m[[0m[31merror[0m] [0m[0m     |        impl_OpAdd_InPlace_T_U_Generic_from_scaleAdd_InPlace[0m
+[0m[[0m[31merror[0m] [0m[0m     |      [[35mbreeze.linalg.DenseMatrix[Double][0m, [35mU[0m, [35mAny[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |        breeze.linalg.operators.HasOps.broadcastInplaceOp3_1_BCols[[0m
+[0m[[0m[31merror[0m] [0m[0m     |          [35mbreeze.linalg.scaleAdd.type[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |        , [35mbreeze.linalg.DenseMatrix[Double][0m, [35mT[0m, [35mColumnType[0m, [35mAny[0m, [35mOpResult[0m]([0m
+[0m[[0m[31merror[0m] [0m[0m     |          /* missing */[0m
+[0m[[0m[31merror[0m] [0m[0m     |            summon[[0m
+[0m[[0m[31merror[0m] [0m[0m     |              breeze.linalg.support.CanCollapseAxis.HandHold[?, [0m
+[0m[[0m[31merror[0m] [0m[0m     |                breeze.linalg.Axis._0.type[0m
+[0m[[0m[31merror[0m] [0m[0m     |              , ?][0m
+[0m[[0m[31merror[0m] [0m[0m     |            ][0m
+[0m[[0m[31merror[0m] [0m[0m     |        , ???, ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |      , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |    , ???)[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |But no implicit values were found that match type breeze.linalg.support.CanCollapseAxis.HandHold[?, breeze.linalg.Axis._0.type, ?].[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala:2656:3 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m2656 |[0m		} ) [0m
+[0m[[0m[31merror[0m] [0m[0m     |		   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   No ClassTag available for B[0m
+[0m[[0m[31merror[0m] [0m[0m     |[0m
+[0m[[0m[31merror[0m] [0m[0m     |		   where:    B is a type variable[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[0minfo[0m] [0m[0mexception occurred while typechecking /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala[0m
+[0m[[0m[0minfo[0m] [0m[0mexception occurred while compiling /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/.OLD/BM.scala, /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/BM.scala, /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/src/main/scala-3/PairIntScore.scala[0m
+[0m[[0m[33mwarn[0m] [0m[0mCanceling execution...[0m
+[0m[[0m[31merror[0m] [0m[0m## Exception when compiling 3 sources to /localhome/usrlocal-amd64-linux/scala/src/org.sanzo/potts/target/scala-3.0.2/classes[0m
+[0m[[0m[31merror[0m] [0m[0mjava.lang.AssertionError: assertion failed: Inconsistent state in TS[9998785X, 9998757, 2, 1, 0]: it owns TypeVar(TypeParamRef(B)) whose owningState is TS[9998757, 2, 1, 0][0m
+[0m[[0m[31merror[0m] [0m[0mscala.runtime.Scala3RunTime$.assertFailed(Scala3RunTime.scala:8)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.core.TyperState.gc$$anonfun$1(TyperState.scala:220)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.runtime.function.JProcedure1.apply(JProcedure1.java:15)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.runtime.function.JProcedure1.apply(JProcedure1.java:10)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.util.SimpleIdentitySet$Set3.foreach(SimpleIdentitySet.scala:113)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.core.TyperState.gc(TyperState.scala:226)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.core.TyperState.commit(TyperState.scala:163)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Inferencing$.isFullyDefined(Inferencing.scala:40)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Implicits.ignoredInstanceNormalImport$1(Implicits.scala:881)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Implicits.$anonfun$1(Implicits.scala:896)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.ImplicitSearchError.hiddenImplicitsAddendum(ErrorReporting.scala:419)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.ImplicitSearchError.missingArgMsg(ErrorReporting.scala:267)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Implicits.missingArgMsg(Implicits.scala:897)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Implicits.missingArgMsg$(Implicits.scala:774)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.missingArgMsg(Typer.scala:106)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.issueErrors$1$$anonfun$1$$anonfun$1(Typer.scala:3353)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.reporting.NoExplanation.msg(Message.scala:132)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.reporting.Message.message(Message.scala:87)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.reporting.Message.isNonSensical(Message.scala:99)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.reporting.HideNonSensicalMessages.isHidden(HideNonSensicalMessages.scala:16)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.reporting.HideNonSensicalMessages.isHidden$(HideNonSensicalMessages.scala:10)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.reporting.AbstractReporter.isHidden(AbstractReporter.scala:8)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.reporting.Reporter.report(Reporter.scala:148)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.reporting.Reporter.flush$$anonfun$1(Reporter.scala:206)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.runtime.function.JProcedure1.apply(JProcedure1.java:15)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.runtime.function.JProcedure1.apply(JProcedure1.java:10)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.collection.immutable.List.foreach(List.scala:333)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.reporting.Reporter.flush(Reporter.scala:206)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.core.TyperState.commit(TyperState.scala:143)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Applications.fail$1(Applications.scala:986)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Applications.realApply$7$$anonfun$6$$anonfun$2(Applications.scala:992)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.Option.getOrElse(Option.scala:201)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Applications.realApply$8$$anonfun$7(Applications.scala:993)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.tryEither(Typer.scala:2952)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Applications.realApply$1(Applications.scala:994)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Applications.typedApply(Applications.scala:1032)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Applications.typedApply$(Applications.scala:317)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedApply(Typer.scala:106)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedUnnamed$1(Typer.scala:2693)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedUnadapted(Typer.scala:2756)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2821)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2825)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedExpr(Typer.scala:2941)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer.typedAheadExpr$$anonfun$1(Namer.scala:1424)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer.typedAhead(Namer.scala:1414)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer.typedAheadExpr(Namer.scala:1424)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer.typedAheadRhs$1$$anonfun$1(Namer.scala:1676)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.PrepareInlineable$.dropInlineIfError(PrepareInlineable.scala:225)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer.typedAheadRhs$2(Namer.scala:1676)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer.rhsType$1(Namer.scala:1684)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer.cookedRhsType$1(Namer.scala:1711)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer.lhsType$1(Namer.scala:1712)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer.inferredResultType(Namer.scala:1723)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer.inferredType$1(Namer.scala:1463)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer.valOrDefDefSig(Namer.scala:1470)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer$Completer.typeSig(Namer.scala:751)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer$Completer.completeInCreationContext(Namer.scala:887)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Namer$Completer.complete(Namer.scala:779)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.core.SymDenotations$SymDenotation.completeFrom(SymDenotations.scala:167)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.core.Denotations$Denotation.completeInfo$1(Denotations.scala:188)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.core.Denotations$Denotation.info(Denotations.scala:190)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.core.SymDenotations$SymDenotation.ensureCompleted(SymDenotations.scala:369)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.retrieveSym(Typer.scala:2635)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedNamed$1(Typer.scala:2660)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedUnadapted(Typer.scala:2755)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2821)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2825)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.traverse$1(Typer.scala:2847)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedStats(Typer.scala:2897)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedBlockStats(Typer.scala:1025)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedBlock(Typer.scala:1029)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedUnnamed$1(Typer.scala:2701)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedUnadapted(Typer.scala:2756)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2821)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2825)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedExpr(Typer.scala:2941)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.$anonfun$34(Typer.scala:2156)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.PrepareInlineable$.dropInlineIfError(PrepareInlineable.scala:225)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedDefDef(Typer.scala:2156)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedNamed$1(Typer.scala:2670)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedUnadapted(Typer.scala:2755)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2821)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2825)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.traverse$1(Typer.scala:2847)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedStats(Typer.scala:2897)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedClassDef(Typer.scala:2352)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedTypeOrClassDef$2(Typer.scala:2681)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedNamed$1(Typer.scala:2685)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedUnadapted(Typer.scala:2755)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2821)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2825)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.traverse$1(Typer.scala:2847)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedStats(Typer.scala:2897)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedPackageDef(Typer.scala:2475)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedUnnamed$1(Typer.scala:2726)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedUnadapted(Typer.scala:2756)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2821)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2825)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.traverse$1(Typer.scala:2874)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedStats(Typer.scala:2897)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedPackageDef(Typer.scala:2475)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedUnnamed$1(Typer.scala:2726)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedUnadapted(Typer.scala:2756)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2821)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typed(Typer.scala:2825)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.Typer.typedExpr(Typer.scala:2941)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.FrontEnd.liftedTree1$1(FrontEnd.scala:79)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.FrontEnd.typeCheck$$anonfun$1(FrontEnd.scala:84)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.FrontEnd.monitor(FrontEnd.scala:43)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.FrontEnd.typeCheck(FrontEnd.scala:85)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.FrontEnd.runOn$$anonfun$3(FrontEnd.scala:120)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.runtime.function.JProcedure1.apply(JProcedure1.java:15)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.runtime.function.JProcedure1.apply(JProcedure1.java:10)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.collection.immutable.List.foreach(List.scala:333)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.typer.FrontEnd.runOn(FrontEnd.scala:120)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.Run.runPhases$4$$anonfun$4(Run.scala:205)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.runtime.function.JProcedure1.apply(JProcedure1.java:15)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.runtime.function.JProcedure1.apply(JProcedure1.java:10)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.collection.ArrayOps$.foreach$extension(ArrayOps.scala:1323)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.Run.runPhases$5(Run.scala:216)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.Run.compileUnits$$anonfun$1(Run.scala:224)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.util.Stats$.maybeMonitored(Stats.scala:67)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.Run.compileUnits(Run.scala:231)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.Run.compileSources(Run.scala:166)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.Run.compile(Run.scala:150)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.dotc.Driver.doCompile(Driver.scala:39)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.xsbt.CompilerBridgeDriver.run(CompilerBridgeDriver.java:88)[0m
+[0m[[0m[31merror[0m] [0m[0mdotty.tools.xsbt.CompilerBridge.run(CompilerBridge.java:22)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.AnalyzingCompiler.compile(AnalyzingCompiler.scala:91)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.MixedAnalyzingCompiler.$anonfun$compile$7(MixedAnalyzingCompiler.scala:192)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.MixedAnalyzingCompiler.timed(MixedAnalyzingCompiler.scala:247)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.MixedAnalyzingCompiler.$anonfun$compile$4(MixedAnalyzingCompiler.scala:182)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.MixedAnalyzingCompiler.$anonfun$compile$4$adapted(MixedAnalyzingCompiler.scala:163)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.JarUtils$.withPreviousJar(JarUtils.scala:239)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.MixedAnalyzingCompiler.compileScala$1(MixedAnalyzingCompiler.scala:163)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.MixedAnalyzingCompiler.compile(MixedAnalyzingCompiler.scala:210)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.IncrementalCompilerImpl.$anonfun$compileInternal$1(IncrementalCompilerImpl.scala:528)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.IncrementalCompilerImpl.$anonfun$compileInternal$1$adapted(IncrementalCompilerImpl.scala:528)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.Incremental$.$anonfun$apply$5(Incremental.scala:175)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.Incremental$.$anonfun$apply$5$adapted(Incremental.scala:173)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.Incremental$$anon$2.run(Incremental.scala:459)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.IncrementalCommon$CycleState.next(IncrementalCommon.scala:116)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.IncrementalCommon$$anon$1.next(IncrementalCommon.scala:56)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.IncrementalCommon$$anon$1.next(IncrementalCommon.scala:52)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.IncrementalCommon.cycle(IncrementalCommon.scala:263)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.Incremental$.$anonfun$incrementalCompile$8(Incremental.scala:414)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.Incremental$.withClassfileManager(Incremental.scala:501)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.Incremental$.incrementalCompile(Incremental.scala:401)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.Incremental$.apply(Incremental.scala:167)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.IncrementalCompilerImpl.compileInternal(IncrementalCompilerImpl.scala:528)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.IncrementalCompilerImpl.$anonfun$compileIncrementally$1(IncrementalCompilerImpl.scala:482)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.IncrementalCompilerImpl.handleCompilationError(IncrementalCompilerImpl.scala:332)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.IncrementalCompilerImpl.compileIncrementally(IncrementalCompilerImpl.scala:420)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.inc.IncrementalCompilerImpl.compile(IncrementalCompilerImpl.scala:137)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.Defaults$.compileIncrementalTaskImpl(Defaults.scala:2357)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.Defaults$.$anonfun$compileIncrementalTask$2(Defaults.scala:2314)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.io.Retry$.apply(Retry.scala:46)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.io.Retry$.apply(Retry.scala:28)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.io.Retry$.apply(Retry.scala:23)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.server.BspCompileTask$.compute(BspCompileTask.scala:31)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.Defaults$.$anonfun$compileIncrementalTask$1(Defaults.scala:2310)[0m
+[0m[[0m[31merror[0m] [0m[0mscala.Function1.$anonfun$compose$1(Function1.scala:49)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.util.$tilde$greater.$anonfun$$u2219$1(TypeFunctions.scala:62)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.std.Transform$$anon$4.work(Transform.scala:68)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.Execute.$anonfun$submit$2(Execute.scala:282)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:23)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.Execute.work(Execute.scala:291)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.Execute.$anonfun$submit$1(Execute.scala:282)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:265)[0m
+[0m[[0m[31merror[0m] [0m[0msbt.CompletionService$$anon$2.call(CompletionService.scala:64)[0m
+[0m[[0m[31merror[0m] [0m[0mjava.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)[0m
+[0m[[0m[31merror[0m] [0m[0mjava.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)[0m
+[0m[[0m[31merror[0m] [0m[0mjava.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)[0m
+[0m[[0m[31merror[0m] [0m[0mjava.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)[0m
+[0m[[0m[31merror[0m] [0m[0mjava.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)[0m
+[0m[[0m[31merror[0m] [0m[0mjava.base/java.lang.Thread.run(Thread.java:829)[0m
+[0m[[0m[31merror[0m] [0m[0m           [0m
+[0m[[0m[0minfo[0m] [0m[0mshutting down sbt server[0m
+[0m[[0m[31merror[0m] [0m[0mCancelled: compile[0m
+[0m[[0m[31merror[0m] [0m[0mCancelled: compile[0m
+[0m[[0m[31merror[0m] [0m[0mUse 'last' for the full log.[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m
