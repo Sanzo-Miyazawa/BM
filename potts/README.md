@@ -4,7 +4,10 @@
 
 #### To build a jar file
 
-In the following, it is assumed that the version of scala to build is 3.2.0. 
+Jar files are available in the subdirectory named "jarFiles".
+If you want to make them, pleas refer to the following.
+
+In the following, it is assumed that the version of scala to build is 3.3.3. 
 If not, change "ThisBuild / scalaVersion" in build.sbt.
 
 >bash$ PRGMDIR=          # the root directory of this program
@@ -27,25 +30,27 @@ If not, change "ThisBuild / scalaVersion" in build.sbt.
 
 >bash$ FATJAR=$PRGMDIR/./target/scala-3.2.0/org-sanzo-potts-assembly-0.3.0.jar
 
-Two scripts, RunBM.scala and RunMC.scala, in the $PRGMDIR/script are provided
+Two scripts, RunBM.scala, RunMC_A.scala and RunMC_B.scala, in the $PRGMDIR/script are provided
 as examples for using this program.  RunBM.scala includes parameter definitions
-that are appropriate to PF00595.  Thus if it is used for other proteins,
+that are appropriate to PF00018.  Thus if it is used for other proteins,
 they must be changed.
 
 Please read the scripts to understand how to use this program.
 
-#### To run a scala script on your system.
+#### To run the scala scripts on your system, see the following or run.sh that is found in the $PRGMDIR/script.
 
-In the following it is assumed that the **scala version installed in your system is equal to the version of
+In the following it is assumed that the **scala version installed in your system is equal to the version 3 of
 scala with which the jar file was built.**
 
 >bash$ export SCALA="scala3 -classpath $FATJAR"	# please replace "scala3" with a command to run scala3.
 
 >bash$ OUTDIR=		# the directory into which output files are created.
 
->bash$ PIPIJ="$PRGMDIR/data/PF00595uniqSeq/PiaPijab.out.gz"
+>bash$ PIPIJ="$PRGMDIR/data/PF00018uniq/PiaPijab.out.gz"
 
->bash$ $PRGMDIR/script/RunBM.scala $OUTDIR $PIPIJ >& $OUTDIR/RunBM.log < /dev/null &
+>bash$ REP="$PRGMDIR/data/PF00018uniq/representativeMSA.fasta.gz"
+
+>bash$ $PRGMDIR/script/RunBM.scala $OUTDIR $PIPIJ $REP >& $OUTDIR/RunBM.log < /dev/null &
 
 #### Reference: 
 
@@ -58,7 +63,7 @@ scala with which the jar file was built.**
 
 #### For any question, send a mail to sanzo.miyazawa@gmail.com.    
 
-2022-09-29 Sanzo Miyazawa
+2024-08-01 Sanzo Miyazawa
 
 
 

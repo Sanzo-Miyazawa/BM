@@ -1,0 +1,87 @@
+
+
+240731:
+ BM.scala.v1.7.6.0
+  Protein sequence has changed to IArray[Byte] from ArarySeq[Byte].  
+
+
+240518:
+ BM.scala.v1.7.5.3
+  
+240508:
+ >= BM.scala.v1.7.5.2 
+  printLog( ...,  printRawInteractions: Boolean = true )
+  Interaction potentials in the interaction files are printed in the raw gauge.
+ <= BM.scala.v1.7.5.1
+  printLog( ...,  printRawInteractions: Boolean = false )
+  Interaction potentials in the interaction files are printed in the Ising gauge.
+
+
+240429:
+ BM.scala.v.1.7.5.1
+  softthresholdingForGL1 has been corrected.
+  <BM.scala.v.1.7.5
+   softthresholdingForGL1:
+    GL1 Corrections are wrong for phij  
+
+240428:
+ BM.scala.v1.7.4.0
+  BM.scala.v1.7.3.error was corrected.
+
+240428:
+ BM.scala.v1.7.3.error was found.
+
+240415:
+ BM.scala.v1.7.2.error
+
+240414:
+ BM.scala.v1.7.1.error
+
+240414:
+ BM.scala.v1.7.1.240414
+  LearningRateForRPROPLR was added.
+
+240330:
+ BM.scala.v1.6.1
+  
+240329:
+ BM.scala.v1.6.0.240330
+  The definition of "case class State" changed. 
+  "lastAndCurrentFullBatch" and "prevMiniBatches" was introduced.
+
+240328: 
+ BM.scala.v1.6.0
+  runMC has been changed to return the correct initailState.
+
+240326:
+ BM.scala.v1.5.4
+  Array has been changed to ArraSeq.
+
+240323:
+ BM.scala.v1.5.1
+  "preFirstBatch" and "postMiniBatch" were introduced. 
+
+240321:
+ BM.scala.v1.4.240321
+
+
+240317: see BM.scala.v1.3.error-info.txt for detail
+
+ BM.scala.v1.3  2024/03/17
+ Error in ..._for_batch
+ configIndex and sampleConfigurations does not correspond correctly to each other.
+
+ There is a serious error in printLog.
+ Therefore, the ensemble averages and sample averages over a specific minibatch are not corrrect; the averages over all minibatches should be correct.
+ newLastSamplings_of_IndependentMC is revisedLastSamplings_of_IndependentMC shuffled at epock.
+
+240117:
+ BM.scala.v1.2.240109.error
+ BM.scala.v1.2.240111.error
+ BM.scala.v1.2
+   LearningRate was added.
+
+230118: version used in the publication
+ BM.scala.v1.1.230118
+
+

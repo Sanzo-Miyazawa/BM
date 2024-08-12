@@ -13,9 +13,12 @@ import Dependencies._
 //ThisBuild / crossScalaVersions := Seq("2.11.12", "2.13.5")
 //ThisBuild / scalaVersion     := "3.0.2"
 //ThisBuild / scalaVersion     := "3.1.3"
-ThisBuild / scalaVersion     := "3.2.0"
+//ThisBuild / scalaVersion     := "3.2.0"
+ThisBuild / scalaVersion     := "3.3.3"
+//ThisBuild / scalaVersion     := "3.4.2"
 //ThisBuild / version          := "0.2.1"
-ThisBuild / version          := "0.3.0"
+//ThisBuild / version          := "0.3.0"
+ThisBuild / version          := "1.7.6"
 ThisBuild / organization     := "org.sanzo"
 ThisBuild / organizationName := "sanzo"
 
@@ -115,6 +118,8 @@ lazy val root = (project in file("."))
   .settings(
     name := "org-sanzo-potts",
   //libraryDependencies += scalaCollectionCompat	,	// for scala 2.11, 2.12
+  //libraryDependencies += toolkit      ,
+  //libraryDependencies += toolkitTest  ,
   //libraryDependencies += spire	,
     libraryDependencies += breeze	,
     libraryDependencies += breezeNatives,
@@ -154,4 +159,17 @@ lazy val root = (project in file("."))
 //   else Some("releases" at nexus + "service/local/staging/deploy/maven2")
 // }
 // ThisBuild / publishMavenStyle := true
+
+assembly / assemblyMergeStrategy := {
+  case PathList("javax", "servlet", xs @ _*)         => MergeStrategy.first
+  case PathList(ps @ _*) if ps.last endsWith ".properties" => MergeStrategy.first
+  case PathList(ps @ _*) if ps.last endsWith ".xml" => MergeStrategy.first
+  case PathList(ps @ _*) if ps.last endsWith ".types" => MergeStrategy.first
+  case PathList(ps @ _*) if ps.last endsWith ".class" => MergeStrategy.first
+  case "application.conf"                            => MergeStrategy.concat
+  case "unwanted.txt"                                => MergeStrategy.discard
+  case x =>
+    val oldStrategy = (assembly / assemblyMergeStrategy).value
+    oldStrategy(x)
+}
 
