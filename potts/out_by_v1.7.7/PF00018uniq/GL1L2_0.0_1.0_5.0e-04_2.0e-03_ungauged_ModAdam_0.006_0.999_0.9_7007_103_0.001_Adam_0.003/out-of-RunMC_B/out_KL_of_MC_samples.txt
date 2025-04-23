@@ -1,0 +1,15 @@
+# miniBatchSize= 7007  fullBatchSize= 7007  nSamples/MC= 1
+# pseudoNCountsForProposedPia/KL/BM/hia= 10.0 / 1.0 / 0.0 / 10.0}
+# nInitialIterationsPerUnit= 0  everyNIterationsPerUnit= 100  maxExtendedIterations= 1
+# Interactions (hia, Jijab) are the same for all steps; read from log_Interactions_hJ_6187.txt.gz
+# step	nNonEquil  nExtendedIterations of MC	<KLpi>	<KLpij> over ensemble and 1 minibatch ensembles with pseudocountsForKL= 1.00000
+1	0 1	0.00363913 0.0458786	0.00363913 0.0458786
+2	0 1	0.00376493 0.0458627	0.00376493 0.0458627
+3	0 1	0.00362157 0.0453638	0.00362157 0.0453638
+4	0 1	0.00344929 0.0451892	0.00344929 0.0451892
+5	0 1	0.00379894 0.0461318	0.00379894 0.0461318
+6	0 1	0.00360249 0.0457446	0.00360249 0.0457446
+7	0 1	0.00355159 0.0455186	0.00355159 0.0455186
+8	0 1	0.00370716 0.0459713	0.00370716 0.0459713
+9	0 1	0.00362169 0.0451618	0.00362169 0.0451618
+10	0 1	0.00373975 0.0455361	0.00373975 0.0455361

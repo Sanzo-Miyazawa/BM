@@ -1,0 +1,5 @@
+# nIndependentMC= 7007  nSamples for 1 MC = 1
+# nInitialIterationsPerUnit= 0  everyNIterationsPerUnit= 1000  maxExtendedIterations= 1
+# Interactions (hia, Jijab) are the same for all steps; read from log_Interactions_hJ_6187.txt.gz
+# step	nNonEquil  nExtendedIterations of MC	<KLpi>	<KLpij> over ensemble and those over 1 minibatch ensembles with pseudoNCountsForKL= 1.00000
+0	0 1	0.00537823 0.0505542	0.00537823 0.0505542

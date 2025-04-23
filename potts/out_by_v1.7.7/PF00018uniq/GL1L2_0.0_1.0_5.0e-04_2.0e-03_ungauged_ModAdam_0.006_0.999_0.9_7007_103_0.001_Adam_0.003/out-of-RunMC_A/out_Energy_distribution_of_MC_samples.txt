@@ -1,0 +1,12 @@
+# nIndependentMC= 7007  nSamples/MC= 1
+# nInitialIterationsPerUnit= 0  everyNIterationsPerUnit= 1000  maxExtendedIterations= 1
+# Interactions (hia, Jijab) are the same for all steps; read from log_Interactions_hJ_6187.txt.gz
+#
+# TE is calculated in the Ising gauge for comparison.
+#
+# For <TE>_m and <(TE -<TE>)^2>_m, 1 minibatch ensembles are employed for averaging.
+#
+# step	L=48	(all randomized sample mean - all randomized sample variance/L)  TE_/L  <TE>/L	all randomized sample mean	all randomized sample variance/L  TE sample variance/L  <(TE-<TE>)^2>/L
+0	-4.905661 -4.120034 -3.926878			-0.206000	4.699661 2.557758 2.338610         	A
+# step	L=48	(random sample mean - random sample variance)/L  TE_all/L  <TE>/L  <TE>_m/L	random sample mean	random sample variance/L  TE all sample variance/ L  <(TE-<TE>)^2>/L  <(TE-<TE>)^2>_m/L ; <...>_m over max 1 minibatch ensembles
+0	-4.098141 -4.120034 -3.926878 -3.926878		-0.178252	3.919889 2.557758 2.338610 2.338610	B

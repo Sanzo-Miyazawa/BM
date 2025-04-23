@@ -1,9 +1,179 @@
 
+250413
+ BM.scala.v1.7.7.4.9 = BM.scala.v1.7.7.5.5
+ //error: 250413 (nextBMState.stepOffset, minLearningSteps, offset + minStepsForBestKL, optimizer, param )
+ //corrected     (nextBMState.stepOffset, offset + minSteps, offset + minStepsForBestKL, optimizer, param )
+ Some improvements of code.
+
+250330-250412
+ 250412
+ BM.scala.v1.7.7.4.8 = BM.scala.v1.7.7.5.4
+ Minor change: pairIndex functions are modified but the compatibility is kept.
+ 250331
+ Minor change: Incompatible combinations of tabs and spaces in indentation prefixes; /\t    } else {/ in v1.7.7.4.7   
+ 250330
+ BM.scala.v1.7.7.4.8 = BM.scala.v1.7.7.5.4
+ Minor change: "logFiles" for printLog now is defined as 
+               Option[Tuple2[Option[File], Option[File]]] rather than
+               Option[Tuple2[File, File]] .
+
+250221
+ BM.scala.v1.7.7.4.7 = BM.scala.v1.7.7.5.3
+  Added in "def runBM":  out.print(s"# hJ initialized: by optionInitialInteractions.get")
+
+250106
+ BM.scala.v1.7.7.4.6 = BM.scala.v1.7.7.5.2
+  "(implicit rand: RandBasis)" is replaced by "(using rand: RandBasis)" for scala3;
+          then  mcmc.kernelMH(_)(_) is replace by mcmc.kernelMH(_)(using _: RandBasis) and the similar conversions are done.
+
+250105
+ BM.scala.v1.7.7.4.5 = BM.scala.v1.7.7.5.1
+  BM.freqForBMandKL is added.
+  SetSeedForRand is modified.
+
+241221
+ BM.scala.v1.7.7.4.4 = BM.scala.v1.7.7.5.0
+  "object SetSeedForRand" is added, so a seed can be set for rand in the breeze.
+  zip.scala is added to gzip output and to gunzip input.
+
+241127
+ BM.scala.v1.7.7.4.3
+  The dLdphiWithGL1L2 and softThresholdingForGL1 are clarified.
+  In dLdphiWithGL1L2 and softThresholdingForGL1, the code for phi is 
+  for L1,  \sum_i \sum_a | phi(a) | GL1, rather than GL1, \sum_i | \sum_a phi(a)^2 | ,
+  although GL1 for hia is meaningless.
+
+241127
+ BM.scala.v1.7.7.4.2
+ f...WithPseudo have been changed to f...ForBM for runBM, and f..ForKL for calcKL.
+ 
+
+241124
+ BM.scala.v1.7.7.4.1
+
+  modified: in runBM;
+	def runBM( ..., psudoNCountsForBM, psudoNCountsForhia, pseudoNCountsForProposedPia, psudoNCountsForKL, ... )
+   The old versions correspond to the case , psudoNCountsForBM=0, psudoNCountsForhia=pseudoNCountsForProposedPia=psudoNCountsForKL=10
+   except that in the present version fia and fijab are modified with psudoNCountsForBM in the calculation of KL.
+
+   The best result will be obtained with psudoNCountsForBM=0, psudoNCountsForhia=pseudoNCountsForProposedPia=10, psudoNCountsForKL=1
+
+  modified: In the case of no regularizatin, fiaWithPseudo, ..., can be employed instead of fia,... to avoid 0 counts in them.
+            They are generated with pseudoNCountsForBM.
+            If the regularization term is employed, pseudoNCountsForBM=0 should be employed.
+
+    def iterateBMSteps( runBM1Step, interactions, fiaWithpseudo, fijabWithPseudo, faWithpseudo, ...
+  modified: fiaQ and fijabQ for KLs are corrected with pseudoNCountsForKL.
+    val ensembleKL = BM.calcKL(fiaWithPseudo, fijabWithPseudo, observedNP = Double.PositiveInfinity, pseudoNP = 0.0,
+            ensembleAverages.pia, ensembleAverages.pijab, observedNQ = totalNSamples, pseudoNQ = pseudoNCountsKL,
+            fiaWith0ReplacedBy1, fijabWith0ReplacedBy1 )
+  modified: The mean and variance of energies of random sequences are calculated by using faWithPseudo.
+  modified: val proposedPia = bayesianCorrection(this.fia, this.effectiveNConfigs, pseudoNCountsForProposedPia)
+ 
+  where
+    val (fiaWithPseudo, fijabWithPseudo) = bayesianCorrection(this.fia, this.fijab, this.effectiveNConfigs, pseudoNCountsForBM)
+    val (fiaPWith0ReplacedBy1, fijabPWith0ReplacedBy1) = replace0By1ForKL(this.fia, this.fijab)
+    val faWithPseudo = bayesianCorrection( this.fa, this.effectiveNConfigs * this.fia.size, pseudoNCountsForBM)
+
+
+
+241124
+ BM.scala.v1.7.7.3.1
+   val fa_modified = bayesianCorrection( toProb(fia_modified), this.effectiveNConfigs * fia_modified.size, pseudoNCounts)
+   ...
+   calcKL(fia_modified, fijab_modified, observedNP = Double.PositiveInfinity, pseudoNP = 0.0,
+
+241123
+ BM.scala.v1.7.7.2.1 = BM.scala.v1.7.7.3.0
+   //val fia_modified = this.fia
+   //val fijab_modified = this.fijab
+   //val fa_modified = this.fa
+     val fia_modified = fiaWithPseudo
+     val fijab_modified = fijabWithPseudo
+     val fa_modified = toProb(fia_modified)
+
+     val printLog = BM.printLog( _: Int,..., fa_modified, 
+
+     calcKL(fiaWithPseudo, fijabWithPseudo, observedNP = Double.PositiveInfinity, pseudoNP = 0.0,
+
+  BM.scala.v1.7.7.2.0
+  In the runBM, to avoid the zero value for fia and fijab, fiaWithPseudo and fijabWithPseudo are employed
+  instead of fia and fijab.
+ 
+  Also, propL1J = 0.9 should be used even for GL1L2 to avoid non-unique global minima.
+
+     val faWithPseudo = toProb(fiaWithPseudo)
+     val newPhiThroughhJ = BM.newPhiThroughhJ( ... ,fiaWithPseudo, ...
+     val initialInteractions = ...
+     val initialize = BM.initialize(fiaWithPseudo, 
+
+        BM.printLog( ..., faWithPseudo, ...)
+
+
+241122
+ BM.scala.v1.7.7.1
+
+ In the initialzehJ, using the Ising gause is changed, and any gauge is not used; 
+ thus this version does not reproduce the results obtained by the previous version.
+
+241122
+ BM.scala.v1.7.6.6
+ In the initialzehJ, using the Ising gause is changed, and any gauge is not used; 
+ thus this version does not reproduce the results obtained by the previous version.
+
+241114
+ BM.scala.v1.7.6.5
+   Now: (minLearningSteps + 1) % logInterval == 0
+   "def setRandBasisIArrayWithRandomSeeds" has been added to reproduce a same result for the same parameter values.
+
+241022
+ BM.scala.v1.7.6.4
+   Now: (minLearningSteps + 1) % logInterval == 0
+
+
+241017
+ BM.scala.v1.7.6.3
+  corrected:  bmStateWithMCSamples.step + 1 >= minLearningSteps
+
+
+241013
+ BM.scala.v1.7.6.2
+  In "def leranigByAdam", a code for printing detailed information for learning has been added.
+  The minLearningStepsForBstKL and maxLREpochs are properly calculated from the new minLearningSteps if it is changed.
+
+  corrected:  bmStateWithMCSamples.step >= minLearningStepsForBestKL
+  corrected:  bmStateWithMCSamples.step + 1 >= minLearningSteps_rev 
+  Error:  bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset + 1 >= minLearningSteps
+
+241012
+ BM.scala.v1.7.6.1
+  The definition of minLearningSteps for the second SGD has been changed; now it is not the total but that for the second SGD phase. 
+  The maxLREpochs for the 2nd SGD is kept at the same value unless the maxLREpochs is properly changed.
+  The minLearningStepsForBstKL is calculated from the minLearningSteps for the 2nd SGD, but
+  the code for minLearningStepsForBstKL and maxLREpochs is not good and should be updated.
+  Error: bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset >= minLearningStepsForBestKL 
+  Error: bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset + 1 >= minLearningSteps_rev
 
 240731:
  BM.scala.v1.7.6.0
   Protein sequence has changed to IArray[Byte] from ArarySeq[Byte].  
+  The minLearningSteps for the second SGD did not work as expected in the version BM.scala.v1.7.6.0, because
+  the maxLREpochs for the 2nd SGD is kept at the same value unless the maxLREpochs is properly changed and
+  it could be maxLREpochs > minLearningSteps.
+  Error: bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset >= minLearningStepsForBestKL 
+  Error: bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset + 1 >= minLearningSteps_rev
 
+240730:
+ BM.scala.v1.7.5.6
+ BM.scala.v1.7.5.5
+  this version(Error): minStepsForBestKL = (minSteps * (minLearningStepsForBestKL.toDouble / minLearningSteps)).floor.toInt
+  Error: bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset >= minLearningStepsForBestKL 
+  Error: bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset + 1 >= minLearningSteps_rev
+
+240520:
+BM.scala.v1.7.5.4
+  The minLearningSteps for the second optimizer is relative to stepOffset.
+  Learning decay for the second optimizer should be employed to identify whether the value of maxLR is appropriate or too large.
 
 240518:
  BM.scala.v1.7.5.3
@@ -84,4 +254,12 @@
 230118: version used in the publication
  BM.scala.v1.1.230118
 
+221002: gitlab update version
+	BM.scala.v0.3
+	== GITLAB/TCBB_221002/SCALA-3/potts/BM.scala
+
+200525: gitlab main version
+	BM.scala.201116
+	 == GITLAB/TCBB_200525/SCALA-2.11/potts/BM.scala
+	 == GITLAB/TCBB_200525.at_gitlab/SCALA-2.11/potts/BM.scala	except for comments
 

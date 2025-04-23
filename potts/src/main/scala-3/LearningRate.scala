@@ -32,7 +32,7 @@ package org.sanzo.potts {
               // for coolingMethod = "rate" 
                      val coolRate: Double = 0.98, val minLR: Double = 0.0,
               // for coolingMethod = "(1+at)^b"
-                     val constPerEpoch: Double = 0.1, val power: Double = -0.5,
+                     val constPerEpoch: Double = 0.01, val power: Double = -0.5,
               // for coolingMethod = "1/(1+at)"
                      val epochsUntilHalf: Double = 10.0, 
               //
@@ -60,11 +60,11 @@ package org.sanzo.potts {
                   this.coolingMethod, this.stepsPerEpoch, this.warmupEpochs,
                   this.maxLR, this.maxLREpochs ) )
                 if ( this.coolingMethod == "rate" ) {
-                  out.print("  coolRate= %f  minLR= %g".format(this.coolRate, this.minLR) )
+                  out.print("  coolRate= %g  minLR= %g".format(this.coolRate, this.minLR) )
                 } else if ( this.coolingMethod == "(1+at)^b" ) {
-                  out.print("  constPerEpoch= %f  power= %f".format(this.constPerEpoch, this.power) )
+                  out.print("  constPerEpoch= %g  power= %g".format(this.constPerEpoch, this.power) )
                 } else if ( this.coolingMethod == "1/(1+at)" ) {
-                  out.print("  epochsUntilHalf= %f".format(this.epochsUntilHalf) )
+                  out.print("  epochsUntilHalf= %g".format(this.epochsUntilHalf) )
                 }
                 out.print("\n")
     }

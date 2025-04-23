@@ -14,11 +14,13 @@ import Dependencies._
 //ThisBuild / scalaVersion     := "3.0.2"
 //ThisBuild / scalaVersion     := "3.1.3"
 //ThisBuild / scalaVersion     := "3.2.0"
-ThisBuild / scalaVersion     := "3.3.3"
+//ThisBuild / scalaVersion     := "3.3.3"
 //ThisBuild / scalaVersion     := "3.4.2"
+ThisBuild / scalaVersion     := "3.6.4"
+
 //ThisBuild / version          := "0.2.1"
 //ThisBuild / version          := "0.3.0"
-ThisBuild / version          := "1.7.6"
+ThisBuild / version          := "1.7.7.5"
 ThisBuild / organization     := "org.sanzo"
 ThisBuild / organizationName := "sanzo"
 
@@ -45,6 +47,11 @@ ThisBuild / scalacOptions ++= {
 ThisBuild / resolvers += "Maven Releases" at "https://repo1.maven.org/maven2/"
 ThisBuild / resolvers += "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
 ThisBuild / resolvers += "JBoss 3rd-party" at "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/"
+
+ThisBuild / resolvers += Resolver.mavenLocal
+ThisBuild / resolvers += DefaultMavenRepository
+ThisBuild / resolvers += JavaNet2Repository
+ThisBuild / resolvers += "JBoss repository" at "https://repository.jboss.org/nexus/content/groups/public/"
 
 
 ThisBuild / autoAPIMappings := true
@@ -127,9 +134,13 @@ lazy val root = (project in file("."))
     libraryDependencies += netlibJava	,
     libraryDependencies += netlibNativeRef ,
     libraryDependencies += netlibNativeSystem ,
-    libraryDependencies += biojavaCore	,
+  //libraryDependencies += biojavaCore	,
 
-    libraryDependencies += scalaTest % Test
+    libraryDependencies += scalaTest % Test,
+
+    cleanFiles += file("target"),
+    cleanFiles += file("project/target"),
+    cleanFiles += file("project/project/target")
   )
 
 // Uncomment the following for publishing to Sonatype.

@@ -1,4 +1,0 @@
-# ./RunMC_A.scala . PiaPijab.out.gz representativeMSA.fasta.gz log_Interactions_hJ_4759.txt.gz
-trying to return java 16 instance
-return java 11 instance
-Intel MKL WARNING: Support of Intel(R) Advanced Vector Extensions (Intel(R) AVX) enabled only processors has been deprecated. Intel oneAPI Math Kernel Library will use Intel(R) Streaming SIMD Extensions 4.2 (Intel(R) SSE4.2) instructions instead.

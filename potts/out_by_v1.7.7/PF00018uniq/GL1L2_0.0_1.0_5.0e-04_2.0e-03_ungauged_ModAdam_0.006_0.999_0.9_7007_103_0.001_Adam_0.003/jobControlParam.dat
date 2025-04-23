@@ -1,0 +1,5 @@
+minLearningSteps	1836
+gradientDescentMethod	Adam
+betaV	0.999
+betaM	0.9
+maxLR	0.003

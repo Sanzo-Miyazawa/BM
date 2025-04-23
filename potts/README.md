@@ -7,7 +7,7 @@
 Jar files are available in the subdirectory named "jarFiles".
 If you want to make them, pleas refer to the following.
 
-In the following, it is assumed that the version of scala to build is 3.3.3. 
+In the following, it is assumed that the version of scala to build is 3.6.4. 
 If not, change "ThisBuild / scalaVersion" in build.sbt.
 
 >bash$ PRGMDIR=          # the root directory of this program
@@ -26,18 +26,18 @@ If not, change "ThisBuild / scalaVersion" in build.sbt.
 
 >sbt> exit
 
->bash$ JAR=$PRGMDIR/./target/scala-3.2.0/org-sanzo-potts_3-0.3.0.jar
+>bash$ JAR=$PRGMDIR/./target/scala-3.6.4/org-sanzo-potts_3-1.7.7.5.jar
 
->bash$ FATJAR=$PRGMDIR/./target/scala-3.2.0/org-sanzo-potts-assembly-0.3.0.jar
+>bash$ FATJAR=$PRGMDIR/./target/scala-3.6.4/org-sanzo-potts-assembly-1.7.7.5.jar
 
-Two scripts, RunBM.scala, RunMC_A.scala and RunMC_B.scala, in the $PRGMDIR/script are provided
+Three scripts, RunBM.scala, RunMC_A.scala and RunMC_B.scala, in the $PRGMDIR/scripts are provided
 as examples for using this program.  RunBM.scala includes parameter definitions
 that are appropriate to PF00018.  Thus if it is used for other proteins,
 they must be changed.
 
 Please read the scripts to understand how to use this program.
 
-#### To run the scala scripts on your system, see the following or run.sh that is found in the $PRGMDIR/script.
+#### To run the scala scripts on your system, see the following or run.sh that is found in the $PRGMDIR/scripts.
 
 In the following it is assumed that the **scala version installed in your system is equal to the version 3 of
 scala with which the jar file was built.**
@@ -50,7 +50,7 @@ scala with which the jar file was built.**
 
 >bash$ REP="$PRGMDIR/data/PF00018uniq/representativeMSA.fasta.gz"
 
->bash$ $PRGMDIR/script/RunBM.scala $OUTDIR $PIPIJ $REP >& $OUTDIR/RunBM.log < /dev/null &
+>bash$ $PRGMDIR/scripts/RunBM.scala $OUTDIR $PIPIJ $REP 1> $OUTDIR/RunBM.log 2>&1 < /dev/null &
 
 #### Reference: 
 
@@ -63,7 +63,7 @@ scala with which the jar file was built.**
 
 #### For any question, send a mail to sanzo.miyazawa@gmail.com.    
 
+2025-04-13 Sanzo Miyazawa
 2024-08-01 Sanzo Miyazawa
-
 
 

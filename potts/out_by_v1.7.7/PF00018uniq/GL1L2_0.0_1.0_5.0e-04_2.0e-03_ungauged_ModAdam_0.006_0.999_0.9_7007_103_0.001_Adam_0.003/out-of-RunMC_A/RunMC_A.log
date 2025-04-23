@@ -1,0 +1,11 @@
+Warning: Only java properties are supported in JAVA_OPTS and JDK_JAVA_OPTIONS environment variables. Other options are ignored: -Xmx16g, -Xss1g, -Xmx16g, -Xss1g
+[90mCompiling project (Scala 3.6.4, JVM (17))[0m
+[90mCompiled project (Scala 3.6.4, JVM (17))[0m
+NOTE: Picked up JDK_JAVA_OPTIONS: -Xmx16g -Xss1g -Djava.library.path=/usr/local/scala/javalib
+# ./RunMC_A.scala . ./PiaPijab.out.gz ./representativeMSA.fasta.gz ./log_Interactions_hJ_6187.txt.gz
+# seed for scala.util.Random = 19
+# seed for org.sanzo.potts.SetSeedForRand.randBasis = 0
+trying to return java 16 instance
+Mar 30, 2025 2:04:25 PM dev.ludovic.netlib.blas.InstanceBuilder initializeJava
+WARNING: Failed to load implementation from:dev.ludovic.netlib.blas.VectorBLAS
+return java 11 instance

@@ -5,7 +5,10 @@ import org.{sanzo as miyazawa}                                  // for scala 3
 
 package org.sanzo.potts {
 
+// Use scala.util.Random.setSeed(seed: Long), if you want consistent behavior with the same random numbers from execution to execution.
+
   import scala.util.Random
+
   //import scala.collection.parallel.CollectionConverters._     // for par in scala 2.13
   import scala.collection.parallel.CollectionConverters.*       // for par in scala 3
   import scala.math.Ordering.Double.TotalOrdering               // for scala 2.13
@@ -24,13 +27,17 @@ package org.sanzo.potts {
 //import breeze.stats.distributions.Uniform
   import breeze.stats.distributions.Process
   import breeze.stats.distributions.Rand
+  import breeze.stats.distributions.RandBasis
 
+/* This part is moved at functions where the default randBasis is needed; MCMC.randomConfiguration , bm.initializehJ
+ 
 // As of Breeze 2, import this if you want "matlab"-like behavior with different random numbers from execution to execution
 //import breeze.stats.distributions.Rand.VariableSeed.*
 
 // As of Breeze 2, import this if you want consistent behavior with the same random numbers from execution to execution (modulo threading or other sources of nondeterminacy)
   //import breeze.stats.distributions.Rand.FixedSeed._          //for scala 2.13
   import breeze.stats.distributions.Rand.FixedSeed.*            //for scala 3
+*/
 
   //import spire.math.Integral
   import spire.syntax.cfor.cfor                                 //for scala 2.13
@@ -65,10 +72,65 @@ package org.sanzo.potts {
   import miyazawa.potts.MCMC.pairIndex
   import miyazawa.potts.MCMC.{inversePairIndex, fromPairIndex}
   import miyazawa.potts.Util.{energyOfRandomSeq, toProb}
-
   import miyazawa.potts.{LearningRate, LearningRateForRPROPLR} 
 
+  import miyazawa.potts.zip.gzipOutputStream
+
+  object SetSeedForRand {
+    import breeze.stats.distributions.Rand
+    import breeze.stats.distributions.RandBasis
+  //private val defaultSeed = Int.MinValue
+  //private var fixedRandBasis = Rand.VariableSeed.randBasis
+    private val defaultSeed = -1
+    private var fixedRandBasis = Rand.FixedSeed.randBasis
+    private var pSeed = defaultSeed
+    private var randBasisUsed = false
+  //private var nCalled = 0
+    def apply(i: Int = 0) = {
+      assert( randBasisUsed == false, "SetSeedForRand(seed) cannot be called after randBasis is used.\n")
+  //  assert( nCalled <= 0, s"Already a seed for Rand was set; ${pSeed}\n")
+  //  nCalled = nCalled + 1 
+      pSeed = i
+      fixedRandBasis =
+        if ( i == defaultSeed ) {
+          Rand.FixedSeed.randBasis
+        } else if ( i == Int.MinValue ) {
+          Rand.VariableSeed.randBasis
+        } else {
+          assert ( i >= 0, "An argument for SetSeedForRand must be a non-negative integer to be passed to RandBasis.withSeed or equal to ${defaultSeed} to use Rand.FixedSeed.randBasis or Int.MinValue to use Rand.VariableSeed.randBasis." )
+          RandBasis.withSeed(i)
+        }
+    //assert( seed == pSeed, "SetSeedForRand.seed cannot be accessed before SetSeedForRand(i) is called." )
+      assert( seed == pSeed, "SetSeedForRand.seed was accessed before SetSeedForRand(i) is called or two different seeds, ${seed} and ${pSeed}, have been set." )
+    }
+    lazy val seed = pSeed
+    lazy given randBasis: RandBasis = {
+               randBasisUsed = true
+               fixedRandBasis
+             }
+  }
+
+// Call directly scala.util.Random.setSeed(seed) in the main.
+//def setSeedForRandom(seed: Long): Unit = {
+//  Random.setSeed(seed)
+//}
+
+// A new seed for each of markovChain that is executed in parallel to reproduce the same result.
+  def setRandBasisIArrayWithRandomSeeds( n: Int ): IArray[RandBasis] = {
+    require( n > 0 )
+    val randBasisIArray = IArray.range(0,n)
+    randBasisIArray.map{ _ =>
+      val seed = scala.util.Random.nextInt()
+      RandBasis.withSeed(seed)
+    }
+  }
+
+
   object MCMC {
+
+  /*
+    val randBasisIArray: IArray[RandBasis] = 
+  */
 
     type Configuration        = IArray[Byte]
     type IndependentMC        = ParVector[Iterator[MCMC.State]]       //type   IndependentMC[T] = ParVector[T]
@@ -98,43 +160,77 @@ package org.sanzo.potts {
                                 val pijab: ArraySeq[DenseMatrix[Double]] = ArraySeq[DenseMatrix[Double]]() )
 
 
-    def pairIndex(i: Int,j: Int) = {
-                if(i > j)
-                        (i * (i - 1) / 2 + j)
-                else if ( j > i )
-                        (j * (j - 1) / 2 + i)
-                else {
-                        sys.error("*** Error: Pairwise index must be for i != j\n")
-                        -1
+    def pairIndexL(i: Long, j: Long): Long = {
+                require( i >= 0 && j >= 0 )
+                if(i > j) {
+                        val ij = (i * (i - 1) / 2 + j)
+                        assert( ij >= 0, "pairIndex is too large for Long.\n" )
+                        ij
+                } else if ( j > i ) {
+                        val ji = (j * (j - 1) / 2 + i)
+                        assert( ji >= 0, "pairIndex is too large for Long.\n" )
+                        ji
+                } else {
+                        sys.error("*** Error: pairIndex must be for i != j\n")
+                        -1L
                 }
     }
 
-    def pairIndex(i: Int, j: Int, ai: Int, aj: Int) = {
-                if(i > j)
-                        ((i * (i - 1) / 2 + j), ai, aj)
-                else if ( j > i )
-                        ((j * (j - 1) / 2 + i), aj, ai)
-                else {
-                        sys.error("*** Error: Pair index must be for i != j\n")
-                        (-1, -1, -1)
+    def pairIndexL(i: Long, j: Long, ai: Int, aj: Int): Tuple3[Long, Int, Int] = {
+                require( i >= 0 && j >= 0 )
+                val pIndex = pairIndexL(i, j)
+                if(i > j) {
+                        val ij = pIndex
+                        (ij, ai, aj)
+                } else { // j > i
+                        assert( i != j , "*** Error: pairIndex must be for i != j\n")
+                        val ji = pIndex
+                        (ji, aj, ai)
                 }
     }
 
-    def inversePairIndex(ij: Int) = {
+  //def pairIndex(i: Long, j: Long): Int = {
+    def pairIndex(i: Int, j: Int): Int = {
+                require( i >= 0 && j >= 0 )
+                val pIndex = pairIndexL(i, j).toInt
+                assert( pIndex >= 0, "pairIndex is too large for Int.\n" )
+                pIndex
+    }
+
+  //def pairIndex(i: Long, j: Long, ai: Int, aj: Int): Tuple3[Int, Int, Int] = {
+    def pairIndex(i: Int, j: Int, ai: Int, aj: Int): Tuple3[Int, Int, Int] = {
+                require( i >= 0 && j >= 0 )
+                val (pIndexL, a1, a2)  = pairIndexL(i, j, ai, aj)
+                val pIndex = pIndexL.toInt
+                assert( pIndex >= 0, "pairIndex is too large for Int.\n" )
+                (pIndex, a1, a2)
+    }
+
+  //def inversePairIndex(ij: Int) = {
+    def inversePairIndex(ij: Long): Tuple2[Int, Int] = {
+                require( ij >= 0 )
                 val i = {
-                          val i = math.sqrt(ij * 2.0).floor.toInt
-                          if ( ij - (i * ( i - 1)) / 2 >= i ) 
-                                i + 1
-                          else
+                // (i-1) <= sqrt(i*(i-1)) <= sqrt(2*ij)=sqrt(i*(i-1)+ 2*j) < sqrt(i*(i+1)) < (i+1)
+                // (i-1) <= floor ( sqrt(2*ij ) < (i+1)
+                // floor ( sqrt(2*ij ) = (i-1) or i
+                //
+                          val i = math.sqrt(ij * 2.0).floor.toLong
+                          if ( ij - (i * ( i - 1)) / 2 < i )
                                 i
+                          else
+                                i + 1
                         }
                 val j = ij - (i * ( i - 1)) / 2  
-                assert( pairIndex(i, j) == ij )
-
-                (i, j)
+                require( pairIndexL(i, j) == ij )
+                val iInt = i.toInt
+                val jInt = j.toInt
+                assert( iInt >= 0 && jInt >= 0, "pairIndex is too large for Int pairs." )
+                
+                (iInt, jInt)
     }
 
-    def fromPairIndex(ij: Int) = inversePairIndex(ij)
+  //def fromPairIndex(ij: Int) = inversePairIndex(ij)
+    def fromPairIndex(ij: Long) = inversePairIndex(ij)
 
 
     def readNSamples(lines: collection.Iterator[String] ) = {
@@ -619,7 +715,7 @@ package org.sanzo.potts {
         searchState(currentState, nStatesofUnit - 1, prob ) 
     }
 
-    def proposeState(currentState: Int, proposedDistributionAtUnit: DenseVector[Double]): Byte = {
+    def proposeState(currentState: Int, proposedDistributionAtUnit: DenseVector[Double])(using rand: RandBasis): Byte = {
 
         import breeze.stats.distributions.Uniform
 
@@ -747,7 +843,7 @@ package org.sanzo.potts {
     }
 */
     def totalE[C <: immutable.Seq[IArray[Byte]]] (configurations: C, 
-        interactions: Interactions ) (implicit classTagC: ClassTag[C]): ArraySeq[Double] = {
+        interactions: Interactions ) (using classTagC: ClassTag[C]): ArraySeq[Double] = {
         totalE(configurations.toVector.par, interactions)
     }
 
@@ -917,7 +1013,7 @@ package org.sanzo.potts {
         //log1_ProposedDistributionsAtAllUnits: ArraySeq[DenseVector[Double]] ,
         interactions: Interactions,
         siteLocation: Int = -1  // In the case of -1, the siteLocation will be randomly determined.
-        ): Rand[State] = {
+        )( using randBasis: RandBasis ): Rand[State] = {
 
       import breeze.stats.distributions.Uniform
 
@@ -978,7 +1074,7 @@ package org.sanzo.potts {
         //proposedDistributionsAtAllUnits: ArraySeq[DenseVector[Double]],
         //logProposedDistributionsAtAllUnits: ArraySeq[DenseVector[Double]] ,
         //log1_ProposedDistributionsAtAllUnits: ArraySeq[DenseVector[Double]] ,
-        interactions: Interactions ): Rand[State] = {
+        interactions: Interactions )( using randBasis: RandBasis ): Rand[State] = {
 
       import breeze.stats.distributions.Uniform
 
@@ -986,8 +1082,10 @@ package org.sanzo.potts {
 
       val nUnits = proposedDistributions.proposedDistributionsAtAllUnits.size
 
-      val kernel1Step = kernelMH1Step(_: State, proposedDistributions, interactions,
-                                      siteLocation = -1 )    // In the case of -1, the siteLocation will be randomly determined.
+      val kernel1Step: (State, RandBasis) => Rand[State] = 
+          kernelMH1Step(_: State, proposedDistributions, interactions, siteLocation = -1 )(using _: RandBasis)    // In the case of -1, the siteLocation will be randomly determined.
+        //kernelMH1Step(_: State, proposedDistributions, interactions, siteLocation = -1 )( _: RandBasis)    // In the case of -1, the siteLocation will be randomly determined.
+
     //val dupCurrentState = currentState.copy(configuration = currentState.configuration.clone)
       /* The following must be within the for block;  the thread stops before <-.
       val iter = markovChain(currentState, kernel1Step)
@@ -1008,15 +1106,18 @@ package org.sanzo.potts {
     def kernelGibbsWithMHStep(
         currentState: State,
         proposedDistributions: ProposedDistributions,
-        interactions: Interactions ): Rand[State] = {
+        interactions: Interactions ) ( using randBasis: RandBasis ) : Rand[State] = {
 
       import breeze.stats.distributions.Uniform
+
+      val kernel = kernelMH1Step(_: State, proposedDistributions, interactions, _: Int)
 
       @annotation.tailrec
       def recCallKernel(site: Int, state: State): State = {
         if (site >= 0) {
-          val kernel = kernelMH1Step(_: State, proposedDistributions, interactions, siteLocation = site)
-          val newState = kernel(state).draw()
+        //val kernel = kernelMH1Step(_: State, proposedDistributions, interactions, siteLocation = site)
+        //val newState = kernel(state).draw()
+          val newState = kernel(state, site).draw()
           recCallKernel(site - 1, newState)
         } else {
           state
@@ -1048,7 +1149,7 @@ package org.sanzo.potts {
 
     def kernelGibbs(
         currentState: State,
-        interactions: Interactions ): Rand[State] = {
+        interactions: Interactions )( using randBasis: RandBasis ): Rand[State] = {
 
       import breeze.stats.distributions.Uniform
 
@@ -1090,7 +1191,7 @@ package org.sanzo.potts {
       }
     }
 
-    def markovChain(initialState: State, kernel: State => Rand[State] ): Iterator[State] = {
+    def markovChain(initialState: State, kernel: (State, RandBasis) => Rand[State] )(using rand: RandBasis) : Iterator[State] = {
         //val init = State(initialState.configuration.clone, initialState.energy,
         //               initialState.kT, initialState.annealingRate, initialState.step, initialState.finalkT)
         val init =
@@ -1106,7 +1207,7 @@ package org.sanzo.potts {
         // import breeze.stats.distributions.MarkovChain
         // MarkovChain(initState)(kernel).steps                      // for breeze 0.13.1
         // or
-        val kern = kernel(_: State).draw()                      // return T rather than Rand[T]
+        val kern = kernel(_: State, rand).draw()                      // return T rather than Rand[T]
         val iter = scala.collection.Iterator.iterate(init)(kern)
         val initValue = iter.next()             // remove the initial value.
         iter
@@ -1307,6 +1408,8 @@ package org.sanzo.potts {
     def randomConfiguration(nUnits: Int, nStatesofUnit: Int,
         proposedDistributionsAtAllUnits: ArraySeq[DenseVector[Double]] ) = {
 
+    //import breeze.stats.distributions.Rand.FixedSeed.*            //for scala 3
+      import SetSeedForRand.randBasis
       import breeze.stats.distributions.Uniform
 
       // Probably: x <= Uniform(x, y) < y
@@ -1643,7 +1746,7 @@ package org.sanzo.potts {
         wArraySeq
     }
 
-  }
+  } // End of object MCMC
 
   class MCMC( val ioFiles: HashMap[String, File], 
               val stateOrderString: String,
@@ -1736,7 +1839,7 @@ package org.sanzo.potts {
         ProposedDistributions(proposedPia, logProposedP, log1_proposedP)
     }
 
-    def kernelMH(currentState: State ): Rand[State] =
+    def kernelMH(currentState: State )( using randBasis: RandBasis ): Rand[State] =
           MCMC.kernelMH(currentState, 
                 this.proposedDistributions,
                 //proposedDistributionsAtAllUnits, 
@@ -1744,15 +1847,16 @@ package org.sanzo.potts {
                 //log1_ProposedDistributionsAtAllUnits,
                 this.interactions )
 
-    def kernelGibbsWithMHStep(currentState: State ): Rand[State] =
+    def kernelGibbsWithMHStep(currentState: State )( using randBasis: RandBasis ): Rand[State] =
           MCMC.kernelGibbsWithMHStep(currentState,
                 this.proposedDistributions, this.interactions )
 
-    def kernelGibbs(currentState: State ): Rand[State] =
+    def kernelGibbs(currentState: State )( using randBasis: RandBasis ): Rand[State] =
           MCMC.kernelGibbs(currentState, 
                 this.interactions )
 
-    def markovChain(initial: State, kernel: State => Rand[State] = kernelGibbsWithMHStep ): Iterator[State] =
+  //def markovChain(initial: State, kernel: (State, RandBasis) => Rand[State] = kernelGibbsWithMHStep(_)(_) )( using randBasis: RandBasis ): Iterator[State] =
+    def markovChain(initial: State, kernel: (State, RandBasis) => Rand[State] = kernelGibbsWithMHStep(_)(using _: RandBasis) )( using randBasis: RandBasis ): Iterator[State] =
           MCMC.markovChain(initial, kernel)
         
     def runMC(  initialStates: InitialMCStates,
@@ -1764,7 +1868,8 @@ package org.sanzo.potts {
                 annealingRate: Double = 0.99,
                 finalT: Double = 1.0,
                 maxExtendedIterations: Int = 10,
-                kernel: State => Rand[State] = kernelGibbsWithMHStep
+              //kernel: (State, RandBasis) => Rand[State] = kernelGibbsWithMHStep(_)(_)
+                kernel: (State, RandBasis) => Rand[State] = kernelGibbsWithMHStep(_)(using _: RandBasis)
                 ) = {
 
         assert( nInitialIterationsPerUnit >= 0 )
@@ -1793,8 +1898,10 @@ package org.sanzo.potts {
         //val independentMarkovProcesses = ArraySeq.fill(nIndependentMC)(0).map( _ => {
         //      val configuration = MCMC.randomConfiguration(this.nUnits, this.nStatesOfUnit)
 
-        val revInitialStates =
-                  initialStates.map( s => {
+        val revInitialStates = {
+                  val initialSVec = initialStates.toVector
+                  // To reproduce the same result
+                  val initialCVec = initialSVec.map( s => {
                         val x = s.configuration
                       //val configuration = if( x == null || x.size <= 0 ) {
                         val configuration = if( x.size <= 0 ) {
@@ -1805,11 +1912,16 @@ package org.sanzo.potts {
                                 require( x.size == this.nUnits )
                                 x // x.clone for Array but not for immutable.ArraySeq
                           }
+                        configuration
+                  } )
+                  val initialSPar = initialStates.zip(initialCVec).map( (s, configuration) => {
                         val energy = MCMC.totalE( configuration, this.interactions)
                         val initialS = s.copy(configuration = configuration, interactions = this.interactions,
                                             energy = energy, kT = kT, annealingRate = rate, step = 0, finalkT = finalT )
                         initialS
-                   } )
+                  } )
+                  initialSPar
+        }
     
         //val independentMarkovProcesses = 
         //        initialStates.map( initial => markovChain(initial) )
@@ -1821,8 +1933,14 @@ package org.sanzo.potts {
                 nInitialIterationsPerUnit: Int,
                 everyNIterationsPerUnit: Int ): (Int, Int, IndependentSamplings ) = {
 
+          val randBasisIA = setRandBasisIArrayWithRandomSeeds( initialStates.size )
           val independentMC = 
-                    initialStates.map( initial => MCMC.markovChain(initial, kernel) )       // markovChain: Iterator[State]
+                    initialStates.zipWithIndex.map{ (initial, i) =>
+                        given randBasis: RandBasis = randBasisIA(i)
+                        MCMC.markovChain(initial, kernel)(using randBasis: RandBasis)
+                      //MCMC.markovChain(initial, kernel)(randBasis)
+                    }       // markovChain: Iterator[State]
+
                 //(new IndependentMC(initialStates.size)).zipWithIndex.map( x => { MCMC.markovChain(initialStates(x._2), kernel) } )
 
           @annotation.tailrec
@@ -1907,7 +2025,7 @@ package org.sanzo.potts {
     def pairwiseFrequenciesInSamples( independentSamplings: IndependentSamplings ): ArraySeq[DenseMatrix[Double]] =
         MCMC.pairwiseFrequenciesInSamples( independentSamplings, this.nStatesOfUnit)
 
-  }
+  } // End of class MCMC
 
 
   object BM {
@@ -2044,7 +2162,7 @@ package org.sanzo.potts {
                         bmInteractions = bmInteractions, grad = grad, 
                         v = v, 
                         m = learningRates,       // obsolete
-                        betaV = learningRateForRPROPLR.rateDecrease, betaM = learningRateForRPROPLR.rateIncrease,	// obsolete 
+                        betaV = learningRateForRPROPLR.rateDecrease, betaM = learningRateForRPROPLR.rateIncrease,       // obsolete 
                         eps = eps,
                         learningRateForRPROPLR = learningRateForRPROPLR, 
                       //minLearningRate = minLearningRate, maxLearningRate = maxLearningRate,
@@ -2421,7 +2539,7 @@ package org.sanzo.potts {
  //        configurations: C & scala.collection.SeqOps[T, scala.collection.Seq, C] ):
  //        Tuple2[MCMC.Interactions, ArraySeq[Double]] = {
     def hJ_and_TE_in_IsingGauge[C <: immutable.Seq[IArray[Byte]]] (interactions: MCMC.Interactions,
-           configurations: C ) (implicit classTagC: ClassTag[C]):
+           configurations: C ) (using classTagC: ClassTag[C]):
            Tuple2[MCMC.Interactions, ArraySeq[Double]] = {
 
       val interactions_Ising = hJ_in_IsingGauge(interactions)
@@ -2507,6 +2625,7 @@ package org.sanzo.potts {
           newLAijab
     }
 
+    // softThresholdingForGL1: L1 for phi, GL1 for phij, because GL1 for phi is meaningless.
     def softThresholdingForGL1(oldBMInteractions: BMInteractions,
                 optMethod: String, regTerm: String, 
                 propL1h: Double, propL1J: Double, 
@@ -2556,8 +2675,19 @@ package org.sanzo.potts {
                                         DenseVector.zeros[Double](nStatesOfUnit)
                                      else oldPhi / l2NormPhia(i)
                         */
+                      /* for L1 */
                         val signi = oldPhi.map( x => {if ( x > 0.0 ) 1.0 else if (x < 0.0 ) -1.0 else 0.0 } ) 
                         val phiWithoutL1 = phi + gammai *:* signi
+                      /**/ 
+                      /* for GL1
+                        val phiWithoutL1 = {
+                            val l2NormPhi = math.sqrt( breeze.linalg.sum(oldPhi.map(x => x * x) ) )
+                            val signi = if (l2NormPhi == 0.0 )
+                                             DenseVector.zeros[Double](nStatesOfUnit)
+                                         else oldPhi / l2NormPhi
+                            phi + gammai *:* signi
+                        }
+                      */
 
                         /* V2: incorrect
                         val phiInSmallCase = phiWithoutL1.mapPairs( (s, p) => { 
@@ -2571,23 +2701,27 @@ package org.sanzo.potts {
                         */
                         {
                             phiWithoutL1.mapPairs( (s, p) => {
-                                        // for L1 
+                                      /* for L1 */ 
                                         if ( p >= 0.0 ) {
                                           math.max( 0.0, p - gammai(s) )
                                         } else {
                                           //- math.max( 0.0, - p - gammai(s) )
                                           math.min( 0.0, p + gammai(s) )
                                         }
-                                        /*
-                                        if ( p > gammai(s) ) {
-                                                p - gammai(s)
-                                        } else if ( p < - gammai(s) ) {
-                                                p + gammai(s)
-                                        } else {
-                                                0.0
+                                      /**/
+                                      /* for GL1; refer to CPSC 540
+                                        var newP = {
+                                               val x = p * math.max( 0.0, l2NormPhi - gammai(s) )
+                                               if ( x != 0.0 ) {
+                                                   assert( l2NormPhi != 0.0 )
+                                                   x / l2NormPhi
+                                               } else {
+                                                   x
+                                               }
                                         }
-                                        */
-                                } )
+                                        newP
+                                      */
+                            } )
                         }
                     } )
                 }
@@ -2602,7 +2736,23 @@ package org.sanzo.potts {
                         val gammaij = learningRates.phijab(ij) * ( lambdaPhij * pL1J )
 
                         // The contribution of the Regularization term is the same for minimization and maximization.
-                        //val signij = oldPhij.map( x => {if ( x > 0.0 ) 1.0 else if (x < 0.0 ) -1.0 else 0.0 } ) 
+                      /* for L1
+                        val signij = oldPhij.map( x => {if ( x > 0.0 ) 1.0 else if (x < 0.0 ) -1.0 else 0.0 } ) 
+                        val phijWithoutL1 = phij + gammaij *:* signij
+
+                        phijWithoutL1.mapPairs( (s, p) => {
+                                        val (a, b) = s
+
+                                        // for L1
+                                        if ( p >= 0.0 ) {
+                                          math.max( 0.0, p - gammaij(s) )
+                                        } else {
+                                          //- math.max( 0.0, - p - gammaij(s) )
+                                          math.min( 0.0, p + gammaij(s) )
+                                        }
+                                } )
+                      */
+                      /* for GL1 */
                         val phijWithoutL1 = {
                             val l2NormPhij = math.sqrt( breeze.linalg.sum(oldPhij.map(x => x * x) ) )
                             val signij = if (l2NormPhij == 0.0 ) 
@@ -2610,6 +2760,7 @@ package org.sanzo.potts {
                                          else oldPhij / l2NormPhij
                             phij + gammaij *:* signij
                         }
+                      /**/
 
                         /* V2: incorrect
                         val phijInSmallCase = phijWithoutL1.mapPairs( (s, p) => { 
@@ -2645,6 +2796,7 @@ package org.sanzo.potts {
                                         }
                                 } )
                         */
+                        /* for GL1 */
                           val l2NormPhij = math.sqrt( breeze.linalg.sum( phijWithoutL1.map(x => x * x) ) )
                           phijWithoutL1.mapPairs( (s, p) => {
                                         val (a, b) = s
@@ -2693,6 +2845,7 @@ package org.sanzo.potts {
                                         }
                                         newP
                           } )
+                        /**/
                         }
 
                     } )
@@ -3001,7 +3154,8 @@ package org.sanzo.potts {
 
     }
 
-    // GL1 means group L1 for J; R = sum_i sum_a |hia|  +    sum_ij sqrt sum_ab Jijab^2 
+    // GL1 means group L1 for J; for propL1= 1, R = sum_i sum_a |hia|  + sum_ij sqrt sum_ab Jijab^2 
+    // GL1 for phi seems to be meaningless.
     def dLdphiWithGL1L2(propL1h: Double, propL1J: Double,
                 fia: ArraySeq[DenseVector[Double]], fijab: ArraySeq[DenseMatrix[Double]],
                 pia: ArraySeq[DenseVector[Double]], pijab: ArraySeq[DenseMatrix[Double]],
@@ -3031,12 +3185,14 @@ package org.sanzo.potts {
                                   //fi - pi - lambdaPhi * ( propL2h * phi )
                                   fi - pi - phi * (propL2h * lambdaPhi)
                                 } else {
-                                  /* for L1 */
+                                /* for L1 */
                                   val signPhi = phi.map( x => {
                                         if (x > 0.0) 1.0 
                                         else if( x < 0.0) -1.0 
                                         else { 0.0 }
                                         } )
+
+                                /* for GL1
                                   /*
                                   val signPhi = phi.map( x => {
                                         if ( l2NormPhia(i) == 0.0 ) {
@@ -3046,6 +3202,13 @@ package org.sanzo.potts {
                                         }
                                   } )
                                   */
+
+                                  val signPhi = if ( l2NormPhia(i) == 0.0 ) {
+                                                   phia(i).map{ x => 0.0 }
+                                               } else {
+                                                   phia(i) / l2NormPhia(i)
+                                               }
+                                */
                                                 
                                   if (propL2h == 0.0 )
                                     //fi - pi - lambdaPhi * ( propL1h * signPhi )
@@ -3081,7 +3244,8 @@ package org.sanzo.potts {
                                         else { 0.0 }
                                         } )
                               */
-                              /*
+                              /* for GL1 */
+                               /*
                                 val signPhij = phijab(ij).map( x => {
                                         if ( l2NormPhijab(ij) == 0.0 ) {
                                                 0.0
@@ -3089,13 +3253,13 @@ package org.sanzo.potts {
                                                 x / l2NormPhijab(ij)
                                         }
                                 } )
-                              */
+                               */
                                 val signPhij = if ( l2NormPhijab(ij) == 0.0 ) {
                                                    phijab(ij).map{ x => 0.0 } 
                                                } else {
                                                    phijab(ij) / l2NormPhijab(ij)
                                                }
-
+                               /**/
 
                                 if ( propL2J == 0.0 ) 
                                   if ( a == 0 ) {
@@ -3586,7 +3750,7 @@ package org.sanzo.potts {
           (newBMState, Option(learningRates) )     // 240428: ??? Adadelta canot be used for the soft thresholding function for L1.
     }
 
-    def learningByAdam(bmState: BMState, grad: BMInteractions, minOrMax: Int = 1 ):
+    def learningByAdam(bmState: BMState, grad: BMInteractions, minOrMax: Int = 1, outDetails: Boolean = true ):
                                                         Tuple2[BMState, Option[BMInteractions]] = {
 
           import breeze.linalg.InjectNumericOps
@@ -3664,6 +3828,53 @@ package org.sanzo.potts {
                                 invVt * (learningRate * (1.0 - betaM) / betaMt)
                         } )
 
+          if ( outDetails ) {
+            val vtphia = vphia.map( v => breeze.linalg.max(v) ).max
+            val vtphijab = vphijab.map( v =>  breeze.linalg.max(v) ).max
+            val vtphi = math.max(vtphia, vtphijab) / betaVt
+
+            val invSqrtVtPhi = 1.0 / (math.sqrt(vtphi) + eps)
+
+            val learningR = invSqrtVtPhi * learningRate
+
+            val vtphia_sum = vphia.map( v => breeze.linalg.sum(v) ).sum
+            val vtphijab_sum = vphijab.map( v =>  breeze.linalg.sum(v) ).sum
+            val vtphi_sum = (vtphia_sum + vtphijab_sum) / betaVt
+
+            val sqrt_vtphi_sum = math.sqrt(vtphi_sum)
+            val sqrt_vtphi = math.sqrt(vtphi)
+
+            stderr.print("Adam: step= %d  %d  sqrt(max_i v^_i)=   %f  sqrt(sum_i v^_i)=   %f  ratio= %f  learning rate for ModAdam= %f  learning rate= %f\n".format(
+                          step, bmState.step + 1, sqrt_vtphi, sqrt_vtphi_sum, sqrt_vtphi / sqrt_vtphi_sum, learningR, learningRate ) )
+        //}
+        //
+        //if ( outDetails ) {
+            import breeze.linalg.{max, sum}
+            import breeze.numerics.abs
+
+          //val mtphia = mphia.map( m => breeze.linalg.max(m *:* m) ).max
+          //val mtphijab = mphijab.map( m =>  breeze.linalg.max(m *:* m) ).max
+          //val mtphi = math.max(mtphia, mtphijab) / (betaMt * betaMt)
+
+          //val sqrt_mtphi = math.sqrt(mtphi)
+
+            val mtphia = mphia.map( m => max(abs(m)) ).max
+            val mtphijab = mphijab.map( m =>  max(abs(m)) ).max
+            val mtphi = math.max(mtphia, mtphijab) / betaMt
+
+            val sqrt_mtphi = mtphi
+
+            val mtphia_sum = mphia.map( m => breeze.linalg.sum(m *:* m) ).sum
+            val mtphijab_sum = mphijab.map( m =>  breeze.linalg.sum(m *:* m) ).sum
+            val mtphi_sum = (mtphia_sum + mtphijab_sum) / (betaMt * betaMt)
+
+            val sqrt_mtphi_sum = math.sqrt(mtphi_sum)
+
+            stderr.print("Adam: step= %d  %d  sqrt(max_i m^_i^2)= %f  sqrt(sum_i m^_i^2)= %f  ratio= %f  learning rate for ModAdam= %f  learning rate= %f\n".format(
+                          step, bmState.step + 1, sqrt_mtphi, sqrt_mtphi_sum, sqrt_mtphi / sqrt_mtphi_sum, learningR, learningRate ) )
+          }
+        /**/
+
           val learningRates = BMInteractions(learningRatePhia, learningRatePhijab)
         //val optionLearningRates: Option[BMInteractions] = None
 
@@ -3676,7 +3887,7 @@ package org.sanzo.potts {
                 learningRates = learningRates,
                 eps = eps, step = bmState.step + 1),
               //optionLearningRates     )       //240428: ??? Adam cannot be used for the soft thresholding function for L1.
-                Option(learningRates)     )       //240428: ??? Adam cannot be used for the soft thresholding function for L1.
+                Option(learningRates)     )
     }
 
     def learningByRAdam(bmState: BMState, grad: BMInteractions, minOrMax: Int = 1 ):
@@ -3916,7 +4127,8 @@ package org.sanzo.potts {
 
             val sqrt_vtphi_sum = math.sqrt(vtphi_sum)
             val sqrt_vtphi = math.sqrt(vtphi)
-            stderr.print("step= %d  sqrt(max_i v^_i)  = %f  sqrt(sum_i v^_i)  = %f  ratio= %f  learning rate= %f\n".format( step, sqrt_vtphi, sqrt_vtphi_sum, sqrt_vtphi / sqrt_vtphi_sum, learningR ) )
+            stderr.print("ModAdam: step= %d  %d  sqrt(max_i v^_i)=   %f  sqrt(sum_i v^_i)=   %f  ratio= %f  learning rate for ModAdam= %f  learning rate= %f\n".format(
+                          step, bmState.step + 1, sqrt_vtphi, sqrt_vtphi_sum, sqrt_vtphi / sqrt_vtphi_sum, learningR, learningRate ) )
           }
 
           if ( outDetails ) {
@@ -3941,7 +4153,8 @@ package org.sanzo.potts {
 
             val sqrt_mtphi_sum = math.sqrt(mtphi_sum)
 
-            stderr.print("step= %d  sqrt(max_i m^_i^2)= %f  sqrt(sum_i m^_i^2)= %f  ratio= %f  learning rate= %f\n".format( step, sqrt_mtphi, sqrt_mtphi_sum, sqrt_mtphi / sqrt_mtphi_sum, learningR ) )
+            stderr.print("ModAdam: step= %d  %d  sqrt(max_i m^_i^2)= %f  sqrt(sum_i m^_i^2)= %f  ratio= %f  learning rate for ModAdam= %f  learning rate= %f\n".format(
+                          step, bmState.step + 1, sqrt_mtphi, sqrt_mtphi_sum, sqrt_mtphi / sqrt_mtphi_sum, learningR, learningRate ) )
           }
         /**/
 
@@ -4558,18 +4771,34 @@ package org.sanzo.potts {
     /* sigma_J: standard deviation for the elements of J; with mean = 0. */
     def initializehJ ( fia: ArraySeq[DenseVector[Double] ], observedN: Double, pseudoN: Double = 100.0, sigma_J: Double = 0.01) = {
 
+      //import breeze.stats.distributions.Rand.FixedSeed.*            //for scala 3
+        import SetSeedForRand.randBasis
         import breeze.stats.distributions.Gaussian
         import breeze.linalg.{InjectNumericOps, sum}
         import breeze.numerics.log
 
+        require( pseudoN >= 0.0 )
         val nStatesOfUnit = fia(0).size
         val nUnits = fia.size 
         val nPairs = (nUnits * (nUnits - 1)) / 2
+
         val Jijab = ArraySeq.range(0, nPairs).map( _ => DenseMatrix.zeros[Double](nStatesOfUnit, nStatesOfUnit) )
+
+      /*
         val ratio = observedN / (observedN + pseudoN)
         val pseudo = (1 - ratio) / nStatesOfUnit
-        val hia = fia.map ( fi => { 
-                        val hi = breeze.numerics.log(fi * ratio + pseudo)
+
+        val fiaWithPseudo = if ( pseudo <= 0.0 ) {
+                              fia
+                            } else {
+                              fia.map ( fi => fi * ratio + pseudo  )
+                            }
+      */
+
+        val fiaWithPseudo = bayesianCorrection(fia, observedN, pseudoN ) 
+
+        val hia = fiaWithPseudo.map ( fi => { 
+                        val hi = breeze.numerics.log(fi)
                         hi - breeze.linalg.sum(hi) / hi.size    // Ising gauge
                 } )
 
@@ -4579,9 +4808,9 @@ package org.sanzo.potts {
                       val g = Gaussian(0.0, sigma_J) 
                       Jijab.map{ mat => mat.map{ ab => g.draw() } }
                     } 
-        val (hia_Ising, jijab_Ising) = toIsingGauge( hia, Jijab )
-
-        (hia_Ising, jijab_Ising)
+        (hia, jijab)
+      //val (hia_Ising, jijab_Ising) = toIsingGauge( hia, Jijab )
+      //(hia_Ising, jijab_Ising)
     }
 
     def initializeBMState(
@@ -4666,7 +4895,7 @@ package org.sanzo.potts {
                 finalT: Double = 1.0, 
                 annealingRate: Double = 0.99,
                 maxExtendedIterations: Int = 1,
-              //kernel: MCMC.State => Rand[MCMC.State],
+              //kernel: (MCMC.State, RandBasis) => Rand[MCMC.State],
                 mcmcKernel: String = "GibbsWithMHStep", //"GibbsWithMHStep"=="MultiBlockMH", // or "MH" // or "Gibbs"
                 proposedPia: ArraySeq[DenseVector[Double]],       // fia corrected with pseudocounts
 
@@ -4691,13 +4920,16 @@ package org.sanzo.potts {
         require( lambdaPhi >= 0.0 && lambdaPhij >= 0.0 )
 
         val mcmc = new MCMC(ioFiles, stateOrderString, interactions, proposedPia = proposedPia )
-        val kernelForMCMC =
+        val kernelForMCMC: (MCMC.State, RandBasis) => Rand[MCMC.State] =
           if ( mcmcKernel == "MH" ) {
-                mcmc.kernelMH
+              //mcmc.kernelMH(_)(_)
+                mcmc.kernelMH(_)(using _: RandBasis)
           } else if (  mcmcKernel == "GibbsWithMHStep" || mcmcKernel == "MultiBlockMH" ) {
-                mcmc.kernelGibbsWithMHStep
+              //mcmc.kernelGibbsWithMHStep(_)(_)
+                mcmc.kernelGibbsWithMHStep(_)(using _: RandBasis)
           } else {      // if ( mcmcKernel == "Gibbs" ) {
-                mcmc.kernelGibbs
+              //mcmc.kernelGibbs(_)(_)
+                mcmc.kernelGibbs(_)(using _: RandBasis)
           }
         val ( revInitialMCStates, nNonEquil, nExtendedIterations, independentSamplings) = 
             mcmc.runMC( bmState.initialMCStates,            //initialConfigurations,
@@ -4823,9 +5055,15 @@ package org.sanzo.potts {
     }
 
     def bayesianCorrection(fia: ArraySeq[DenseVector[Double]], fijab: ArraySeq[DenseMatrix[Double]], observedN: Double, pseudoN: Double ) = {
-        require( observedN >= 0.0 && pseudoN >= 0.0 )
-        assert( fia(0).size * fia(0).size == fijab(0).size )
+      require( observedN >= 0.0 && pseudoN >= 0.0 )
+      assert( fia(0).size * fia(0).size == fijab(0).size )
+      assert( (fia.size * (fia.size -1)) / 2  == fijab.size )
 
+      if ( pseudoN <= 0 ) {
+        (fia, fijab)
+      } else if ( fia.size <= 0 || fia(0).size <= 0 ) {
+        (fia, fijab)
+      } else {
         val ratioO = observedN / (observedN + pseudoN)
         val ratioP = 1.0 - ratioO
         val pseudoA = 1.0 / fia(0).size * ratioP
@@ -4833,10 +5071,88 @@ package org.sanzo.potts {
 
         ( fia.map  ( fa  => fa  * ratioO + pseudoA  ),
           fijab.map( fab => fab * ratioO + pseudoAB ) )
+      }
+    }
+
+    def bayesianCorrection(fia: ArraySeq[DenseVector[Double]], observedN: Double, pseudoN: Double ) = {
+      require( observedN >= 0.0 && pseudoN >= 0.0 )
+
+      if ( pseudoN <= 0 ) {
+        fia
+      } else if ( fia.size <= 0 || fia(0).size <= 0 ) {
+        fia
+      } else {
+        val ratioO = observedN / (observedN + pseudoN)
+        val ratioP = 1.0 - ratioO
+        val pseudoA = 1.0 / fia(0).size * ratioP
+        fia.map{ fa => fa * ratioO + pseudoA }
+      }
+    }
+
+    def bayesianCorrection(fa: DenseVector[Double], observedN: Double, pseudoN: Double ) = {
+      require( observedN >= 0.0 && pseudoN >= 0.0 )
+
+      if ( pseudoN <= 0 ) {
+        fa
+      } else if ( fa.size <= 0 ) {
+        fa
+      } else {
+        val ratioO = observedN / (observedN + pseudoN)
+        val ratioP = 1.0 - ratioO
+        val pseudoA = 1.0 / fa.size * ratioP
+        fa * ratioO + pseudoA
+      }
+    }
+
+    def replace0By1ForKL (fia: ArraySeq[DenseVector[Double]], fijab: ArraySeq[DenseMatrix[Double]] ) = {
+        import breeze.numerics.log
+        val pia   = fia.map  ( fi  => fi.map ( a  => if (a  <= 0.0 ) 1.0 else a  ) )
+        val pijab = fijab.map( fij => fij.map( ab => if (ab <= 0.0 ) 1.0 else ab ) )
+        ( pia, pijab ) 
+    }
+
+    def freqsForBMandKL( fia: ArraySeq[DenseVector[Double]], fijab: ArraySeq[DenseMatrix[Double]] , fa: DenseVector[Double],
+                effectiveNConfigs: Double,
+                pseudoNCountsForBM: Double = 0.0,        // If the regularization is not used, this may be used to avoid 0 counts in this.fia and this.fijab
+                pseudoNCountsForKL: Double = 1.0         // used to calculate KL valunes from ensemble averages of Pij(a,b)
+        ) = {
+
+        require( pseudoNCountsForBM >= 0.0 && pseudoNCountsForKL > 0.0 )
+
+        val (fiaForBM, fijabForBM, faForBM ) = 
+            if ( pseudoNCountsForBM > 0.0 ) {
+              val (fiaForBM, fijabForBM) = bayesianCorrection(fia, fijab, effectiveNConfigs, pseudoNCountsForBM)
+              val faForBM = bayesianCorrection( fa, effectiveNConfigs * fia.size, pseudoNCountsForBM) 
+              (fiaForBM, fijabForBM, faForBM )
+            } else {
+              (fia, fijab, fa )
+            }
+
+        val (fiaForKL, fijabForKL, fiaForKLWith0ReplacedBy1, fijabForKLWith0ReplacedBy1) = {
+            if ( pseudoNCountsForBM > 0.0 ) {
+              (fiaForBM, fijabForBM, ArraySeq[DenseVector[Double]](), ArraySeq[DenseMatrix[Double]]() )
+            } else {
+            // Be carefull
+            /*
+              if ( pseudoNCountsForKL > 0.0 ) {
+                val (fiaForKL, fijabForKL) = bayesianCorrection(fia, fijab, effectiveNConfigs, pseudoNCountsForKL)
+                (fiaForKL, fijabForKL, ArraySeq[DenseVector[Double]](), ArraySeq[DenseMatrix[Double]]() )
+              } else
+            */
+              {
+                val (fiaWith0ReplacedBy1, fijabWith0ReplacedBy1) = replace0By1ForKL(fia, fijab)
+                (fia, fijab, fiaWith0ReplacedBy1, fijabWith0ReplacedBy1 )
+              }
+            }
+        }
+        ( fiaForBM, fijabForBM, faForBM,  fiaForKL, fijabForKL, fiaForKLWith0ReplacedBy1, fijabForKLWith0ReplacedBy1 )
     }
 
     def calcKL(fiaP: ArraySeq[DenseVector[Double]], fijabP: ArraySeq[DenseMatrix[Double]], observedNP: Double, pseudoNP: Double,
-               fiaQ: ArraySeq[DenseVector[Double]], fijabQ: ArraySeq[DenseMatrix[Double]], observedNQ: Double, pseudoNQ: Double ) = {
+               fiaQ: ArraySeq[DenseVector[Double]], fijabQ: ArraySeq[DenseMatrix[Double]], observedNQ: Double, pseudoNQ: Double,
+               fiaPWith0ReplacedBy1: ArraySeq[DenseVector[Double]] = ArraySeq[DenseVector[Double]](),       
+               fijabPWith0ReplacedBy1: ArraySeq[DenseMatrix[Double]] = ArraySeq[DenseMatrix[Double]]()      
+              ) = {
 
         import breeze.linalg.{InjectNumericOps, sum}
         import breeze.numerics.log
@@ -4844,8 +5160,16 @@ package org.sanzo.potts {
         val ((piaP_0, piaP_1), (pijabP_0, pijabP_1)) = if (observedNP == scala.Double.PositiveInfinity ) { 
                                 ( (fiaP, fiaP), (fijabP, fijabP) )          // means fiaP > 0 and fijabP > 0 
                              } else if ( pseudoNP <= 0.0 ) {
-                                val piaP   = fiaP.map ( fi  => fi.map ( a  => if (a  <= 0.0 ) 1.0 else a  ) )
-                                val pijabP = fijabP.map( fij => fij.map( ab => if (ab <= 0.0 ) 1.0 else ab ) )
+                                val piaP   = if( fiaPWith0ReplacedBy1.size > 0) {
+                                     fiaPWith0ReplacedBy1
+                                  } else {
+                                     fiaP.map ( fi  => fi.map ( a  => if (a  <= 0.0 ) 1.0 else a  ) )
+                                  }
+                                val pijabP   = if( fijabPWith0ReplacedBy1.size > 0) {
+                                     fijabPWith0ReplacedBy1
+                                  } else {
+                                     fijabP.map( fij => fij.map( ab => if (ab <= 0.0 ) 1.0 else ab ) )
+                                  }
                                 ( (fiaP, piaP), (fijabP, pijabP) ) 
                              } else {
                                 val (piaP, pijabP) =
@@ -4855,10 +5179,8 @@ package org.sanzo.potts {
         val ((piaQ_0, piaQ_1), (pijabQ_0, pijabQ_1)) =  if (observedNQ == scala.Double.PositiveInfinity ) {
                                 ( (fiaQ, fiaQ), (fijabQ, fijabQ) )          // means fiaQ > 0 and fijabQ > 0
                              } else if ( pseudoNQ <= 0.0 ) {
-                                val piaQArray   = piaP_0.zip  (fiaQ).map   ( pi =>  pi._1.toArray.zip(pi._2.toArray).map   ( a  => if (a._1 <= 0.0 && a._2 <= 0.0)   1.0 else a._2  ) )
-                                val pijabQArray = pijabP_0.zip(fijabQ).map ( pij => pij._1.toArray.zip(pij._2.toArray).map ( ab => if (ab._1 <= 0.0 && ab._2 <= 0.0) 1.0 else ab._2 ) )
-                                val piaQ = ArraySeq(piaQArray*).map( pi => DenseVector(pi) )
-                                val pijabQ = ArraySeq(pijabQArray*).map( pij => DenseMatrix(pij*) )
+                                val piaQ   = fiaQ.zipWithIndex.map   {(fi, i)    => fi.pairs.map { (a, f)  => if (piaP_0(i)(a) <= 0.0 && f <= 0.0) 1.0 else f } } 
+                                val pijabQ = fijabQ.zipWithIndex.map { (fij, ij) => fij.pairs.map{ (ab, f) => if (pijabP_0(ij)(ab) <= 0.0 && f <= 0.0) 1.0 else f } }  
                                 ( (fiaQ, piaQ), (fijabQ, pijabQ) ) 
                              } else {
                                 val (piaQ, pijabQ) =
@@ -4866,8 +5188,8 @@ package org.sanzo.potts {
                                 ( (piaQ, piaQ), (pijabQ, pijabQ) )
                              }
 
-        val KL1 = piaP_0.zip  (piaP_1.zip(piaQ_1)).map    (pi  => breeze.linalg.sum(pi._1 *:* breeze.numerics.log  (pi._2._1  /:/ pi._2._2) ) ).sum
-        val KL2 = pijabP_0.zip(pijabP_1.zip(pijabQ_1)).map(pij => breeze.linalg.sum(pij._1 *:* breeze.numerics.log(pij._2._1 /:/ pij._2._2) ) ).sum
+        val KL1 = piaP_0.zip  (piaP_1.zip(piaQ_1)).map     (pi  => breeze.linalg.sum(pi._1  *:* breeze.numerics.log(pi._2._1  /:/ pi._2._2) ) ).sum
+        val KL2 = pijabP_0.zip(pijabP_1.zip(pijabQ_1)).map (pij => breeze.linalg.sum(pij._1 *:* breeze.numerics.log(pij._2._1 /:/ pij._2._2) ) ).sum
         
         val nUnits = fiaP.size
         val nPairs = fijabP.size
@@ -4982,7 +5304,7 @@ package org.sanzo.potts {
         }
     }
 
-    def sliceMiniBatch[A](rangeExcl: Tuple2[Int, Int], array: ArraySeq[A]) (implicit classTagA: ClassTag[A]): ArraySeq[A] = {
+    def sliceMiniBatch[A](rangeExcl: Tuple2[Int, Int], array: ArraySeq[A]) (using classTagA: ClassTag[A]): ArraySeq[A] = {
 
         val (s, e) = rangeExcl    // e == 0 means e == array.size
         if ( e - s > 0 ) {
@@ -5002,7 +5324,7 @@ package org.sanzo.potts {
         }
     }
 
-    def sliceMiniBatch[A](rangeExcl: Tuple2[Int, Int], vector: Vector[A]) (implicit classTagA: ClassTag[A]): Vector[A] = {
+    def sliceMiniBatch[A](rangeExcl: Tuple2[Int, Int], vector: Vector[A]) (using classTagA: ClassTag[A]): Vector[A] = {
         val array = vector
         val (s, e) = rangeExcl    // e == 0 means e == array.size
         if ( e - s > 0 ) {
@@ -5022,7 +5344,7 @@ package org.sanzo.potts {
         }
     }
 
-    def sliceMiniBatch[A](rangeExcl: Tuple2[Int, Int], vector: ParVector[A]) (implicit classTagA: ClassTag[A]): ParVector[A] = {
+    def sliceMiniBatch[A](rangeExcl: Tuple2[Int, Int], vector: ParVector[A]) (using classTagA: ClassTag[A]): ParVector[A] = {
         val array = vector
         val (s, e) = rangeExcl    // e == 0 means e == array.size
         if ( e - s > 0 ) {
@@ -5042,7 +5364,7 @@ package org.sanzo.potts {
         }
     }
 
-    def sliceMiniBatch[A](range: Tuple2[Int, Int], array: ArraySeq[A], byIndex: IndexedSeq[Int]) (implicit classTagA: ClassTag[A]): ArraySeq[A] = {
+    def sliceMiniBatch[A](range: Tuple2[Int, Int], array: ArraySeq[A], byIndex: IndexedSeq[Int]) (using classTagA: ClassTag[A]): ArraySeq[A] = {
 
         assert( array.size == byIndex.size )
         val (s, e) = range    // e == 0 means e == array.size
@@ -5063,7 +5385,7 @@ package org.sanzo.potts {
         }
     }
 
-    def sliceMiniBatch[A](range: Tuple2[Int, Int], vector: Vector[A], byIndex: IndexedSeq[Int]) (implicit classTagA: ClassTag[A]): Vector[A] = {
+    def sliceMiniBatch[A](range: Tuple2[Int, Int], vector: Vector[A], byIndex: IndexedSeq[Int]) (using classTagA: ClassTag[A]): Vector[A] = {
 
         val array = vector
         assert( array.size == byIndex.size )
@@ -5085,7 +5407,7 @@ package org.sanzo.potts {
         }
     }
 
-    def sliceMiniBatch[A](range: Tuple2[Int, Int], vector: ParVector[A], byIndex: IndexedSeq[Int]) (implicit classTagA: ClassTag[A]): ParVector[A] = {
+    def sliceMiniBatch[A](range: Tuple2[Int, Int], vector: ParVector[A], byIndex: IndexedSeq[Int]) (using classTagA: ClassTag[A]): ParVector[A] = {
 
         sliceMiniBatch(range, vector.toVector, byIndex).par
       /*
@@ -5110,7 +5432,7 @@ package org.sanzo.potts {
       */
     }
 
-  //def copyToSlice[A](rangeExcl: Tuple2[Int, Int], to_vector: Vector[A], vector: Vector[A]) (implicit classTagA: ClassTag[A]): Vector[A] = {
+  //def copyToSlice[A](rangeExcl: Tuple2[Int, Int], to_vector: Vector[A], vector: Vector[A]) (using classTagA: ClassTag[A]): Vector[A] = {
     def copyToSlice[A](rangeExcl: Tuple2[Int, Int], to_vector: Vector[A], vector: Vector[A]) : Vector[A] = {
         // 0 <= endPos <= to_vector.size 
 
@@ -5155,7 +5477,7 @@ package org.sanzo.potts {
           }
     }
 
-  //def copyToSlice[A](rangeExcl: Tuple2[Int, Int], to_vector: Vector[A], vector: Vector[A]) (implicit classTagA: ClassTag[A]): Vector[A] = {
+  //def copyToSlice[A](rangeExcl: Tuple2[Int, Int], to_vector: Vector[A], vector: Vector[A]) (using classTagA: ClassTag[A]): Vector[A] = {
     def copyToSlice[A](rangeExcl: Tuple2[Int, Int], to_vector: ParVector[A], vector: ParVector[A]) : ParVector[A] = {
         // 0 <= endPos <= to_vector.size 
 
@@ -5200,7 +5522,7 @@ package org.sanzo.potts {
           }
     }
 
-    def copyToSlice[A](rangeExcl: Tuple2[Int, Int], to_array: ArraySeq[A], array: ArraySeq[A]) (implicit classTagA: ClassTag[A]): ArraySeq[A] = {
+    def copyToSlice[A](rangeExcl: Tuple2[Int, Int], to_array: ArraySeq[A], array: ArraySeq[A]) (using classTagA: ClassTag[A]): ArraySeq[A] = {
         // 0 <= endPos <= toArraySeq.size 
 
           val toArraySeq = to_array
@@ -5254,7 +5576,7 @@ package org.sanzo.potts {
   //def randomizeConfigurations[C <: immutable.IndexedSeq[MCMC.Configuration]](
   //    configurations: C & scala.collection.SeqOps[MCMC.Configuration, scala.collection.Seq, C]): C = {
   //def randomizeConfigurations[C <: immutable.IndexedSeq[MCMC.Configuration]](
-  //    configurations: C )(implicit classTagC: ClassTag[C]): C = {
+  //    configurations: C )(using classTagC: ClassTag[C]): C = {
     def randomizeConfigurations( configurations: Vector[MCMC.Configuration] ): Vector[MCMC.Configuration] = {
           configurations.map{ s =>
             //val randomOrder = Random.shuffle( IArray.range(0, s.size) )
@@ -5264,11 +5586,14 @@ package org.sanzo.potts {
     }
 
     def randomizeConfigurations( configurations: ParVector[MCMC.Configuration] ): ParVector[MCMC.Configuration] = {
-          configurations.map( s => 
+          // To reproduce the same result
+          val seeds = Vector.range(0, configurations.size).map{ _ => Random.nextInt() }
+          configurations.zip(seeds).map( (s, r) => 
             {
-            //val randomOrder = Random.shuffle( IArray.range(0, s.size) )
+              val random = new Random( r )
+            //val randomOrder = random.shuffle( IArray.range(0, s.size) )
             //IArray(randomOrder.map( i => s(i) )*) 
-              IArray( Random.shuffle( s )* )
+              IArray( random.shuffle( s )* )
             } )
     }
 
@@ -5379,7 +5704,8 @@ package org.sanzo.potts {
     }
 
     def printLog( bmStep: Int ,
-                  logFiles: Option[Tuple2[java.io.File, java.io.File]], stateOrderString: String,
+                  logFiles: Option[Tuple2[Option[java.io.File], Option[java.io.File]]],
+                  stateOrderString: String,
                   interactions: MCMC.Interactions, miniBacthesForEnsembleAve: Vector[BMState],
                   lastAndCurrentFullBatch: Vector[BMState], outTE: PrintStream, fa: DenseVector[Double],
                   startPos: Int, miniBatchSize: Int, nMiniBatchesForEnsembleAve: Int, printRawInteractions: Boolean = true ) = {
@@ -5408,13 +5734,13 @@ package org.sanzo.potts {
 
       if (logFiles != None) {
 
-        //val logFileInteractions = new File(ioFiles("outputDir"), logFiles._1)
-        //val logFileIndpendentMCsamplings = new File(ioFiles("outputDir"), logFiles._2)
-          val logFileInteractions = logFiles.get._1
-          val logFileIndpendentMCsamplings = logFiles.get._2
+      //val logFileInteractions = new File(ioFiles("outputDir"), logFiles._1)
+      //val logFileIndpendentMCsamplings = new File(ioFiles("outputDir"), logFiles._2)
+        val logFileInteractions = logFiles.get._1
+        val logFileIndpendentMCsamplings = logFiles.get._2
 
-          val outhJ = new PrintStream(new GZIPOutputStream( new FileOutputStream( logFileInteractions) ) )
-          val outSamples = new PrintStream(new GZIPOutputStream( new FileOutputStream( logFileIndpendentMCsamplings) ) )
+        if( logFileInteractions != None ) {
+          val outhJ = new PrintStream( gzipOutputStream( logFileInteractions.get ) )
 
           outhJ.println("# Step: " + bmStep.toString )
 
@@ -5422,6 +5748,12 @@ package org.sanzo.potts {
               MCMC.printInteractions(outhJ, stateOrderString, interactions )
           else
               MCMC.printInteractions(outhJ, stateOrderString, interactions_Ising )
+
+          outhJ.close()
+        }
+
+        if( logFileIndpendentMCsamplings != None ) {
+          val outSamples = new PrintStream( gzipOutputStream( logFileIndpendentMCsamplings.get ) )
 
         //if ( ( (bmStep + 1) % nMBsInFullB == 0 || bmStep == 0 )  ) {
           if ( ( (bmStep + 1) % nMBsInFullB == 0 || bmStep == 0 ) && miniBacthesForEnsembleAve.size < lastAndCurrentFullBatch.size ) {
@@ -5468,8 +5800,8 @@ package org.sanzo.potts {
               MCMC.printIndependentMCsamplings(outSamples, stateOrderString, vectIndependentSamplings_Ising(m) )
           }
 
-          outhJ.close()
           outSamples.close()
+        }
       }
 
         /**************************************/
@@ -5489,7 +5821,7 @@ package org.sanzo.potts {
     //def TE_of_sampleConfigurations( interactions: MCMC.Interactions, 
     //    configurations: ArraySeq[IArray[Byte]] ): Tuple2[ArraySeq[Double], ArraySeq[Double]]  = {
       def TE_of_sampleConfigurations[C <: immutable.Seq[IArray[Byte]]]( interactions: MCMC.Interactions,
-        configurations: C )(implicit classTagA: ClassTag[C]): Tuple2[ArraySeq[Double], ArraySeq[Double]]  = {
+        configurations: C )(using classTagA: ClassTag[C]): Tuple2[ArraySeq[Double], ArraySeq[Double]]  = {
 
           val confs = ArraySeq(configurations* )
 
@@ -5658,13 +5990,14 @@ package org.sanzo.potts {
       }
     }
 
-  }
+  } // End of object BM
 
 
   class BM ( 
     val ioFiles: HashMap[String, File],
     val stateOrderString: String,
-    val effectiveNConfigs: Double, val fia: ArraySeq[DenseVector[Double]], val fijab: ArraySeq[DenseMatrix[Double]], 
+    val effectiveNConfigs: Double,
+    val fia: ArraySeq[DenseVector[Double]], val fijab: ArraySeq[DenseMatrix[Double]], 
     val regTerm: String,
     val propL1h: Double, val propL1J: Double
   //val lambdaPhi: Double, val lambdaPhij: Double,
@@ -5679,8 +6012,8 @@ package org.sanzo.potts {
     import miyazawa.potts.BM.*
 
     if ( regTerm == "L1L2" || regTerm == "GL1L2" ) {
-                assert( propL1h >= 0.0 && propL1h <= 1.0)
-                assert( propL1J >= 0.0 && propL1J <= 1.0)
+                assert( propL1h >= 0.0 && propL1h <= 1.0)       // propL1h means the proportion of L1 even for GL1L2.
+                assert( propL1J >= 0.0 && propL1J <= 1.0)       // propL1J means the proportion of L1 for L1L2 and that of GL1 for GL1L2.
     } else if ( regTerm == "L2" ) {
        assert( propL1h == 0.0 && propL1J == 0.0 )
     } else {
@@ -5755,7 +6088,7 @@ package org.sanzo.potts {
 
                 // nSamples or initialNSamples and maxNSamples must be provided.
                 // nSamples != 0 means initialNSamples=maxNSamples=nSamples.
-                nSamples: Int = 0,                      // This should be non zero; 1 is appropriate.
+                nSamples: Int = 1,                      // This should be non zero; 1 is appropriate.
                 initialNSamples: Int = 0,               // obsolete
                 incrementSamples: Double = 0.0,         // obsolete
                 maxNSamples: Int = 0,                   // obsolete
@@ -5788,8 +6121,11 @@ package org.sanzo.potts {
               //rateDecrease: Double = 0.5,
               //rateIncrease: Double = 1.2,
 
-                pseudoNCounts: Double = 10.0,
-        
+                pseudoNCountsForBM: Double = 0.0,        // If the regularization is not used, this may be used to avoid 0 counts in this.fia and this.fijab
+                pseudoNCountsForhia: Double = 10.0,      // used to generate hia from this.fia
+                pseudoNCountsForProposedPia: Double = 10.0,    // used to generate proposedPia from this.fia 
+                pseudoNCountsForKL: Double = 1.0,        // used to calculate KL valunes from ensemble averages of Pij(a,b)
+
                 nBestKLs: Int = 1,
                 minLearningStepsForBestKL: Int = 1710,
                 minLearningSteps: Int = 1800,
@@ -5802,7 +6138,14 @@ package org.sanzo.potts {
                 logLevel: String = "default"     // Detail or Default
                 ) = {
 
-        require(minLearningStepsForBestKL <= minLearningSteps )
+        require( pseudoNCountsForhia > 0.0 && pseudoNCountsForProposedPia > 0.0 )
+        require( pseudoNCountsForBM >= 0.0 && pseudoNCountsForKL > 0.0 )
+
+        require( pseudoNCountsForBM == 0.0, "*** Strongly recommended: pseudoNCountsForBM = 0.0, if regularization is employed.")
+        require( betaLAPForKL == 0.0, "*** Strongly recommended: betaLAPForKL = 0")
+        require( betaLAP == 0.0, "*** Strongly recommended: betaLAP = 0")
+
+      //require(minLearningStepsForBestKL <= minLearningSteps )  // Now minLearningStepsForBestKL <= or >= minLearningSteps 
 
         require( mcmcKernel == "MH" || 
                         mcmcKernel == "GibbsWithMHStep" || mcmcKernel == "MultiBlockMH" || 
@@ -5827,13 +6170,13 @@ package org.sanzo.potts {
             else if ( gradientDescentMethod == "ModRAdamMax" )
                 gradientDescentMethod
             else if ( gradientDescentMethod == "ModRAdam" )
-                "ModRAdamMax"
+                gradientDescentMethod   // "ModRAdamMax"
             else if ( gradientDescentMethod == "ModAdamMax" )
                 gradientDescentMethod
             else if ( gradientDescentMethod == "ModAdamSum" )
                 gradientDescentMethod
             else if ( gradientDescentMethod == "ModAdam" )
-                "ModAdamMax"
+                gradientDescentMethod   // "ModAdamMax"
             else if ( gradientDescentMethod == "Adam" )
                 gradientDescentMethod
             else if ( gradientDescentMethod == "RAdam" )
@@ -5855,6 +6198,7 @@ package org.sanzo.potts {
           require( nSamples >= 1 )
           require( sampleConfigurations.size == 0 || sampleConfigurations.size == initialConfigurations.size )
         } else {
+          require( nSamples >= 0 )
           require( initialConfigurations.size > 0 ) 
         }
 
@@ -5867,10 +6211,22 @@ package org.sanzo.potts {
 
         val stepsPerEpoch = nMiniBatchesInFullBatch(miniBSize, fullBatchSize).toDouble
 
+        val logInterval_rev = if (stepsPerEpoch <= 1.0) {
+                                 if ( logInterval > 0 ) logInterval else 1
+                              } else if ( stepsPerEpoch <= logInterval ) { 
+                                 (stepsPerEpoch * (logInterval / stepsPerEpoch).floor ).toInt
+                              } else {
+                                 stepsPerEpoch.toInt
+                              }
+
+        val minLearningSteps_rev = (minLearningSteps.toDouble / logInterval_rev).ceil.toInt * logInterval_rev
+        val minLearningStepsForBestKL_rev =  minLearningSteps_rev + (minLearningStepsForBestKL - minLearningSteps)
+        val learningRate_rev = learningRate.newLearningRate( maxLREpochs = minLearningSteps_rev - learningRate.warmupEpochs )
+
         def printParameters(out: PrintStream): Unit = {
             out.print("# %s  propL1h= %g propL1J= %g  lambdaPhi= %g  lambdaPhij= %g  %s  %s  learningRate= %g  betaV= %g  betaM= %g  eps= %g  batchSize=%d  miniBatchSize= %d  stepsPerEpoch= %g".format(
                 this.regTerm, this.propL1h, this.propL1J, lambdaPhi, lambdaPhij, gauge, optMethod, 
-                learningRate.maxLR, betaV, betaM, eps,
+                learningRate_rev.maxLR, betaV, betaM, eps,
                 initialConfigurations.size, miniBatchSize, stepsPerEpoch) )
             if ( betaLAP != 0.0 )
               out.print("  betaLAP= %g\n".format(betaLAP) )
@@ -5879,40 +6235,45 @@ package org.sanzo.potts {
             if ( optMethod == "RPROP-LR" ) {
                 learningRateForRPROPLR.printParameters(out)
             } else { 
-                learningRate.printParameters(out)
+                learningRate_rev.printParameters(out)
             }
 
-            out.print("# initial_h: to reproduce observed amino acid frequencies at each site.\n")
-            out.print(s"# sigma_initial_J for Gaussian: ${sigma_initial_J}\n")
-            out.print(s"# MCMC Kernel: ${mcmcKernel}\n")
+            if (optionInitialInteractions == null || optionInitialInteractions == None ) {
+              out.print(s"# initial_h: to reproduce observed amino acid frequencies at each site; pseudoNCountsForhia= ${pseudoNCountsForhia}\n")
+              out.print(s"# sigma_initial_J for Gaussian: ${sigma_initial_J}\n")
+            } else {
+              out.print(s"# hJ initialized: by optionInitialInteractions.get")
+            }
+            out.print(s"# MCMC Kernel: ${mcmcKernel}  with pseudoNCountsForProposedPia= ${pseudoNCountsForProposedPia}\n")
             if ( miniBatchSize > 0 ) {
-                out.print("# nIndependentMC = %d".format(nIndependentMC))
-                out.print("  miniBatchSize = %d  for MCMC \n".format(miniBatchSize))
+                out.print("# nIndependentMC= %d".format(nIndependentMC))
+                out.print("  miniBatchSize= %d  for MCMC \n".format(miniBatchSize))
                 out.print("# initial configuration: observed sequence data\n")
             } else {
-                out.print("# nIndependentMC = %d\n".format(nIndependentMC))
+                out.print("# nIndependentMC= %d\n".format(nIndependentMC))
               //if ( initialConfigurations(0) == null || initialConfigurations(0).size == 0 ) {
                 if ( initialConfigurations(0).size == 0 ) {
                     out.print("# initial configurations: random sequences generated with initial h\n")
                 }
             }
             if ( nSamples != 0 )
-                out.print("# nSamples for each MC run = %d\n".format(nSamples))
+                out.print("# nSamples for each MC run: %d\n".format(nSamples))
             else
                 out.print("# initialNSamples = %d  incrementSamples = %g  maxNSamples = %d  for each MC run\n".format(
                                         initialNSamples, incrementSamples, maxNSamples))
-            out.print(s"# nUnits=${this.fia.size}  nInitialIterationsPerUnit=${nInitialIterationsPerUnit}  everyNIterationsPerUnit=${everyNIterationsPerUnit}\n")
-            out.print("# initialT = %g  finalT = %g  annealingRate = %g; annealingRate may be adjusted.\n".format(initialT, finalT, annealingRate))
-            out.print("# maxExtendedIterations = %d\n".format(maxExtendedIterations))
-            out.print("# minLearningStepsForBestKL = %d  minLearningSteps = %d  maxNoLearnings = %d\n".format(minLearningStepsForBestKL, minLearningSteps, maxNoLearnings) )
+            out.print(s"# nUnits= ${this.fia.size}  nInitialIterationsPerUnit= ${nInitialIterationsPerUnit}  everyNIterationsPerUnit= ${everyNIterationsPerUnit}\n")
+            out.print("# initialT= %g  finalT= %g  annealingRate= %g ; annealingRate may be adjusted.\n".format(initialT, finalT, annealingRate))
+            out.print("# maxExtendedIterations= %d\n".format(maxExtendedIterations))
+            out.print("# minLearningStepsForBestKL= %d  minLearningSteps= %d  maxNoLearnings= %d\n".format(minLearningStepsForBestKL_rev, minLearningSteps_rev, maxNoLearnings) )
             out.print("#\n")
-            out.print(s"# Frequencies, fia and fijab, are calculated from the effective number of sequences, effectiveNConfigs= ${this.effectiveNConfigs} .\n")
+            out.print(s"# Frequencies, fia and fijab, are calculated from the effective number of sequences, effectiveNConfigs= ${this.effectiveNConfigs} ,\n")
+            out.print(s"# with the corrections, pseudoNCountsForBM= ${pseudoNCountsForBM} , to avoid 0-counts.\n" )
             out.print("#\n")
         }
 
         val fileTE = new File(ioFiles("outputDir"), 
                 //(s"Energy_distribution_${this.regTerm}_${this.propL1h}_${this.propL1J}_%.1e_%.1e_${gauge}_${optMethod}_${learningRate}_${betaV}_${betaM}.txt").format(lambdaPhi, lambdaPhij))
-                (f"Energy_distribution_${this.regTerm}_${this.propL1h}_${this.propL1J}_${lambdaPhi}%.1e_${lambdaPhij}%.1e_${gauge}_${optMethod}_${learningRate.maxLR}_${betaV}_${betaM}_${initialConfigurations.size}_${miniBatchSize}_${sigma_initial_J}.txt"))
+                (f"Energy_distribution_${this.regTerm}_${this.propL1h}_${this.propL1J}_${lambdaPhi}%.1e_${lambdaPhij}%.1e_${gauge}_${optMethod}_${learningRate_rev.maxLR}_${betaV}_${betaM}_${initialConfigurations.size}_${miniBatchSize}_${sigma_initial_J}.txt"))
         val outTE  = new PrintStream(fileTE)
 
         printParameters(outTE)
@@ -5946,7 +6307,7 @@ package org.sanzo.potts {
         outTE.print("#\n")
         
         val fileKL = new File(ioFiles("outputDir"), 
-                (f"KL_of_each_step_${this.regTerm}_${this.propL1h}_${this.propL1J}_${lambdaPhi}%.1e_${lambdaPhij}%.1e_${gauge}_${optMethod}_${learningRate.maxLR}_${betaV}_${betaM}_${initialConfigurations.size}_${miniBatchSize}_${sigma_initial_J}.txt"))
+                (f"KL_of_each_step_${this.regTerm}_${this.propL1h}_${this.propL1J}_${lambdaPhi}%.1e_${lambdaPhij}%.1e_${gauge}_${optMethod}_${learningRate_rev.maxLR}_${betaV}_${betaM}_${initialConfigurations.size}_${miniBatchSize}_${sigma_initial_J}.txt"))
         val outKL  = new PrintStream(fileKL)
 
         printParameters(outKL)
@@ -5966,21 +6327,6 @@ package org.sanzo.potts {
         val bestKLs = fillNone(nBestKLs, Queue[Option[Tuple5[Double, Double, Int, Option[File], Option[File] ] ] ]() )
         val bestKL = fillNone(1, Queue[Option[Tuple5[Double, Double, Int, Option[File], Option[File] ] ] ]() )
 
-        val initialInteractions = { 
-                val hJ =
-                  if (optionInitialInteractions == null || optionInitialInteractions == None ) {
-                        initializehJ (this.fia, this.effectiveNConfigs, pseudoNCounts, sigma_J = sigma_initial_J)
-                  } else {
-                        val interactions = optionInitialInteractions.get
-                        assert(interactions.hia.size == this.fia.size && interactions.hia(0).size == this.fia(0).size )
-                        assert(interactions.jijab.size == this.fijab.size && interactions.jijab(0).size == this.fijab(0).size )
-                        ( interactions.hia, interactions.jijab )
-                  }
-                val phiPhij = hJToPhi (hJ._1,  hJ._2, this.fia)
-                val bmInteractions = BMInteractions(phiPhij._1, phiPhij._2)
-                val (newInteractions, newBMInteractions) = newPhiThroughhJ(bmInteractions, this.fia, gauge)
-                newInteractions
-        }
 
         def preFirstBatch(miniBatchSize: Int,
                                   initialConfigurationIndex: ArraySeq[Int],
@@ -6210,8 +6556,50 @@ package org.sanzo.potts {
           (nextLastAndCurrentFullBatch, nextPrevMiniBatches, revisedLastAndCurrentFullBatch, nextStartPos, revisedNextBMState)
         }
 
+      /*
+        require( pseudoNCountsForhia > 0 && pseudoNCountsForProposedPia > 0 )
+        require( pseudoNCountsForBM >= 0 && pseudoNCountsForKL > 0 )
 
-        val (fiaWithPseudo, fijabWithPseudo) = bayesianCorrection(this.fia, this.fijab, this.effectiveNConfigs, pseudoNCounts)
+        val (fiaForBM, fijabForBM, faForBM ) = 
+            if ( pseudoNCountsForBM > 0.0 ) {
+              val (fiaForBM, fijabForBM) = bayesianCorrection(this.fia, this.fijab, this.effectiveNConfigs, pseudoNCountsForBM)
+              val faForBM = bayesianCorrection( this.fa, this.effectiveNConfigs * this.fia.size, pseudoNCountsForBM) 
+              (fiaForBM, fijabForBM, faForBM )
+            } else {
+              (this.fia, this.fijab, this.fa )
+            }
+
+        val (fiaForKL, fijabForKL, fiaForKLWith0ReplacedBy1, fijabForKLWith0ReplacedBy1) = {
+            if ( pseudoNCountsForBM > 0.0 ) {
+              (fiaForBM, fijabForBM, ArraySeq[DenseVector[Double]](), ArraySeq[DenseMatrix[Double]]() )
+            } else {
+            // Be carefull
+            /*
+              if ( pseudoNCountsForKL > 0.0 ) {
+                val (fiaForKL, fijabForKL) = bayesianCorrection(this.fia, this.fijab, this.effectiveNConfigs, pseudoNCountsForKL)
+                (fiaForKL, fijabForKL, ArraySeq[DenseVector[Double]](), ArraySeq[DenseMatrix[Double]]() )
+              } else
+            */
+              {
+                val (fiaWith0ReplacedBy1, fijabWith0ReplacedBy1) = replace0By1ForKL(this.fia, this.fijab)
+                (this.fia, this.fijab, fiaWith0ReplacedBy1, fijabWith0ReplacedBy1 )
+              }
+            }
+        }
+      */
+
+        val (fiaForBM, fijabForBM, faForBM,  fiaForKL, fijabForKL, fiaForKLWith0ReplacedBy1, fijabForKLWith0ReplacedBy1) =
+            freqsForBMandKL( this.fia, this.fijab, this.fa,
+                this.effectiveNConfigs,
+                pseudoNCountsForBM,        // If the regularization is not used, this may be used to avoid 0 counts in this.fia and this.fijab
+                pseudoNCountsForKL         // used to calculate KL valunes from ensemble averages of Pij(a,b)
+            )
+
+        val calcKL = BM.calcKL(fiaForKL, fijabForKL, observedNP = this.effectiveNConfigs, pseudoNP = 0.0, 
+                               _: ArraySeq[DenseVector[Double]], _: ArraySeq[DenseMatrix[Double]], _: Double, _: Double,
+                               fiaForKLWith0ReplacedBy1, fijabForKLWith0ReplacedBy1 )
+
+        val proposedPia = bayesianCorrection( this.fia, this.effectiveNConfigs, pseudoNCountsForProposedPia ) 
 
         val runBM1Step = BM.runBM1Step(
                 this.ioFiles,
@@ -6227,9 +6615,15 @@ package org.sanzo.potts {
                 annealingRate,
                 maxExtendedIterations,
                 mcmcKernel,
-                fiaWithPseudo,       // as proposedPia
+                proposedPia,
 
-                this.fia, this.fijab,
+              // Please specify ...
+              //_: ArraySeq[DenseVector[Double]],
+              //_: ArraySeq[DenseMatrix[Double]],
+
+              //this.fia, this.fijab, // replaced by fiaForBM, fijabForBM
+                fiaForBM, fijabForBM, // In the case of no regularization fiaForBM and fijabForBM can be employed to avoid the zero value in fia and fijab.
+
                 this.regTerm,
                 this.propL1h, this.propL1J,
                 _: Double, _: Double, //this.lambdaPhi, this.lambdaPhij,
@@ -6244,6 +6638,12 @@ package org.sanzo.potts {
                 runBM1Step: (MCMC.Interactions, Int, Double, Double, BMState, String ) =>
                             (MCMC, Int, Int, BMState, BMState) ,
                 interactions: MCMC.Interactions, 
+
+              //fia, fijab, fa,                               // replaced by f.*withPseudo to avoid too-large interactions.
+                fiaForBM: ArraySeq[DenseVector[Double]],
+                fijabForBM: ArraySeq[DenseMatrix[Double]],
+                faForBM: DenseVector[Double],
+
                 miniBatchSize: Int,
               //initialConfigurations: ArraySeq[IArray[Byte]],   // for minibatch
               //initialMCStates: ArraySeq[MCMC.State],             // for minibatch
@@ -6322,11 +6722,13 @@ package org.sanzo.potts {
 
           val totalNSamples = (independentSamplings.size * independentSamplings(0).size).toDouble 
       
-        //val ensembleKL = calcKL(this.fia, this.fijab, observedNP = this.effectiveNConfigs, pseudoNP = pseudoNCounts, 
-          val ensembleKL = calcKL(fiaWithPseudo, fijabWithPseudo, observedNP = Double.PositiveInfinity, pseudoNP = 0.0, 
-                                  ensembleAverages.pia, ensembleAverages.pijab, observedNQ = totalNSamples, pseudoNQ = pseudoNCounts)
+        //val ensembleKL = BM.calcKL(this.fia, this.fijab, observedNP = this.effectiveNConfigs, pseudoNP = pseudoNCounts, 
+        //                        ensembleAverages.pia, ensembleAverages.pijab, observedNQ = totalNSamples, pseudoNQ = pseudoNCounts)
+        //val ensembleKL = BM.calcKL(fiaForBM, fijabForBM, observedNP = Double.PositiveInfinity, pseudoNP = 0.0, 
+        //                        ensembleAverages.pia, ensembleAverages.pijab, observedNQ = totalNSamples, pseudoNQ = pseudoNCountsForKL)
+          val ensembleKL = calcKL( ensembleAverages.pia, ensembleAverages.pijab, totalNSamples, pseudoNCountsForKL )
           if(bmStateWithMCSamples.step == 0) {
-                val pia = fiaWithPseudo    // mcmc.proposedDistributions.proposedDistributionsAtAllUnits
+                val pia = fiaForBM    // mcmc.proposedDistributions.proposedDistributionsAtAllUnits
                 val nUnits = pia.size
                 val pijab = ArraySeq.range(0, (nUnits * (nUnits - 1)) / 2).map { ij =>
                         val (i, j) = inversePairIndex(ij)
@@ -6340,15 +6742,20 @@ package org.sanzo.potts {
                                 pia(j) * pia(i).t
                         }
                 }
-              //val aveKL = calcKL(this.fia, this.fijab, observedNP = this.effectiveNConfigs, pseudoNP = pseudoNCounts, 
-                val aveKL = calcKL(fiaWithPseudo, fijabWithPseudo, observedNP = Double.PositiveInfinity, pseudoNP = 0.0, 
-                                   pia, pijab, observedNQ = Double.PositiveInfinity, pseudoNQ = 0.0)
+              //val aveKL = BM.calcKL(this.fia, this.fijab, observedNP = this.effectiveNConfigs, pseudoNP = pseudoNCounts, 
+              //val aveKL = BM.calcKL(fiaForBM, fijabForBM, observedNP = Double.PositiveInfinity, pseudoNP = 0.0, 
+              //                   pia, pijab, observedNQ = Double.PositiveInfinity, pseudoNQ = 0.0)
+                val aveKL = calcKL( pia, pijab, this.effectiveNConfigs, 0.0 )
+
                 val aveKL2 = if(bmStateWithMCSamples.betaLAPForKL == 0.0 ) { 
                                  (0.0, 0.0)
                              } else {
-                                 calcKL(fiaWithPseudo, fijabWithPseudo, observedNP = Double.PositiveInfinity, pseudoNP = 0.0, 
-                                   bmStateWithMCSamples.leakyAvePForKL.pia, bmStateWithMCSamples.leakyAvePForKL.pijab,
-                                   observedNQ = totalNSamples, pseudoNQ = pseudoNCounts)
+                               //BM.calcKL(fiaForBM, fijabForBM, observedNP = Double.PositiveInfinity, pseudoNP = 0.0, 
+                               //BM.calcKL(fiaForBM, fijabForBM, observedNP = this.effectiveNConfigs, pseudoNP = 0.0, 
+                               //  bmStateWithMCSamples.leakyAvePForKL.pia, bmStateWithMCSamples.leakyAvePForKL.pijab,
+                               //  observedNQ = totalNSamples, pseudoNQ = pseudoNCountsForKL )
+                                 calcKL( bmStateWithMCSamples.leakyAvePForKL.pia, bmStateWithMCSamples.leakyAvePForKL.pijab,
+                                         totalNSamples, pseudoNCountsForKL )
                              }
 
                 outKL.print("#")
@@ -6365,9 +6772,12 @@ package org.sanzo.potts {
                 if(bmStateWithMCSamples.betaLAPForKL == 0.0 ) {
                     (0.0, 0.0)
                 } else {
-                    calcKL(fiaWithPseudo, fijabWithPseudo, observedNP = Double.PositiveInfinity, pseudoNP = 0.0,
-                       bmStateWithMCSamples.leakyAvePForKL.pia, bmStateWithMCSamples.leakyAvePForKL.pijab,
-                       observedNQ = totalNSamples, pseudoNQ = pseudoNCounts)
+                  //BM.calcKL(fiaForBM, fijabForBM, observedNP = Double.PositiveInfinity, pseudoNP = 0.0,
+                  //BM.calcKL(fiaForBM, fijabForBM, observedNP = this.effectiveNConfigs, pseudoNP = 0.0,
+                  //   bmStateWithMCSamples.leakyAvePForKL.pia, bmStateWithMCSamples.leakyAvePForKL.pijab,
+                  //   observedNQ = totalNSamples, pseudoNQ = pseudoNCountsForKL )
+                    calcKL( bmStateWithMCSamples.leakyAvePForKL.pia, bmStateWithMCSamples.leakyAvePForKL.pijab,
+                            totalNSamples, pseudoNCountsForKL )
                 }
               )
 
@@ -6377,19 +6787,25 @@ package org.sanzo.potts {
               val independentS: ParVector[ArraySeq[MCMC.State]] =
                   miniBacthesForEnsembleAve.map{bms => bms.independentSamplings}.flatten.par
 
-              val nStatesOfUnit = this.fia(0).size
+            //val nStatesOfUnit = this.fia(0).size
+              val nStatesOfUnit = fiaForBM(0).size
               val pia = MCMC.frequenciesAtUnitInSamples( independentS, nStatesOfUnit )
               val pijab = MCMC.pairwiseFrequenciesInSamples( independentS, nStatesOfUnit )
             //calcKL(this.fia, this.fijab, effectiveNConfigs, pseudoNCounts, pia, pijab, independentS.size.toDouble, pseudoNCounts)
               (
-                calcKL(fiaWithPseudo, fijabWithPseudo, observedNP = Double.PositiveInfinity, pseudoNP = 0.0, 
-                           pia, pijab, observedNQ = (independentS.size * independentS(0).size).toDouble, pseudoNQ = pseudoNCounts) ,
+              //BM.calcKL(fiaForBM, fijabForBM, observedNP = Double.PositiveInfinity, pseudoNP = 0.0, 
+              //BM.calcKL(fiaForBM, fijabForBM, observedNP = this.effectiveNConfigs, pseudoNP = 0.0, 
+              //           pia, pijab, observedNQ = (independentS.size * independentS(0).size).toDouble, pseudoNQ = pseudoNCountsForKL) ,
+                calcKL( pia, pijab, (independentS.size * independentS(0).size).toDouble, pseudoNCountsForKL) ,
                 if(bmStateWithMCSamples.betaLAPForKL == 0.0 ) {
                     (0.0, 0.0)
                 } else {
-                    calcKL(fiaWithPseudo, fijabWithPseudo, observedNP = Double.PositiveInfinity, pseudoNP = 0.0, 
-                       bmStateWithMCSamples.leakyAvePForKL.pia, bmStateWithMCSamples.leakyAvePForKL.pijab,
-                       observedNQ = (independentS.size * independentS(0).size).toDouble, pseudoNQ = pseudoNCounts )
+                  //BM.calcKL(fiaForBM, fijabForBM, observedNP = Double.PositiveInfinity, pseudoNP = 0.0, 
+                  //BM.calcKL(fiaForBM, fijabForBM, observedNP = this.effectiveNConfigs, pseudoNP = 0.0, 
+                  //   bmStateWithMCSamples.leakyAvePForKL.pia, bmStateWithMCSamples.leakyAvePForKL.pijab,
+                  //   observedNQ = (independentS.size * independentS(0).size).toDouble, pseudoNQ = pseudoNCountsForKL )
+                    calcKL( bmStateWithMCSamples.leakyAvePForKL.pia, bmStateWithMCSamples.leakyAvePForKL.pijab,
+                            (independentS.size * independentS(0).size).toDouble, pseudoNCountsForKL )
                 }
               )
             }
@@ -6399,12 +6815,12 @@ package org.sanzo.potts {
           val bestKLsRevised =
             if ( (bmStateWithMCSamples.step + 1) % logInterval == 0 || ( (bmStateWithMCSamples.step + 1) % logInterval ) % stepsPerAveBlock == 0 || bmStateWithMCSamples.step == 0) {
 
-                val logFiles: Option[Tuple2[java.io.File, java.io.File]] =
+                val logFiles: Option[Tuple2[Option[java.io.File], Option[java.io.File]]] =
                   if ( (bmStateWithMCSamples.step + 1) % logInterval == 0 || bmStateWithMCSamples.step == 0 ) {
                     val logFileInteractions = new File(ioFiles("outputDir"), s"log_Interactions_hJ_${bmStateWithMCSamples.step}.txt.gz")
                     val logFileIndpendentMCsamplings = new File(ioFiles("outputDir"), s"log_MC_samples_${bmStateWithMCSamples.step}.fasta.gz")
                   //val logFileIndpendentEnergies = new File(ioFiles("outputDir"), s"log_Config_energy_distributions_${bmStateWithMCSamples.step}.txt")
-                    Option( (logFileInteractions, logFileIndpendentMCsamplings) )
+                    Option( (Option(logFileInteractions), Option(logFileIndpendentMCsamplings)) )
                   } else {
                     None
                   }
@@ -6412,9 +6828,9 @@ package org.sanzo.potts {
                 val (interactions_Ising, vecIndependentSamplings_Ising_ForEnsembleAve,
                      ensembleTE_MeanAndVariance, sampleTE_MeanAndVariance, allRandomizedSampleTE_MeanAndVariance,
                      allEnsembleTE_MeanAndVariance, allSampleTE_MeanAndVariance, randomSampleTE_MeanAndVariance) =
-                        BM.printLog( bmStateWithMCSamples.step, logFiles, this.stateOrderString,
+                          BM.printLog( bmStateWithMCSamples.step, logFiles, this.stateOrderString,
                           interactions, miniBacthesForEnsembleAve, revisedLastAndCurrentFullBatch,
-                          outTE, this.fa, startPos, miniBSize, nMiniBatchesForEnsembleAve = nMBsForEnsembleAve )
+                          outTE, faForBM, startPos, miniBSize, nMiniBatchesForEnsembleAve = nMBsForEnsembleAve )
 
               //val nMinusR_varOfTE = allSampleTE_MeanAndVariance.variance - randomSampleTE_MeanAndVariance._3
               //val sT = randomSampleTE_MeanAndVariance._3 / (randomSampleTE_MeanAndVariance._2 - allSampleTE_MeanAndVariance.mean)
@@ -6440,70 +6856,97 @@ package org.sanzo.potts {
                       }
               val (interactions_Ising, vectIndependentSamplings_Ising_ForEnsembleAve, ensembleTE_MeanAndVariance, sampleTE_MeanAndVariance,
                     allRandomizedSampleTE_MeanAndVariance, allEnsembleTE_MeanAndVariance, allSampleTE_MeanAndVariance, randomSampleTE_MeanAndVariance) =
-                        BM.printLog( bmStateWithMCSamples.step, Option( (fileInteractions, fileIndpendentMCsamplings) ),
+                          BM.printLog( bmStateWithMCSamples.step, Option( (Option(fileInteractions), Option(fileIndpendentMCsamplings)) ),
                           this.stateOrderString, interactions, miniBacthesForEnsembleAve, revisedLastAndCurrentFullBatch,
-                          out, this.fa, startPos, miniBSize, nMiniBatchesForEnsembleAve = nMBsForEnsembleAve)
+                          out, faForBM, startPos, miniBSize, nMiniBatchesForEnsembleAve = nMBsForEnsembleAve)
           }
 
-          val (newBestKL, oneOfBestKL) = if ( nSamples >= maxNSamples && bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset >= minLearningStepsForBestKL ) {
+ //Error: val (newBestKL, oneOfBestKL) = if ( nSamples >= maxNSamples && bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset >= minLearningStepsForBestKL ) {
+          val (newBestKL, oneOfBestKL) = if ( nSamples >= maxNSamples && bmStateWithMCSamples.step + 1 >= minLearningStepsForBestKL ) {
                                                 val none: Option[File] = None
                                                 keepBestKLs(bestKL, Tuple5(aveKL._1, aveKL._2, bmStateWithMCSamples.step, none, none)) 
                                          } else {
                                                 (bestKL, false)
                                          }
+          if ( oneOfBestKL ) {
+              outKL.print( s"# bestKL= ${newBestKL(0).get._1} ${newBestKL(0).get._2}  step= ${newBestKL(0).get._3}\n" )
+          }
 
-          val (minLearningSteps_rev, minLearningStepsForBestKL_rev, newOptimizer, param) = if(
+        //val (minLearningSteps_new, newOptimizer, param) = if(
+          val (newStepOffset, minLearningSteps_rev, minLearningStepsForBestKL_rev, newOptimizer, param ) = if( 
               //  (bmStateWithMCSamples.step + 1) % logInterval == 0 &&
-              //  bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset + 1 >= minLearningSteps ) {
-                  bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset + 1 == 
+         //Error: bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset + 1 >= minLearningSteps ) {
+         //Error: bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset + 1 == 
+                  bmStateWithMCSamples.step + 1 == 
                       ( (minLearningSteps.toDouble / logInterval).ceil.toInt * logInterval )  ) {
 
               if ( ioFiles.contains("jobControlParamFile") && ioFiles("jobControlParamFile").exists() ) {
                   val jobControlParamFile = ioFiles("jobControlParamFile")
                 
                   val param = MCMC.paramFileToHashMap(jobControlParamFile)
+
+                  val newOpt = if( param.contains("gradientDescentMethod") ) {     
+                                     param("gradientDescentMethod")
+                               } else {
+                                     optimizer
+                               }
+
                   val minSteps = if( param.contains("minLearningSteps") ) {
                                      val min_rev = param("minLearningSteps").toInt
-                                     require( min_rev > 0 )
-                                     min_rev
-                                   //math.max(minLearningSteps, min_rev)
+
+                                     val minLearning = (min_rev.toDouble / logInterval).ceil.toInt * logInterval
+                                     require( minLearning > 0 )
+                                     minLearning
                                  } else {
-                                     minLearningSteps
+                                     minLearningSteps - nextBMState.stepOffset
                                  }
-                  val minStepsForBestKL = (minSteps * (minLearningStepsForBestKL.toDouble / minLearningSteps)).floor.toInt
-                  if( param.contains("gradientDescentMethod") ) {     
-                      val newOpt = param("gradientDescentMethod")
-                    //if ( minSteps <= minLearningSteps && optimizer == "ModAdamMax" && newOpt == "Adam" ) {
-                    //  (minLearningSteps * 2, newOpt, param)
-                    //} else {
-                      (minSteps, minStepsForBestKL, newOpt, param)
-                    //}
+
+                  if ( newOpt != optimizer ) {
+                      val newOffset = nextBMState.step
+                    //val offset = nextBMState.stepOffset
+                    //val minStepsForBestKL = (minSteps * ( (minLearningStepsForBestKL - offset).toDouble / (minLearningSteps - offset) ) ).floor.toInt
+                    //assert( minStepsForBestKL <=  minSteps && minStepsForBestKL > 0 )
+                      val minStepsForBestKL = minSteps + (minLearningStepsForBestKL - minLearningSteps)  
+                      assert( minStepsForBestKL > 0 )
+
+                      (newOffset, newOffset + minSteps, newOffset + minStepsForBestKL, newOpt, param )
+                //} else if ( minSteps != minLearningSteps - nextBMState.stepOffset ) {
+                  } else if ( minSteps > minLearningSteps - nextBMState.stepOffset ) {
+                      val offset = nextBMState.stepOffset
+                    //val minStepsForBestKL = (minSteps * ( (minLearningStepsForBestKL - offset).toDouble / (minLearningSteps - offset) )  ).floor.toInt
+                    //assert( minStepsForBestKL <=  minSteps && minStepsForBestKL > 0 )
+                      val minStepsForBestKL = minSteps + (minLearningStepsForBestKL - minLearningSteps)  
+                      assert( minStepsForBestKL > 0 )
+
+                    //error: 250413 (nextBMState.stepOffset, minLearningSteps, offset + minStepsForBestKL, optimizer, param )
+                      (nextBMState.stepOffset, offset + minSteps, offset + minStepsForBestKL, optimizer, param )
                   } else {
-                    //if ( minSteps <= minLearningSteps && optimizer == "ModAdamMax" ) {
-                    //  (minLearningSteps * 2, "Adam", param) 
-                    //} else {
-                        (minSteps, minStepsForBestKL, optimizer, param)
-                    //}
+                      (nextBMState.stepOffset, minLearningSteps, minLearningStepsForBestKL, optimizer, param )
                   }
+
               } else {
+                /* 
                   if ( optimizer == "ModAdamMax" ) {
                   //(minLearningSteps * 2, "Adam", HashMap[String, String]()) 
-                    (minLearningSteps, minLearningStepsForBestKL, "Adam", HashMap[String, String]()) 
+                    (minLearningSteps, "Adam", HashMap[String, String]()) 
                   } else {
-                    (minLearningSteps, minLearningStepsForBestKL, optimizer, HashMap[String, String]())
+                    (minLearningSteps, optimizer, HashMap[String, String]())
                   }
+                */
+                (nextBMState.stepOffset, minLearningSteps, minLearningStepsForBestKL, optimizer, HashMap[String, String]())
               }
+
           } else {
-                (minLearningSteps, minLearningStepsForBestKL, optimizer, HashMap[String, String]())
+                (nextBMState.stepOffset, minLearningSteps, minLearningStepsForBestKL, optimizer, HashMap[String, String]())
           }
 
-             //bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset + 1 >= math.max(minLearningStepsForBestKL, minLearningSteps_rev) &&
           if( newOptimizer == optimizer &&
                (bmStateWithMCSamples.step + 1) % logInterval == 0 && 
-               bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset + 1 >= minLearningSteps_rev &&
+      //Error: bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset + 1 >= minLearningSteps_rev &&
+               bmStateWithMCSamples.step + 1 >= math.max( minLearningStepsForBestKL_rev, minLearningSteps_rev ) &&
                bmStateWithMCSamples.step - newBestKL(0).get._3 >= maxNoLearnings ) {
               
-                  ( BM.hJ_in_IsingGauge(interactions), revisedLastAndCurrentFullBatch)
+              ( BM.hJ_in_IsingGauge(interactions), revisedLastAndCurrentFullBatch)
 
           } else {
 
@@ -6515,12 +6958,15 @@ package org.sanzo.potts {
                                      nextBMState.betaLAP
                                }
 
+                /* this block was moved forward.
                   val newStepOffset = if ( newOptimizer != optimizer ) {
                      nextBMState.step
                   } else {
                      nextBMState.stepOffset
                   }
+                */
 
+                /* 241011 Error
                   val newMaxLREpochs = if( param.contains("maxLREpochs") ) {
                       param("maxLREpochs").toDouble
                 //} else if ( nextBMState.learningRate.maxLREpochs < minLearningSteps_rev - newStepOffset ) {
@@ -6528,6 +6974,10 @@ package org.sanzo.potts {
                   } else {
                      nextBMState.learningRate.maxLREpochs
                   }
+                */
+                //val newMaxLREpochs = minLearningSteps_rev - minLearningSteps - nextBMState.learningRate.warmupEpochs 
+                  val newMaxLREpochs = minLearningSteps_rev - newStepOffset - nextBMState.learningRate.warmupEpochs 
+                  assert( newMaxLREpochs > 0.0 )
 
                   val newMaxLR = if ( param.contains("maxLR") ) {
                      param("maxLR").toDouble
@@ -6578,12 +7028,12 @@ package org.sanzo.potts {
                                      initialState.betaM
                                  }
 
-                      outTE.print("# new optimizer: %s  betaV: %g  betaM: %g  maxLR: %g  maxLREpochs: %g  stepOffset: %d".format(newOptimizer, newBetaV, newBetaM, newMaxLR, newMaxLREpochs, newStepOffset ) )
+                      outTE.print("# New optimizer= %s  betaV= %g  betaM= %g  maxLR= %g  maxLREpochs= %g  stepOffset= %d  Total minLearningSteps= %d  minLearningStepsForBestKL= %d".format(newOptimizer, newBetaV, newBetaM, newMaxLR, newMaxLREpochs, newStepOffset, minLearningSteps_rev, minLearningStepsForBestKL_rev ) )
                       if ( newBetaLAP != nextBMState.betaLAP ) outTE.print("  betaLAP: %g".format(newBetaLAP) )
                       outTE.print(" ;  The step number for new gradientDescentMethod are virtually reset to 0.\n" )
 
 
-                      outKL.print("# new optimizer: %s  betaV: %g  betaM: %g  maxLR: %g  maxLREpochs: %g  stepOffset: %d".format(newOptimizer, newBetaV, newBetaM, newMaxLR, newMaxLREpochs, newStepOffset ) )
+                      outKL.print("# New optimizer= %s  betaV= %g  betaM= %g  maxLR= %g  maxLREpochs= %g  stepOffset= %d  Total minLearningSteps= %d  minLearningStepsForBestKL= %d".format(newOptimizer, newBetaV, newBetaM, newMaxLR, newMaxLREpochs, newStepOffset, minLearningSteps_rev, minLearningStepsForBestKL_rev ) )
                       if ( newBetaLAP != nextBMState.betaLAP ) outKL.print("  betaLAP: %g".format(newBetaLAP) )
                       outKL.print(" ;  The step number for new gradientDescentMethod are virtually reset to 0.\n" )
 
@@ -6591,17 +7041,22 @@ package org.sanzo.potts {
                                        grad = initialState.grad,
                                        v = initialState.v, m = initialState.m,  
                                        betaV = newBetaV, betaM = newBetaM,
-                                       learningRate = initialState.learningRate.newLearningRate( maxLR = newMaxLR, maxLREpochs = newMaxLREpochs ) ,	
+                                       learningRate = initialState.learningRate.newLearningRate( maxLR = newMaxLR, maxLREpochs = newMaxLREpochs ) ,     
                                        learningRateForRPROPLR = initialState.learningRateForRPROPLR,
                                        learningRates = initialState.learningRates,
                                      //if stepOffset = 0, learningRate = nextBMState.learningRate.newLearningRate( stepOffset = nextBMState.step.toDouble ),
                                        stepOffset = newStepOffset, betaLAP = newBetaLAP )
 
-                  } else if((bmStateWithMCSamples.step + 1) % logInterval == 0 && bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset + 1 >= minLearningSteps ) {
+         //Error: } else if((bmStateWithMCSamples.step + 1) % logInterval == 0 && bmStateWithMCSamples.step - bmStateWithMCSamples.stepOffset + 1 >= minLearningSteps ) {
+         //       } else if((bmStateWithMCSamples.step + 1) % logInterval == 0 && bmStateWithMCSamples.step + 1 >= minLearningSteps ) {
+         //       } else if((bmStateWithMCSamples.step + 1) % logInterval == 0 && bmStateWithMCSamples.step + 1 == minLearningSteps ) {
+                  } else if ( param.size > 0 ) {
 
-                    if ( newBetaLAP != nextBMState.betaLAP || newMaxLR != nextBMState.learningRate.maxLR || newMaxLREpochs != nextBMState.learningRate.maxLREpochs || newStepOffset != nextBMState.stepOffset ) {
-                        outTE.print("# new maxLR: %g  maxLREpochs: %g  stepOffset: %d".format(newMaxLR, newMaxLREpochs, newStepOffset) )
-                        outKL.print("# new maxLR: %g  maxLREpochs: %g  stepOffset: %d".format(newMaxLR, newMaxLREpochs, newStepOffset) )
+                    if ( minLearningSteps_rev != minLearningSteps || minLearningStepsForBestKL_rev != minLearningStepsForBestKL || newMaxLR != nextBMState.learningRate.maxLR || newMaxLREpochs != nextBMState.learningRate.maxLREpochs || newStepOffset != nextBMState.stepOffset || newBetaLAP != nextBMState.betaLAP ) {
+                        outTE.print("# New minLearningSteps= %d  minLearningStepsForBestKL= %d  maxLR= %g  maxLREpochs= %g  stepOffset= %d".format(
+                                     minLearningSteps_rev, minLearningStepsForBestKL_rev, newMaxLR, newMaxLREpochs, newStepOffset) )
+                        outKL.print("# New minLearningSteps= %d  minLearningStepsForBestKL= %d  maxLR= %g  maxLREpochs= %g  stepOffset= %d".format(
+                                     minLearningSteps_rev, minLearningStepsForBestKL_rev, newMaxLR, newMaxLREpochs, newStepOffset) )
                       
                         if ( newBetaLAP != nextBMState.betaLAP ) {
                           outTE.print("  betaLAP: %g\n".format(newBetaLAP) )
@@ -6622,11 +7077,15 @@ package org.sanzo.potts {
                   }
               }
 
-            //if(bmStateWithMCSamples.step >= math.max(minLearningStepsForBestKL, minLearningSteps_rev) && nSamples >= maxNSamples ) 
+            //if(bmStateWithMCSamples.step + 1 >= math.max(minLearningStepsForBestKL, minLearningSteps_rev) && nSamples >= maxNSamples ) 
               val (newInteractions, newBMState) = 
-                  BM.newPhiThroughhJ(nextBMState_rev, this.fia, gauge) 
+                  BM.newPhiThroughhJ(nextBMState_rev, fiaForBM, gauge) 
+                //BM.newPhiThroughhJ(nextBMState_rev, this.fia, gauge) 
           
-              iterateBMSteps(runBM1Step, newInteractions,
+              iterateBMSteps(runBM1Step,
+                newInteractions,
+                fiaForBM, fijabForBM, faForBM,
+
                 miniBSize,
 
                 nextLastAndCurrentFullBatch,
@@ -6646,8 +7105,9 @@ package org.sanzo.potts {
                 newOptimizer)
           }
 
-        }
+        } // End of iterateBMSteps
 
+      /* moved before printParameters:
         val logInterval_rev = if (stepsPerEpoch <= 1.0) {
                                  if ( logInterval > 0 ) logInterval else 1
                               } else if ( stepsPerEpoch <= logInterval ) { 
@@ -6655,22 +7115,52 @@ package org.sanzo.potts {
                               } else {
                                  stepsPerEpoch.toInt
                               }
+      */
+
+        val initialInteractions = { 
+                val hJ =
+                  if (optionInitialInteractions == null || optionInitialInteractions == None ) {
+                        initializehJ (this.fia, this.effectiveNConfigs, pseudoNCountsForhia, sigma_J = sigma_initial_J)
+                      //initializehJ (fiaForBM, this.effectiveNConfigs, 0.0, sigma_J = sigma_initial_J)
+                      //initializehJ (proposedPia, this.effectiveNConfigs, 0.0, sigma_J = sigma_initial_J)
+                  } else {
+                        val interactions = optionInitialInteractions.get
+                        assert(interactions.hia.size == this.fia.size && interactions.hia(0).size == this.fia(0).size )
+                        assert(interactions.jijab.size == this.fijab.size && interactions.jijab(0).size == this.fijab(0).size )
+                        ( interactions.hia, interactions.jijab )
+                  }
+                if ( gauge == "unused" || gauge == "ungauged" ) {
+                  MCMC.Interactions(hJ._1,  hJ._2, gauge)
+                } else {
+                //val phiPhij = BM.hJToPhi (hJ._1,  hJ._2, this.fia)
+                  val phiPhij = BM.hJToPhi (hJ._1,  hJ._2, fiaForBM)
+                  val bmInteractions = BMInteractions(phiPhij._1, phiPhij._2)
+
+                //val (newInteractions, newBMInteractions) = BM.newPhiThroughhJ(bmInteractions, this.fia, gauge)
+                  val (newInteractions, newBMInteractions) = BM.newPhiThroughhJ(bmInteractions, fiaForBM, gauge)
+                  newInteractions
+                } 
+        }
 
         val (interactions, bmState) = {
-                           val (inter, bms) = initialize(this.fia,
+                         //val (inter, bms) = initialize(this.fia,
+                           val (inter, bms) = BM.initialize(
+                                  fiaForBM,
                                   initialInteractions,
                                   optMethod, 
-                                  learningRate, 
+                                  learningRate_rev, 
                                   learningRateForRPROPLR, 
                                 //minLearningRate, maxLearningRate, 
                                 //rateDecrease, rateIncrease, 
-                                  betaV, betaM, eps, step = 0,
+                                  betaV, betaM, eps, 0,
                                   betaLAP, betaLAPForKL )
 
                            if(gauge == inter.gauge ) {
                                         (inter, bms)
                            } else {
-                                        BM.newPhiThroughhJ(bms, this.fia, gauge) 
+                                        assert( gauge == inter.gauge )
+                                      //BM.newPhiThroughhJ(bms, this.fia, gauge) 
+                                        BM.newPhiThroughhJ(bms, fiaForBM, gauge) 
                            }
         }
 
@@ -6706,17 +7196,20 @@ package org.sanzo.potts {
                                      math.max(fullBatchSize, (50000.0 / nSamples_rev).floor.toInt ), nMiniBatchesForEnsembleAve )
 
         if ( betaLAPForKL == 0.0 )  { 
-            outKL.print("# step\tnNonEquil  nExtendedIterations of MC\t<KLpi>\t<KLpij> over ensemble and %d minibatch ensembles with pseudocounts= %g\n".format(
-                    nMiniBatchesForEnsembleAve, pseudoNCounts ) )
+            outKL.print("# step\tnNonEquil  nExtendedIterations of MC\t<KLpi>\t<KLpij> over ensemble and those over %d minibatch ensembles with pseudoNCountsForKL= %g\n".format(
+                    nMiniBatchesForEnsembleAve, pseudoNCountsForKL ) )
         } else {
-            outKL.print("# step\tnNonEquil  nExtendedIterations of MC\t<KLpi>\t<KLpij> over ensemble and %d minibatch ensembles with pseudocounts= %g  KL with the leaky rate %g for P\n".format(
-                    nMiniBatchesForEnsembleAve, pseudoNCounts, betaLAPForKL ) )
+            outKL.print("# step\tnNonEquil  nExtendedIterations of MC\t<KLpi>\t<KLpij> over ensemble and those over %d minibatch ensembles with pseudoNCountsForKL= %g  KL with the leaky rate %g for P\n".format(
+                    nMiniBatchesForEnsembleAve, pseudoNCountsForKL, betaLAPForKL ) )
         }
 
         outTE.print("# TE is calculated in the Ising gauge for comparison.\n#\n") 
         outTE.print("# For <TE>_m and <(TE -<TE>)^2>_m, %d minibatch ensembles are employed for averaging.\n#\n".format(nMiniBatchesForEnsembleAve)) 
 
-        val results  = iterateBMSteps(runBM1Step, newInteractions, 
+        val results  = iterateBMSteps(runBM1Step,
+                          newInteractions,
+                          fiaForBM, fijabForBM, faForBM,
+
                           miniBSize,      //if ( miniBatchSize > 0 ) miniBatchSize else initialConfigurations_for_miniBatch.size,
                        // initialMCStates: Vector[ArraySeq[MCMC.State]],
 
@@ -6727,7 +7220,7 @@ package org.sanzo.potts {
                           nSamples_rev,
                           lambdaPhi, lambdaPhij,
                           newBMState, bestKLs, bestKL,
-                          minLearningStepsForBestKL, minLearningSteps, maxNoLearnings,
+                          minLearningStepsForBestKL_rev, minLearningSteps_rev, maxNoLearnings,
                           nMiniBatchesForAve,
 
                           logInterval_rev,
@@ -6737,9 +7230,10 @@ package org.sanzo.potts {
         outTE.close()
 
         results
-    }
+
+    } // End of RunBM
 
 
-  }
+  } // End of class BM
 
-}
+} // End of org.sanzo.potts
